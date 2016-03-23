@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Logging.Extensions", "Tavisca.Frameworks.Logging.Extensions\Tavisca.Frameworks.Logging.Extensions.csproj", "{1AAED0F6-44DB-41C6-B855-767AA5F59A4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Logging", "Tavisca.Frameworks.Logging\Tavisca.Frameworks.Logging.csproj", "{B32BE698-871C-45A6-9597-A020A71B2D19}"
