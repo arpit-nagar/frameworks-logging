@@ -1,0 +1,10 @@
+﻿
+
+CREATE PROCEDURE [dbo].[spClearLogs]
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DELETE FROM [Log]
+    
+END
