@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Caching;
 using Microsoft.Practices.ServiceLocation;
 using Tavisca.Frameworks.Logging.Extensions.Settings;
-using Tavisca.Singularity;
 using CacheItemPriority = System.Web.Caching.CacheItemPriority;
 
 namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
