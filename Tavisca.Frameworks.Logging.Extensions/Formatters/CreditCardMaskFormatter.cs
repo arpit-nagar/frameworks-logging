@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Caching;
@@ -19,6 +19,14 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
     /// </summary>
     public class CreditCardMaskFormatter : DefaultFormatter
     {
+        #region private state
+
+        private static ConcurrentDictionary<string, Regex> _regexStore
+            = new ConcurrentDictionary<string, Regex>();
+        private const string _ccMatchedPattern = @"\d";
+        private const string _ccNumberPattern = @"(\d[\s|-]?){12,15}\d";
+
+        #endregion
         #region Properties
 
         protected static ICreditCardMaskDataProvider Provider { get; set; }
@@ -96,7 +104,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
                     .Where(x => !string.IsNullOrWhiteSpace(x.RegEx)
                         && !string.IsNullOrWhiteSpace(x.Replacement)))
                 {
-                    if (configuration.EventPredicate != null 
+                    if (configuration.EventPredicate != null
                         && configuration.EventPredicate.Invoke(eventEntry))
                     {
                         if (!string.IsNullOrEmpty(request))
@@ -143,10 +151,15 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
 
         protected virtual string MaskCreditCardInfo(string value, CreditCardMaskFormatterConfiguration configuration)
         {
+            Regex regex;
             if (configuration != null)
-                return Regex.Replace(value, configuration.RegEx, configuration.Replacement);
+            {
+                regex = _regexStore.GetOrAdd(configuration.RegEx, new Regex(configuration.RegEx));
+                return regex.Replace(value, configuration.Replacement);
+            }
 
-            return Regex.Replace(value, @"(\d[\s|-]?){12,15}\d", MaskCCMatch); //default in case no config is present.
+            regex = _regexStore.GetOrAdd(_ccNumberPattern, new Regex(_ccNumberPattern));
+            return regex.Replace(value, MaskCCMatch); //default in case no config is present.
         }
 
         #endregion
@@ -157,7 +170,8 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
         {
             var ccnumber = match.ToString();
 
-            return Regex.Replace(ccnumber.Substring(0, ccnumber.Length - 4), @"\d", "*") +
+            var regex = _regexStore.GetOrAdd(_ccMatchedPattern, new Regex(_ccMatchedPattern));
+            return regex.Replace(ccnumber.Substring(0, ccnumber.Length - 4), "*") +
                    ccnumber.Substring(ccnumber.Length - 4);
         }
 
