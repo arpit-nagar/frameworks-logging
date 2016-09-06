@@ -48,8 +48,7 @@ namespace Tavisca.Frameworks.Logging.Sample
             {
                 entry = Utility.GetLogEntry();
 
-                entry.Title = "Making a sample of the logging framework.";
-
+               
                 entry.CallType = "Entering some call type.";
 
                 entry.ProviderId = 10; //entered some provider Id.

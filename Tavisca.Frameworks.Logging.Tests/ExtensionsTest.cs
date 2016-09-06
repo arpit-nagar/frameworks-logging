@@ -58,7 +58,7 @@ namespace Tavisca.Frameworks.Logging.Tests
             foreach (var x in eventEntry.IpAddress.Split(','))
             {
                 Assert.IsTrue(ipAdresses.Contains(x));
-            }            
+            }
 
         }
 
@@ -226,11 +226,7 @@ namespace Tavisca.Frameworks.Logging.Tests
 
             var entry = GetExceptionEntry();
 
-            entry.Title += "-sp";
-
             factory.Write(entry, KeyStore.Categories.spDB);
-
-            
         }
 
         [TestMethod]
@@ -239,8 +235,6 @@ namespace Tavisca.Frameworks.Logging.Tests
             var factory = new Logger();
 
             var entry = GetEventEntry();
-
-            entry.Title += "-sp";
 
             factory.WriteAsync(entry, KeyStore.Categories.spDB, x => _hasReturnedspDBEvent = true);
 
@@ -311,8 +305,6 @@ namespace Tavisca.Frameworks.Logging.Tests
 
             entry.AddAdditionalInfo("someKey", "SomeValue");
             entry.AddAdditionalInfo("someotherKey", null);
-
-            entry.PriorityType = PriorityOptions.Low;
 
             for (int i = 0; i < 10; i++)
             {

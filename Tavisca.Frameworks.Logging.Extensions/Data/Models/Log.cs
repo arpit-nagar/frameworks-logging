@@ -11,7 +11,11 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Models
             this.LogDatas = new List<LogData>();
             this.LogRequestResponses = new List<LogRequestResponse>();
         }
-
+        public string CorrelationId { get; set; }
+        public string TransactionId { get; set; }
+        public string StackId { get; set; }
+        public string TenantId { get; set; }
+        public string InstanceId { get; set; }
         public int LogID { get; set; }
         public int Priority { get; set; }
         public string Severity { get; set; }

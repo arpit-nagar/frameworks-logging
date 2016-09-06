@@ -20,7 +20,12 @@ namespace Tavisca.Frameworks.Logging
 
         public Guid TracingToken { get; set; }
 
+        public string CorrelationId { get; set; }
+        public string StackId { get; set; }
+        public string TransactionId { get; set; }
         public Guid Id { get; set; }
+        public string TenantId { get; set; }
+        public string InstanceId { get; set; }
 
         /// <summary>
         /// Gets the logId, this might only be available after a save.
@@ -198,26 +203,22 @@ namespace Tavisca.Frameworks.Logging
             {
                 target.AddAdditionalInfo(pair.Key, pair.Value);
             }
-
+            target.CorrelationId = this.CorrelationId;
+            target.TransactionId = this.TransactionId;
+            target.StackId = this.StackId;
+            target.TenantId = this.TenantId;
+            target.InstanceId = this.InstanceId;
             target.Id = this.Id;
             target.AppDomainName = this.AppDomainName;
             target.ApplicationName = this.ApplicationName;
-            target.ContextIdentifier = this.ContextIdentifier;
             target.IpAddress = this.IpAddress;
             target.MachineName = this.MachineName;
             target.AddMessage(this.Message);
-            target.PriorityType = this.PriorityType;
             target.ProcessId = this.ProcessId;
             target.ProcessName = this.ProcessName;
-            target.SessionId = this.SessionId;
             target.SeverityType = this.SeverityType;
-            target.ThreadName = this.ThreadName;
             target.Timestamp = this.Timestamp;
-            target.Title = this.Title;
             target.UserIdentifier = this.UserIdentifier;
-            target.UserSessionId = this.UserSessionId;
-            target.Win32ThreadId = this.Win32ThreadId;
-            target.TracingToken = this.TracingToken;
         }
 
         protected virtual DateTime GetCurrentTimeStamp()
@@ -315,7 +316,7 @@ namespace Tavisca.Frameworks.Logging
             }
         }
 
-        private static string _ipAdresses= null;
+        private static string _ipAdresses = null;
         protected virtual string GetIPAddress()
         {
             try

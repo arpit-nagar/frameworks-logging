@@ -25,10 +25,10 @@ namespace Tavisca.Frameworks.Logging
                 {
                     e = ex.ToEntry();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     var formatter = new Formatting.DefaultFormatter();
-                    
+
                     e = formatter.FormatException(ex, new ExceptionEntry()); //in case the DI/custom formatter is failing.
                 }
 
@@ -46,13 +46,12 @@ namespace Tavisca.Frameworks.Logging
                     .AppendLine("---------Entry Assembly Name-------------")
                     .AppendLine(GetEntryAssemblyName())
                     .AppendLine("---------Session Id-------------")
-                    .AppendLine(e.SessionId)
                     .AppendLine("---------Inner Exceptions-------------")
                     .AppendLine(e.InnerExceptions);
 
                 EventLog.WriteEntry(Source, sb.ToString(), EventLogEntryType.Error);
             }
-            catch{ }
+            catch { }
         }
 
         private string GetEntryAssemblyName()

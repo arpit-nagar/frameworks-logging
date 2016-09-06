@@ -72,145 +72,125 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             var parameters = new List<SqlParameter>(27);
 
             parameters.Add(new SqlParameter("severity", DbType.String)
-                {
-                    Value = eventEntry.Severity
-                });
+            {
+                Value = eventEntry.Severity
+            });
 
-            parameters.Add(new SqlParameter("title", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.Title)
-                });
+            parameters.Add(new SqlParameter("correlationId", DbType.String)
+            {
+                Value = eventEntry.CorrelationId
+            });
+
+            parameters.Add(new SqlParameter("transactionId", DbType.String)
+            {
+                Value = eventEntry.TransactionId
+            });
+
+            parameters.Add(new SqlParameter("stackId", DbType.String)
+            {
+                Value = eventEntry.StackId
+            });
+
+            parameters.Add(new SqlParameter("tenantId", DbType.String)
+            {
+                Value = eventEntry.TenantId
+            });
+
+            parameters.Add(new SqlParameter("instanceId", DbType.String)
+            {
+                Value = eventEntry.InstanceId
+            });
 
             parameters.Add(new SqlParameter("machineName", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.MachineName)
-                });
+            {
+                Value = FormatParam(eventEntry.MachineName)
+            });
 
             parameters.Add(new SqlParameter("AppDomainName", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.AppDomainName)
-                });
+            {
+                Value = FormatParam(eventEntry.AppDomainName)
+            });
 
             parameters.Add(new SqlParameter("ProcessID", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.ProcessId)
-                });
+            {
+                Value = FormatParam(eventEntry.ProcessId)
+            });
 
             parameters.Add(new SqlParameter("ProcessName", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.ProcessName)
-                });
-
-            parameters.Add(new SqlParameter("ThreadName", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.ThreadName)
-                });
-
-            parameters.Add(new SqlParameter("Win32ThreadId", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.Win32ThreadId)
-                });
+            {
+                Value = FormatParam(eventEntry.ProcessName)
+            });
 
             parameters.Add(new SqlParameter("message", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.Message)
-                });
+            {
+                Value = FormatParam(eventEntry.Message)
+            });
 
             parameters.Add(new SqlParameter("xmlrequest", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.Request)
-                });
+            {
+                Value = FormatParam(eventEntry.Request)
+            });
 
             parameters.Add(new SqlParameter("xmlresponse", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.Response)
-                });
+            {
+                Value = FormatParam(eventEntry.Response)
+            });
 
             parameters.Add(new SqlParameter("additionalInfo", SqlDbType.Structured)
-                {
-                    Value = GetAdditionalInfo(eventEntry.AdditionalInfo)
-                });
-
-            parameters.Add(new SqlParameter("Dk", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.ContextIdentifier)
-                });
-
-            parameters.Add(new SqlParameter("sessionid", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.SessionId)
-                });
+            {
+                Value = GetAdditionalInfo(eventEntry.AdditionalInfo)
+            });
 
             parameters.Add(new SqlParameter("calltype", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.CallType)
-                });
+            {
+                Value = FormatParam(eventEntry.CallType)
+            });
 
             parameters.Add(new SqlParameter("supplierid", DbType.String)
-                {
-                    Value = eventEntry.ProviderId
-                });
+            {
+                Value = eventEntry.ProviderId
+            });
 
             parameters.Add(new SqlParameter("status", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.Status)
-                });
+            {
+                Value = FormatParam(eventEntry.Status)
+            });
 
             parameters.Add(new SqlParameter("timetaken", DbType.String)
-                {
-                    Value = eventEntry.TimeTaken
-                });
-
-            parameters.Add(new SqlParameter("usersessionid", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.UserSessionId)
-                });
+            {
+                Value = eventEntry.TimeTaken
+            });
 
             parameters.Add(new SqlParameter("useridentifier", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.UserIdentifier)
-                });
+            {
+                Value = FormatParam(eventEntry.UserIdentifier)
+            });
 
             parameters.Add(new SqlParameter("application", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.ApplicationName)
-                });
+            {
+                Value = FormatParam(eventEntry.ApplicationName)
+            });
 
             parameters.Add(new SqlParameter("ipAddress", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.IpAddress)
-                });
+            {
+                Value = FormatParam(eventEntry.IpAddress)
+            });
 
             parameters.Add(new SqlParameter("accountid", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.UserIdentifier)
-                });
-
-            parameters.Add(new SqlParameter("contextidentifier", DbType.String)
-                {
-                    Value = FormatParam(eventEntry.ContextIdentifier)
-                });
-
-            parameters.Add(new SqlParameter("priority", DbType.Int32)
-                {
-                    Value = eventEntry.Priority
-                });
+            {
+                Value = FormatParam(eventEntry.UserIdentifier)
+            });
 
             parameters.Add(new SqlParameter("timestamp", DbType.DateTime)
-                {
-                    Value = eventEntry.Timestamp
-                });
-
-            parameters.Add(new SqlParameter("tracingToken", DbType.Guid)
             {
-                Value = eventEntry.TracingToken
+                Value = eventEntry.Timestamp
             });
 
             // out param
             parameters.Add(new SqlParameter("LogId", DbType.Int32)
-                {
-                    Direction = ParameterDirection.Output
-                });
+            {
+                Direction = ParameterDirection.Output
+            });
 
             return parameters;
         }
@@ -221,144 +201,125 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             var parameters = new List<SqlParameter>(27);
 
             parameters.Add(new SqlParameter("severity", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.Severity)
-                });
+            {
+                Value = FormatParam(exceptionEntry.Severity)
+            });
 
-            parameters.Add(new SqlParameter("title", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.Title)
-                });
+            parameters.Add(new SqlParameter("correlationId", DbType.String)
+            {
+                Value = FormatParam(exceptionEntry.CorrelationId)
+            });
+
+            parameters.Add(new SqlParameter("transactionId", DbType.String)
+            {
+                Value = FormatParam(exceptionEntry.TransactionId)
+            });
+
+            parameters.Add(new SqlParameter("stackId", DbType.String)
+            {
+                Value = FormatParam(exceptionEntry.StackId)
+            });
+
+            parameters.Add(new SqlParameter("tenantId", DbType.String)
+            {
+                Value = FormatParam(exceptionEntry.TenantId)
+            });
+
+            parameters.Add(new SqlParameter("instanceId", DbType.String)
+            {
+                Value = FormatParam(exceptionEntry.InstanceId)
+            });
 
             parameters.Add(new SqlParameter("machineName", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.MachineName)
-                });
+            {
+                Value = FormatParam(exceptionEntry.MachineName)
+            });
 
             parameters.Add(new SqlParameter("AppDomainName", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.AppDomainName)
-                });
+            {
+                Value = FormatParam(exceptionEntry.AppDomainName)
+            });
 
             parameters.Add(new SqlParameter("ProcessID", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.ProcessId)
-                });
+            {
+                Value = FormatParam(exceptionEntry.ProcessId)
+            });
 
             parameters.Add(new SqlParameter("ProcessName", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.ProcessName)
-                });
-
-            parameters.Add(new SqlParameter("ThreadName", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.ThreadName)
-                });
-
-            parameters.Add(new SqlParameter("Win32ThreadId", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.Win32ThreadId)
-                });
+            {
+                Value = FormatParam(exceptionEntry.ProcessName)
+            });
 
             parameters.Add(new SqlParameter("Type", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.Type)
-                });
+            {
+                Value = FormatParam(exceptionEntry.Type)
+            });
 
             parameters.Add(new SqlParameter("message", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.Message)
-                });
+            {
+                Value = FormatParam(exceptionEntry.Message)
+            });
 
             parameters.Add(new SqlParameter("Source", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.Source)
-                });
+            {
+                Value = FormatParam(exceptionEntry.Source)
+            });
 
             parameters.Add(new SqlParameter("TargetSite", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.TargetSite)
-                });
+            {
+                Value = FormatParam(exceptionEntry.TargetSite)
+            });
 
             parameters.Add(new SqlParameter("StackTrace", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.StackTrace)
-                });
+            {
+                Value = FormatParam(exceptionEntry.StackTrace)
+            });
 
             parameters.Add(new SqlParameter("ThreadIdentity", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.ThreadIdentity)
-                });
+            {
+                Value = FormatParam(exceptionEntry.ThreadIdentity)
+            });
 
             parameters.Add(new SqlParameter("AdditionalInfo", SqlDbType.Structured)
-                {
-                    Value = GetAdditionalInfo(exceptionEntry.AdditionalInfo)
-                });
+            {
+                Value = GetAdditionalInfo(exceptionEntry.AdditionalInfo)
+            });
 
             parameters.Add(new SqlParameter("InnerExceptions", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.InnerExceptions)
-                });
-
-            parameters.Add(new SqlParameter("Dk", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.ContextIdentifier)
-                });
-
-            parameters.Add(new SqlParameter("sessionid", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.SessionId)
-                });
-
-            parameters.Add(new SqlParameter("usersessionid", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.UserSessionId)
-                });
+            {
+                Value = FormatParam(exceptionEntry.InnerExceptions)
+            });
 
             parameters.Add(new SqlParameter("useridentifier", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.UserIdentifier)
-                });
+            {
+                Value = FormatParam(exceptionEntry.UserIdentifier)
+            });
 
             parameters.Add(new SqlParameter("application", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.ApplicationName)
-                });
+            {
+                Value = FormatParam(exceptionEntry.ApplicationName)
+            });
 
             parameters.Add(new SqlParameter("ipAddress", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.IpAddress)
-                });
+            {
+                Value = FormatParam(exceptionEntry.IpAddress)
+            });
 
             parameters.Add(new SqlParameter("accountid", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.UserIdentifier)
-                });
-
-            parameters.Add(new SqlParameter("contextidentifier", DbType.String)
-                {
-                    Value = FormatParam(exceptionEntry.ContextIdentifier)
-                });
-            parameters.Add(new SqlParameter("priority", DbType.Int32)
-                {
-                    Value = exceptionEntry.Priority
-                });
+            {
+                Value = FormatParam(exceptionEntry.UserIdentifier)
+            });
 
             parameters.Add(new SqlParameter("timestamp", DbType.DateTime)
-                {
-                    Value = exceptionEntry.Timestamp
-                });
-
-            parameters.Add(new SqlParameter("tracingToken", DbType.Guid)
             {
-                Value = exceptionEntry.TracingToken
+                Value = exceptionEntry.Timestamp
             });
 
             // out param
             parameters.Add(new SqlParameter("LogId", DbType.Int32)
-                {
-                    Direction = ParameterDirection.Output
-                });
+            {
+                Direction = ParameterDirection.Output
+            });
 
             return parameters;
         }

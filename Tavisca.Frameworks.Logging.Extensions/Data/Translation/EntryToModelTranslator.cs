@@ -17,37 +17,35 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
         public Log ToModel(IEventEntry entry)
         {
             var model = new Log()
-                {
-                    AppDomainName = entry.AppDomainName,
-                    ApplicationName = entry.ApplicationName,
-                    CallType = entry.CallType,
-                    ContextIdentifier = entry.ContextIdentifier,
-                    IpAddress = entry.IpAddress,
-                    MachineName = entry.MachineName,
-                    Message = entry.Message,
-                    Priority = entry.Priority,
-                    ProcessID = entry.ProcessId,
-                    ProcessName = entry.ProcessName,
-                    ProviderId = entry.ProviderId != int.MinValue ? new int?(entry.ProviderId) : null,
-                    SessionId = string.IsNullOrWhiteSpace(entry.SessionId) ? null : TryParseGuid(entry.SessionId),
-                    Severity = entry.Severity,
-                    Status = entry.Status,
-                    ThreadName = entry.ThreadName,
-                    TimeTaken = entry.TimeTaken != double.MinValue ? new double?(entry.TimeTaken) : null,
-                    Timestamp = entry.Timestamp,
-                    Title = entry.Title,
-                    UserIdentifier = entry.UserIdentifier,
-                    UsersessionId = entry.UserSessionId,
-                    Win32ThreadId = entry.Win32ThreadId
-                };
+            {
+                CorrelationId = entry.CorrelationId,
+                TransactionId = entry.TransactionId,
+                StackId = entry.StackId,
+                TenantId = entry.TenantId,
+                InstanceId = entry.InstanceId,
+                AppDomainName = entry.AppDomainName,
+                ApplicationName = entry.ApplicationName,
+                CallType = entry.CallType,
+                IpAddress = entry.IpAddress,
+                MachineName = entry.MachineName,
+                Message = entry.Message,
+                ProcessID = entry.ProcessId,
+                ProcessName = entry.ProcessName,
+                ProviderId = entry.ProviderId != int.MinValue ? new int?(entry.ProviderId) : null,
+                Severity = entry.Severity,
+                Status = entry.Status,
+                TimeTaken = entry.TimeTaken != double.MinValue ? new double?(entry.TimeTaken) : null,
+                Timestamp = entry.Timestamp,
+                UserIdentifier = entry.UserIdentifier
+            };
 
             if (!string.IsNullOrWhiteSpace(entry.Request) || !string.IsNullOrWhiteSpace(entry.Response))
             {
                 model.LogRequestResponses.Add(new LogRequestResponse()
-                    {
-                        Request = entry.Request,
-                        Response = entry.Response
-                    });
+                {
+                    Request = entry.Request,
+                    Response = entry.Response
+                });
             }
 
             if (entry.AdditionalInfo != null && entry.AdditionalInfo.Count > 0)
@@ -55,10 +53,10 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
                 foreach (var pair in entry.AdditionalInfo)
                 {
                     model.LogDatas.Add(new LogData()
-                        {
-                            Key = pair.Key,
-                            Value = pair.Value
-                        });
+                    {
+                        Key = pair.Key,
+                        Value = pair.Value
+                    });
                 }
             }
 
@@ -69,23 +67,21 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
         {
             var model = new ExceptionLog()
             {
+                TransactionId = entry.TransactionId,
+                CorrelationId = entry.CorrelationId,
+                StackId = entry.StackId,
+                TenantId = entry.TenantId,
+                InstanceId = entry.InstanceId,
                 AppDomainName = entry.AppDomainName,
                 ApplicationName = entry.ApplicationName,
-                ContextIdentifier = entry.ContextIdentifier,
                 IpAddress = entry.IpAddress,
                 MachineName = entry.MachineName,
                 Message = entry.Message,
-                Priority = entry.Priority,
                 ProcessID = entry.ProcessId,
                 ProcessName = entry.ProcessName,
-                SessionId = entry.SessionId,
                 Severity = entry.Severity,
-                ThreadName = entry.ThreadName,
                 Timestamp = entry.Timestamp,
-                Title = entry.Title,
                 UserIdentifier = entry.UserIdentifier,
-                UsersessionId = entry.UserSessionId,
-                Win32ThreadId = entry.Win32ThreadId,
                 InnerExceptions = entry.InnerExceptions,
                 Source = entry.Source,
                 StackTrace = entry.StackTrace,
@@ -116,29 +112,29 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
         public IEventEntry ToEntry(Log model)
         {
             var entry = new EventEntry()
-                {
-                    AppDomainName = model.AppDomainName,
-                    ApplicationName = model.ApplicationName,
-                    CallType = model.CallType,
-                    ContextIdentifier = model.ContextIdentifier,
-                    IpAddress = model.IpAddress,
-                    LogId = model.LogID,
-                    MachineName = model.MachineName,
-                    PriorityType = TryParsePriority(model.Priority),
-                    ProviderId = model.ProviderId.HasValue ? model.ProviderId.Value : int.MinValue,
-                    ProcessName = model.ProcessName,
-                    ProcessId = model.ProcessID,
-                    SessionId = model.SessionId.HasValue ? model.SessionId.Value.ToString() : null,
-                    SeverityType = TryParseSeverity(model.Severity),
-                    Title = model.Title,
-                    StatusType = TryParseStatus(model.Status),
-                    ThreadName = model.ThreadName,
-                    TimeTaken = model.TimeTaken.HasValue ? model.TimeTaken.Value : 0.0,
-                    Timestamp = model.Timestamp,
-                    UserIdentifier = model.UserIdentifier,
-                    UserSessionId = model.UsersessionId,
-                    Win32ThreadId = model.Win32ThreadId
-                };
+            {
+                AppDomainName = model.AppDomainName,
+                ApplicationName = model.ApplicationName,
+                CallType = model.CallType,
+                ContextIdentifier = model.ContextIdentifier,
+                IpAddress = model.IpAddress,
+                LogId = model.LogID,
+                MachineName = model.MachineName,
+                PriorityType = TryParsePriority(model.Priority),
+                ProviderId = model.ProviderId.HasValue ? model.ProviderId.Value : int.MinValue,
+                ProcessName = model.ProcessName,
+                ProcessId = model.ProcessID,
+                SessionId = model.SessionId.HasValue ? model.SessionId.Value.ToString() : null,
+                SeverityType = TryParseSeverity(model.Severity),
+                Title = model.Title,
+                StatusType = TryParseStatus(model.Status),
+                ThreadName = model.ThreadName,
+                TimeTaken = model.TimeTaken.HasValue ? model.TimeTaken.Value : 0.0,
+                Timestamp = model.Timestamp,
+                UserIdentifier = model.UserIdentifier,
+                UserSessionId = model.UsersessionId,
+                Win32ThreadId = model.Win32ThreadId
+            };
 
             entry.AddMessage(model.Message);
 
@@ -205,7 +201,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
             entry.AddMessage(model.Message);
 
             entry.AddInnerExceptionMessage(model.InnerExceptions, true);
-            
+
             foreach (var logData in model.ExceptionDatas)
             {
                 entry.AddAdditionalInfo(logData.Key, logData.Value);

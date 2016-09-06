@@ -123,7 +123,7 @@ namespace Tavisca.Frameworks.Logging
                         break;
                     default:
                         throw new LogConfigurationException(
-                            string.Format(LogResources.CompressionType_NotSupported, 
+                            string.Format(LogResources.CompressionType_NotSupported,
                             Enum.GetName(typeof(CompressionTypeOptions), settings.CompressionType)));
                 }
 
@@ -476,8 +476,7 @@ namespace Tavisca.Frameworks.Logging
                 if (LogSection.ExceptionSwitch == SwitchOptions.Off)
                     return false;
             }
-
-            return entry.Priority >= (int)LogSection.MinPriority;
+            return true;
         }
 
         #endregion
