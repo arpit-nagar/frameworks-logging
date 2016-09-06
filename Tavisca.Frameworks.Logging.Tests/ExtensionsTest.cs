@@ -219,37 +219,6 @@ namespace Tavisca.Frameworks.Logging.Tests
             //}
         }
 
-        [TestMethod]
-        public void spDBLoggerExceptionTest()
-        {
-            var factory = new Logger();
-
-            var entry = GetExceptionEntry();
-
-            factory.Write(entry, KeyStore.Categories.spDB);
-        }
-
-        [TestMethod]
-        public void spDBLoggerEventTest()
-        {
-            var factory = new Logger();
-
-            var entry = GetEventEntry();
-
-            factory.WriteAsync(entry, KeyStore.Categories.spDB, x => _hasReturnedspDBEvent = true);
-
-            var count = 0;
-            while (!_hasReturnedspDBEvent)
-            {
-                System.Threading.Thread.Sleep(500);
-
-                count++;
-
-                if (count > 500)
-                    break;
-            }
-        }
-
         #endregion
 
         [TestMethod]

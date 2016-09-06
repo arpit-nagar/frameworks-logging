@@ -117,8 +117,6 @@
     <Compile Include="Sinks\RedisSink.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Sinks\SqlSpBufferredSink.cs" />
-    <Compile Include="Sinks\SqlSpSink.cs" />
     <Compile Include="Sinks\StringWritingSinkBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\LogExtensionResources.Designer.cs">

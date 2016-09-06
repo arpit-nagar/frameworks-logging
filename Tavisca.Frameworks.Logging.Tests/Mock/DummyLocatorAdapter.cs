@@ -16,8 +16,6 @@ namespace Tavisca.Frameworks.Logging.Tests.Mock
             {
                 case KeyStore.Loggers.DBLogger:
                     return new DBSink();
-                case KeyStore.Loggers.spDBLogger:
-                    return new SqlSpSink();
                 case KeyStore.Loggers.EventViewerLoggerMock:
                     return new EventViewerSink();
                 case KeyStore.Loggers.EventViewerLogger:

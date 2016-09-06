@@ -44,7 +44,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 
             throw new NotSupportedException(string.Format
                                                 (
-                                                    LogExtensionResources.LogSpecificAdapter_TypeNotSupported, 
+                                                    LogExtensionResources.LogSpecificAdapter_TypeNotSupported,
                                                     serviceType.FullName, key
                                                 )
                                             );
@@ -61,15 +61,13 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 
         protected virtual ISink GetDefaultSink()
         {
-            return new SqlSpSink();
+            return new FileSink();
         }
 
         protected virtual ISink GetSinkByKey(string key)
         {
             switch (key.ToUpper())
             {
-                case "SQLSPSINK":
-                    return new SqlSpSink();
                 case "DBSINK":
                     return new DBSink();
                 case "EVENTVIEWERSINK":

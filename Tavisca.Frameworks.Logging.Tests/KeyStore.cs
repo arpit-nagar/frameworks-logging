@@ -13,7 +13,6 @@ namespace Tavisca.Frameworks.Logging.Tests
             public const string FileLogger = "FileLogger";
             public const string EventViewer = "EventViewerLogger";
             public const string DB = "DBLogger";
-            public const string spDB = "spDBLogger";
             public const string RedisLogger = "RedisLogger";
         }
 
@@ -21,7 +20,6 @@ namespace Tavisca.Frameworks.Logging.Tests
         {
             public const string DBLogger = "DBLogger";
             public const string RedisSink = "RedisSink";
-            public const string spDBLogger = "spDBLogger";
             public const string EventViewerLoggerMock = "EventViewerLoggerMock";
             public const string FileLogger = "FileLogger";
             public const string EventViewerLogger = "EventViewerLogger";
