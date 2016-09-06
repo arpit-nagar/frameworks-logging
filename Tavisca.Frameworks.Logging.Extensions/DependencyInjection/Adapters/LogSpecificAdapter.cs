@@ -68,8 +68,6 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
         {
             switch (key.ToUpper())
             {
-                case "DBSINK":
-                    return new DBSink();
                 case "EVENTVIEWERSINK":
                     return new EventViewerSink();
                 case "FILESINK":

@@ -11,7 +11,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
     /// using <see cref="IEntryStringTranslator"/> obtained from the base class <see cref="StringWritingSinkBase"/>.
     /// Causes a rollover of one day for all files, default max-file size is 10mb.
     /// </summary>
-    public class FileSink: StringWritingSinkBase
+    public class FileSink : StringWritingSinkBase
     {
         #region StringWritingLoggerBase Members
 
@@ -19,7 +19,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
         {
             var translator = GetTranslator();
 
-            var data = translator.TranslateEvent(transactionEntry);
+            var data = translator.TranslateTransaction(transactionEntry);
 
             WriteToFile(data);
         }
@@ -29,6 +29,15 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             var translator = GetTranslator();
 
             var data = translator.TranslateException(eventEntry);
+
+            WriteToFile(data);
+        }
+
+        protected override void WriteEvent(IEventEntry eventEntry)
+        {
+            var translator = GetTranslator();
+
+            var data = translator.TranslateEvent(eventEntry);
 
             WriteToFile(data);
         }
@@ -67,7 +76,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
 
         protected FileLogTraceListener GetWriter()
         {
-            if (_writer != null) 
+            if (_writer != null)
                 return _writer;
 
             lock (Locker)
@@ -81,14 +90,14 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
                     var rootFileName = System.IO.Path.GetFileNameWithoutExtension(path);
 
                     var writer = new FileLogTraceListener()
-                        {
-                            Location = LogFileLocation.Custom,
-                            CustomLocation = dirPath,
-                            BaseFileName = rootFileName,
-                            MaxFileSize = GetMaxFileSize(),
-                            AutoFlush = true,
-                            LogFileCreationSchedule = LogFileCreationScheduleOption.Daily
-                        };
+                    {
+                        Location = LogFileLocation.Custom,
+                        CustomLocation = dirPath,
+                        BaseFileName = rootFileName,
+                        MaxFileSize = GetMaxFileSize(),
+                        AutoFlush = true,
+                        LogFileCreationSchedule = LogFileCreationScheduleOption.Daily
+                    };
 
                     _writer = writer;
                 }

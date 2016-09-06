@@ -110,7 +110,6 @@
     <Compile Include="Data\Mapping\SlowBookingMap.cs" />
     <Compile Include="Data\Models\MaskingExpression.cs" />
     <Compile Include="Data\Models\SlowBooking.cs" />
-    <Compile Include="Sinks\DBSink.cs" />
     <Compile Include="Sinks\EventViewerSink.cs" />
     <Compile Include="Sinks\FileSink.cs" />
     <Compile Include="Infrastructure\IEntryStringTranslator.cs" />

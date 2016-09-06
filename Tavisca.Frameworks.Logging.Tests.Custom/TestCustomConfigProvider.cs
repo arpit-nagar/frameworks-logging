@@ -36,7 +36,7 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
                     {
                         new LoggerElement()
                             {
-                                Name = KeyStore.Loggers.DBLogger
+                                Name = KeyStore.Loggers.FileLogger
                             }
                     }
             };

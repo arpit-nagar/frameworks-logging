@@ -25,7 +25,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
         {
             var translator = GetTranslator();
 
-            var data = translator.TranslateEvent(transactionEntry);
+            var data = translator.TranslateTransaction(transactionEntry);
 
             WriteToEventViewer(GetSource(), data, EventLogEntryType.Information);
         }
@@ -37,6 +37,15 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             var data = translator.TranslateException(eventEntry);
 
             WriteToEventViewer(GetSource(), data, EventLogEntryType.Error);
+        }
+
+        protected override void WriteEvent(IEventEntry eventEntry)
+        {
+            var translator = GetTranslator();
+
+            var data = translator.TranslateEvent(eventEntry);
+
+            WriteToEventViewer(GetSource(), data, EventLogEntryType.Information);
         }
 
         #endregion

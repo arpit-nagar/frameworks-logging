@@ -117,5 +117,16 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
                 PushData(str);
             }
         }
+
+        protected override void WriteEvent(IEventEntry transactionEntry)
+        {
+            if (transactionEntry != null)
+            {
+                if (transactionEntry.Id == Guid.Empty)
+                    transactionEntry.Id = Guid.NewGuid();
+                var str = Newtonsoft.Json.JsonConvert.SerializeObject(transactionEntry);
+                PushData(str);
+            }
+        }
     }
 }

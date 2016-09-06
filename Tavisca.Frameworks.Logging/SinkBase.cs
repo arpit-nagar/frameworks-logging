@@ -171,6 +171,8 @@ namespace Tavisca.Frameworks.Logging
 
         protected abstract void WriteException(IExceptionEntry eventEntry);
 
+        protected abstract void WriteEvent(IEventEntry transactionEntry);
+
         #endregion
     }
 }

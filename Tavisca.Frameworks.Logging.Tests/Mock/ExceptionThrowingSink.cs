@@ -14,6 +14,11 @@ namespace Tavisca.Frameworks.Logging.Tests.Mock
             throw new Exception("I have failed event log.", new Exception("This is a test.", new Exception("inner most exception message")));
         }
 
+        protected override void WriteEvent(IEventEntry transactionEntry)
+        {
+            throw new Exception("I have failed event log.", new Exception("This is a test.", new Exception("inner most exception message")));
+        }
+
         protected override IExceptionEntry GetEmptyExceptionEntry()
         {
             return new ExceptionEntry();

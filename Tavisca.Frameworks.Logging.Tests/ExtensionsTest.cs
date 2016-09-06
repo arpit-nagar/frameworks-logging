@@ -175,52 +175,6 @@ namespace Tavisca.Frameworks.Logging.Tests
             }
         }
 
-        #region Database Sink Tests
-
-        [TestMethod]
-        public void DBLoggerExceptionTest()
-        {
-            var factory = new Logger();
-
-            var entry = GetExceptionEntry();
-
-            factory.WriteAsync(entry, KeyStore.Categories.DB, x => _hasReturnedDBException = true);
-
-            var count = 0;
-            while (!_hasReturnedDBException)
-            {
-                System.Threading.Thread.Sleep(500);
-
-                count++;
-
-                if (count > 500)
-                    break;
-            }
-        }
-
-        [TestMethod]
-        public void DBLoggerEventTest()
-        {
-            var factory = new Logger();
-
-            var entry = GetEventEntry();
-
-            factory.Write(entry, KeyStore.Categories.DB);
-
-            //var count = 0;
-            //while (!_hasReturnedDBEvent)
-            //{
-            //    System.Threading.Thread.Sleep(500);
-
-            //    count++;
-
-            //    if (count > 500)
-            //        break;
-            //}
-        }
-
-        #endregion
-
         [TestMethod]
         public void DefaultLoggerTest()
         {

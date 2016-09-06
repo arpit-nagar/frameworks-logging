@@ -20,12 +20,17 @@ namespace Tavisca.Frameworks.Logging.Extensions.Infrastructure
 
         #region IEntryStringTranslator Members
 
-        public string TranslateEvent(ITransactionEntry entry)
+        public string TranslateTransaction(ITransactionEntry entry)
         {
             return DumpObject(entry);
         }
 
         public string TranslateException(IExceptionEntry entry)
+        {
+            return DumpObject(entry);
+        }
+
+        public string TranslateEvent(IEventEntry entry)
         {
             return DumpObject(entry);
         }
@@ -41,10 +46,10 @@ namespace Tavisca.Frameworks.Logging.Extensions.Infrastructure
             var type = obj.GetType();
 
             var properties = type.GetProperties().Select(x => new
-                {
-                    x.Name,
-                    Method = x.GetGetMethod()
-                })
+            {
+                x.Name,
+                Method = x.GetGetMethod()
+            })
                 .Where(x => x.Method != null);
 
             builder.Append("Object Type: ").AppendLine(type.Name);
