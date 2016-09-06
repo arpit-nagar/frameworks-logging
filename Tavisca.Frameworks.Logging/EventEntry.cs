@@ -43,9 +43,29 @@ namespace Tavisca.Frameworks.Logging
 
         public string Source { get; set; }
 
+        public void SetPayloadString(string payload)
+        {
+            PayloadObject = null;
+            _isPayloadChanged = false;
+            _payload = payload;
+        }
+
         public override ILogEntry Clone()
         {
-            throw new NotImplementedException();
+            var entry = new EventEntry();
+
+            this.Clone(entry);
+
+            entry.Source = this.Source;
+            entry.EventType = this.EventType;
+            entry.ReqResSerializerType = this.ReqResSerializerType;
+
+            if (PayloadObject != null)
+                entry.PayloadObject = this.PayloadObject;
+            else if (!string.IsNullOrEmpty(Payload))
+                entry.SetPayloadString(this.Payload);
+
+            return entry;
         }
 
         #endregion
