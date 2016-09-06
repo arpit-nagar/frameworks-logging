@@ -31,7 +31,7 @@ namespace Tavisca.Frameworks.Logging.Sample
             return entry;
         }
 
-        public static ITransactionEntry GetLogEntry()
+        public static ITransactionEntry GetTransactionLogEntry()
         {
             var entry = new TransactionEntry();
 

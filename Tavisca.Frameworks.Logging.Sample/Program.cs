@@ -46,7 +46,7 @@ namespace Tavisca.Frameworks.Logging.Sample
             ITransactionEntry entry = null;
             try
             {
-                entry = Utility.GetLogEntry();
+                entry = Utility.GetTransactionLogEntry();
 
 
                 entry.ServiceUrl = "www.testurl.com";
