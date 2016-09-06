@@ -129,7 +129,7 @@ namespace Tavisca.Frameworks.Logging
             {
                 if (entry is ITransactionEntry)
                 {
-                    WriteEvent((ITransactionEntry)entry);
+                    WriteTransaction((ITransactionEntry)entry);
                 }
                 else if (entry is IExceptionEntry)
                 {
@@ -149,7 +149,7 @@ namespace Tavisca.Frameworks.Logging
                 FailSafeLog(ex);
             }
         }
-        
+
         #endregion
 
         #region Protected Methods
@@ -167,10 +167,10 @@ namespace Tavisca.Frameworks.Logging
             FailSafeLogFactory.Log(ex);
         }
 
-        protected abstract void WriteEvent(ITransactionEntry transactionEntry);
+        protected abstract void WriteTransaction(ITransactionEntry transactionEntry);
 
         protected abstract void WriteException(IExceptionEntry eventEntry);
-        
+
         #endregion
     }
 }

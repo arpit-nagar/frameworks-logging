@@ -95,7 +95,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
 
         #endregion
 
-        protected override void WriteEvent(ITransactionEntry transactionEntry)
+        protected override void WriteTransaction(ITransactionEntry transactionEntry)
         {
             if (transactionEntry != null)
             {

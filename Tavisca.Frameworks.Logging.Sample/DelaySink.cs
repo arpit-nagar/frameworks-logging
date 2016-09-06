@@ -8,7 +8,7 @@ namespace Tavisca.Frameworks.Logging.Sample
 {
     public class DelaySink: SinkBase
     {
-        protected override void WriteEvent(ITransactionEntry transactionEntry)
+        protected override void WriteTransaction(ITransactionEntry transactionEntry)
         {
             System.Threading.Thread.Sleep(500);
         }

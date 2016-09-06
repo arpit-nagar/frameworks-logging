@@ -4,7 +4,7 @@ namespace Tavisca.Frameworks.Logging.Tests.Mock
 {
     public class ExceptionThrowingSink: SinkBase
     {
-        protected override void WriteEvent(ITransactionEntry transactionEntry)
+        protected override void WriteTransaction(ITransactionEntry transactionEntry)
         {
             throw new Exception("I have failed event log.", new Exception("This is a test.", new Exception("inner most exception message")));
         }

@@ -21,7 +21,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
 
         #region StringWritingLoggerBase Methods
 
-        protected override void WriteEvent(ITransactionEntry transactionEntry)
+        protected override void WriteTransaction(ITransactionEntry transactionEntry)
         {
             var translator = GetTranslator();
 
