@@ -37,15 +37,15 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
         {
             RefreshSettings(typeof(DummyLocatorAdapter), typeof(CreditCardMaskFormatter), PriorityOptions.Low);
 
-            new Tests.ExtensionsTest().EventViewerLoggerEventTest();
+            new Tests.ExtensionsTest().EventViewerLoggerTransactionTest();
 
             RefreshSettings(typeof(DummyLocatorAdapter), typeof(CreditCardMaskFormatter), PriorityOptions.Undefined);
 
-            new Tests.ExtensionsTest().EventViewerLoggerEventTest();
+            new Tests.ExtensionsTest().EventViewerLoggerTransactionTest();
 
             RefreshSettings(typeof(DummyLocatorAdapter), typeof(CreditCardMaskFormatter), PriorityOptions.Medium);
 
-            new Tests.ExtensionsTest().EventViewerLoggerEventTest();
+            new Tests.ExtensionsTest().EventViewerLoggerTransactionTest();
         }
 
         private void RefreshSettings(Type adapter, Type formatter = null, PriorityOptions priority = PriorityOptions.Low)
