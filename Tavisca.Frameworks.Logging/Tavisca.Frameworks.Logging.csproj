@@ -100,6 +100,8 @@
     <Compile Include="Configuration\IConfigurationProvider.cs" />
     <Compile Include="Configuration\LogConfigurationElementCollectionBase.cs" />
     <Compile Include="DependencyInjection\LocatorProvider.cs" />
+    <Compile Include="EventEntry.cs" />
+    <Compile Include="IEventEntry.cs" />
     <Compile Include="Infrastructure\Enumerations.cs" />
     <Compile Include="Configuration\CategoryElement.cs" />
     <Compile Include="Configuration\CategoryElementCollection.cs" />
