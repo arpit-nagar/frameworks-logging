@@ -82,7 +82,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Translation\EntryToModelTranslator.cs" />
     <Compile Include="DependencyInjection\Adapters\LogSpecificAdapter.cs" />
     <Compile Include="DependencyInjection\Adapters\ReflectionAdapter.cs" />
     <Compile Include="DependencyInjection\Adapters\CommonServiceLocatorAdapter.cs" />
@@ -142,6 +141,9 @@
     <None Include="LoggingFrameworkDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Tavisca.Frameworks.Logging.Extensions.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Translation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
