@@ -15,7 +15,7 @@ namespace Tavisca.Frameworks.Logging.Tests.Mock
                 {
                     new CreditCardMaskFormatterConfiguration()
                         {
-                            EventPredicate = x => x.CallType == "test" && x.ProviderId == 1,
+                            EventPredicate = x => x.ServiceUrl == "www.testurl.com/" && x.MethodName == "testbooking",
                             RegEx = @"(\d[\s|-]?){12,15}\d",
                             Replacement = "Replaced!!!"
                         }

@@ -21,9 +21,9 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 
         protected override object DoGetInstance(Type serviceType, string key)
         {
-            if (typeof(IEventEntry).IsAssignableFrom(serviceType))
+            if (typeof(ITransactionEntry).IsAssignableFrom(serviceType))
             {
-                return new EventEntry();
+                return new TransactionEntry();
             }
 
             if (typeof(IExceptionEntry).IsAssignableFrom(serviceType))

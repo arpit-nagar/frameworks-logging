@@ -44,8 +44,11 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Mapping
             this.Property(t => t.Message)
                 .HasMaxLength(2048);
 
-            this.Property(t => t.CallType)
-                .HasMaxLength(128);
+            this.Property(t => t.ServiceUrl)
+                .HasMaxLength(256);
+
+            this.Property(t => t.MethodName)
+             .HasMaxLength(64);
 
             this.Property(t => t.Status)
                 .HasMaxLength(32);
@@ -80,7 +83,8 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Mapping
             this.Property(t => t.Win32ThreadId).HasColumnName("Win32ThreadId");
             this.Property(t => t.Message).HasColumnName("Message");
             this.Property(t => t.SessionId).HasColumnName("SessionId");
-            this.Property(t => t.CallType).HasColumnName("CallType");
+            this.Property(t => t.ServiceUrl).HasColumnName("ServiceUrl");
+            this.Property(t => t.MethodName).HasColumnName("MethodName");
             this.Property(t => t.ProviderId).HasColumnName("ProviderId");
             this.Property(t => t.Status).HasColumnName("Status");
             this.Property(t => t.TimeTaken).HasColumnName("TimeTaken");

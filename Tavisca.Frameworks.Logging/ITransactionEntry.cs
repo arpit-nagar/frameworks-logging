@@ -5,7 +5,7 @@ namespace Tavisca.Frameworks.Logging
     /// <summary>
     /// Defines the properties of an event in the system.
     /// </summary>
-    public interface IEventEntry : ILogEntry
+    public interface ITransactionEntry : ILogEntry
     {
         /// <summary>
         /// Gets the xml request set in the event.
@@ -32,15 +32,9 @@ namespace Tavisca.Frameworks.Logging
         /// </summary>
         SerializerType ReqResSerializerType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the call type.
-        /// </summary>
-        string CallType { get; set; }
+        string ServiceUrl { get; set; }
 
-        /// <summary>
-        /// Gets or sets the provider id.
-        /// </summary>
-        int ProviderId { get; set; }
+        string MethodName { get; set; }
 
         /// <summary>
         /// Gets or sets the status.

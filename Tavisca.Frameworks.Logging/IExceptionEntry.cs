@@ -26,11 +26,6 @@
         string StackTrace { get; set; }
 
         /// <summary>
-        /// Gets or sets the thread identity.
-        /// </summary>
-        string ThreadIdentity { get; set; }
-
-        /// <summary>
         /// Gets or sets the inner exception details.
         /// </summary>
         string InnerExceptions { get; }

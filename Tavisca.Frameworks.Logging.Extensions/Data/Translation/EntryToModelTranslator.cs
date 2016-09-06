@@ -14,7 +14,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
 
         #region To Model
 
-        public Log ToModel(IEventEntry entry)
+        public Log ToModel(ITransactionEntry entry)
         {
             var model = new Log()
             {
@@ -25,13 +25,13 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
                 InstanceId = entry.InstanceId,
                 AppDomainName = entry.AppDomainName,
                 ApplicationName = entry.ApplicationName,
-                CallType = entry.CallType,
+                ServiceUrl = entry.ServiceUrl,
+                MethodName = entry.MethodName,
                 IpAddress = entry.IpAddress,
                 MachineName = entry.MachineName,
                 Message = entry.Message,
                 ProcessID = entry.ProcessId,
                 ProcessName = entry.ProcessName,
-                ProviderId = entry.ProviderId != int.MinValue ? new int?(entry.ProviderId) : null,
                 Severity = entry.Severity,
                 Status = entry.Status,
                 TimeTaken = entry.TimeTaken != double.MinValue ? new double?(entry.TimeTaken) : null,
@@ -86,7 +86,6 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
                 Source = entry.Source,
                 StackTrace = entry.StackTrace,
                 TargetSite = entry.TargetSite,
-                ThreadIdentity = entry.ThreadIdentity,
                 Type = entry.Type
             };
 
@@ -109,19 +108,19 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Translation
 
         #region To Entry
 
-        public IEventEntry ToEntry(Log model)
+        public ITransactionEntry ToEntry(Log model)
         {
-            var entry = new EventEntry()
+            var entry = new TransactionEntry()
             {
                 AppDomainName = model.AppDomainName,
                 ApplicationName = model.ApplicationName,
-                CallType = model.CallType,
+                ServiceUrl = model.ServiceUrl,
+                MethodName = model.MethodName,
                 ContextIdentifier = model.ContextIdentifier,
                 IpAddress = model.IpAddress,
                 LogId = model.LogID,
                 MachineName = model.MachineName,
                 PriorityType = TryParsePriority(model.Priority),
-                ProviderId = model.ProviderId.HasValue ? model.ProviderId.Value : int.MinValue,
                 ProcessName = model.ProcessName,
                 ProcessId = model.ProcessID,
                 SessionId = model.SessionId.HasValue ? model.SessionId.Value.ToString() : null,

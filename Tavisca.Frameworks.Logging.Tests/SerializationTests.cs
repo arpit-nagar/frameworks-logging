@@ -47,7 +47,7 @@ namespace Tavisca.Frameworks.Logging.Tests
             const int intData = 123;
             const string stringData = "sjkdnfkjsdnf";
 
-            var entry = new EventEntry();
+            var entry = new TransactionEntry();
 
             if (!dontSetSerializerType)
                 entry.ReqResSerializerType = serializerType;

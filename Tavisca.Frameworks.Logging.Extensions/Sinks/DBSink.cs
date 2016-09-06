@@ -28,9 +28,9 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
 
         #region SinkBase Members
 
-        protected override void WriteEvent(IEventEntry eventEntry)
+        protected override void WriteEvent(ITransactionEntry transactionEntry)
         {
-            var model = _translator.ToModel(eventEntry);
+            var model = _translator.ToModel(transactionEntry);
 
             try
             {

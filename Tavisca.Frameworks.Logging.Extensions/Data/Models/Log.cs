@@ -29,7 +29,8 @@ namespace Tavisca.Frameworks.Logging.Extensions.Data.Models
         public string Win32ThreadId { get; set; }
         public string Message { get; set; }
         public Guid? SessionId { get; set; }
-        public string CallType { get; set; }
+        public string ServiceUrl { get; set; }
+        public string MethodName { get; set; }
         public int? ProviderId { get; set; }
         public string Status { get; set; }
         public double? TimeTaken { get; set; }

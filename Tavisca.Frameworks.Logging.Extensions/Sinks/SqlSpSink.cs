@@ -20,7 +20,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
     {
         #region SinkBase Members
 
-        protected override void WriteEvent(IEventEntry eventEntry)
+        protected override void WriteEvent(ITransactionEntry transactionEntry)
         {
             using (var con = new SqlConnection(GetConnectionString()))
             {
@@ -28,7 +28,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    var parameters = GetEventParams(eventEntry);
+                    var parameters = GetEventParams(transactionEntry);
 
                     foreach (var sqlParameter in parameters)
                     {
@@ -67,123 +67,123 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
         #region Helper Methods
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
-        protected IList<SqlParameter> GetEventParams(IEventEntry eventEntry)
+        protected IList<SqlParameter> GetEventParams(ITransactionEntry transactionEntry)
         {
             var parameters = new List<SqlParameter>(27);
 
             parameters.Add(new SqlParameter("severity", DbType.String)
             {
-                Value = eventEntry.Severity
+                Value = transactionEntry.Severity
             });
 
             parameters.Add(new SqlParameter("correlationId", DbType.String)
             {
-                Value = eventEntry.CorrelationId
+                Value = transactionEntry.CorrelationId
             });
 
             parameters.Add(new SqlParameter("transactionId", DbType.String)
             {
-                Value = eventEntry.TransactionId
+                Value = transactionEntry.TransactionId
             });
 
             parameters.Add(new SqlParameter("stackId", DbType.String)
             {
-                Value = eventEntry.StackId
+                Value = transactionEntry.StackId
             });
 
             parameters.Add(new SqlParameter("tenantId", DbType.String)
             {
-                Value = eventEntry.TenantId
+                Value = transactionEntry.TenantId
             });
 
             parameters.Add(new SqlParameter("instanceId", DbType.String)
             {
-                Value = eventEntry.InstanceId
+                Value = transactionEntry.InstanceId
             });
 
             parameters.Add(new SqlParameter("machineName", DbType.String)
             {
-                Value = FormatParam(eventEntry.MachineName)
+                Value = FormatParam(transactionEntry.MachineName)
             });
 
             parameters.Add(new SqlParameter("AppDomainName", DbType.String)
             {
-                Value = FormatParam(eventEntry.AppDomainName)
+                Value = FormatParam(transactionEntry.AppDomainName)
             });
 
             parameters.Add(new SqlParameter("ProcessID", DbType.String)
             {
-                Value = FormatParam(eventEntry.ProcessId)
+                Value = FormatParam(transactionEntry.ProcessId)
             });
 
             parameters.Add(new SqlParameter("ProcessName", DbType.String)
             {
-                Value = FormatParam(eventEntry.ProcessName)
+                Value = FormatParam(transactionEntry.ProcessName)
             });
 
             parameters.Add(new SqlParameter("message", DbType.String)
             {
-                Value = FormatParam(eventEntry.Message)
+                Value = FormatParam(transactionEntry.Message)
             });
 
             parameters.Add(new SqlParameter("xmlrequest", DbType.String)
             {
-                Value = FormatParam(eventEntry.Request)
+                Value = FormatParam(transactionEntry.Request)
             });
 
             parameters.Add(new SqlParameter("xmlresponse", DbType.String)
             {
-                Value = FormatParam(eventEntry.Response)
+                Value = FormatParam(transactionEntry.Response)
             });
 
             parameters.Add(new SqlParameter("additionalInfo", SqlDbType.Structured)
             {
-                Value = GetAdditionalInfo(eventEntry.AdditionalInfo)
+                Value = GetAdditionalInfo(transactionEntry.AdditionalInfo)
             });
 
-            parameters.Add(new SqlParameter("calltype", DbType.String)
+            parameters.Add(new SqlParameter("serviceUrl", DbType.String)
             {
-                Value = FormatParam(eventEntry.CallType)
+                Value = FormatParam(transactionEntry.ServiceUrl)
             });
 
-            parameters.Add(new SqlParameter("supplierid", DbType.String)
+            parameters.Add(new SqlParameter("methodName", DbType.String)
             {
-                Value = eventEntry.ProviderId
+                Value = FormatParam(transactionEntry.MethodName)
             });
 
             parameters.Add(new SqlParameter("status", DbType.String)
             {
-                Value = FormatParam(eventEntry.Status)
+                Value = FormatParam(transactionEntry.Status)
             });
 
             parameters.Add(new SqlParameter("timetaken", DbType.String)
             {
-                Value = eventEntry.TimeTaken
+                Value = transactionEntry.TimeTaken
             });
 
             parameters.Add(new SqlParameter("useridentifier", DbType.String)
             {
-                Value = FormatParam(eventEntry.UserIdentifier)
+                Value = FormatParam(transactionEntry.UserIdentifier)
             });
 
             parameters.Add(new SqlParameter("application", DbType.String)
             {
-                Value = FormatParam(eventEntry.ApplicationName)
+                Value = FormatParam(transactionEntry.ApplicationName)
             });
 
             parameters.Add(new SqlParameter("ipAddress", DbType.String)
             {
-                Value = FormatParam(eventEntry.IpAddress)
+                Value = FormatParam(transactionEntry.IpAddress)
             });
 
             parameters.Add(new SqlParameter("accountid", DbType.String)
             {
-                Value = FormatParam(eventEntry.UserIdentifier)
+                Value = FormatParam(transactionEntry.UserIdentifier)
             });
 
             parameters.Add(new SqlParameter("timestamp", DbType.DateTime)
             {
-                Value = eventEntry.Timestamp
+                Value = transactionEntry.Timestamp
             });
 
             // out param
@@ -273,11 +273,6 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             parameters.Add(new SqlParameter("StackTrace", DbType.String)
             {
                 Value = FormatParam(exceptionEntry.StackTrace)
-            });
-
-            parameters.Add(new SqlParameter("ThreadIdentity", DbType.String)
-            {
-                Value = FormatParam(exceptionEntry.ThreadIdentity)
             });
 
             parameters.Add(new SqlParameter("AdditionalInfo", SqlDbType.Structured)

@@ -130,9 +130,9 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             }
         }
 
-        protected override void WriteEvent(IEventEntry eventEntry)
+        protected override void WriteEvent(ITransactionEntry transactionEntry)
         {
-            var parameters = GetEventParams(eventEntry);
+            var parameters = GetEventParams(transactionEntry);
 
             EventBag.Add(parameters);
         }

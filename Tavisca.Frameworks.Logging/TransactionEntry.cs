@@ -5,11 +5,11 @@ using Tavisca.Frameworks.Logging.Resources;
 namespace Tavisca.Frameworks.Logging
 {
     /// <summary>
-    /// Default implementation of <see cref="IEventEntry"/>, this class can be inherited and extended.
+    /// Default implementation of <see cref="ITransactionEntry"/>, this class can be inherited and extended.
     /// </summary>
-    public class EventEntry : LogEntryBase, IEventEntry
+    public class TransactionEntry : LogEntryBase, ITransactionEntry
     {
-        #region IEventEntry Members
+        #region ITransactionEntry Members
 
         private bool _requestChanged;
 
@@ -79,8 +79,8 @@ namespace Tavisca.Frameworks.Logging
         }
 
         public SerializerType ReqResSerializerType { set; get; }
-        public string CallType { get; set; }
-        public int ProviderId { get; set; }
+        public string ServiceUrl { get; set; }
+        public string MethodName { get; set; }
         public string Status
         {
             get { return Enum.GetName(typeof(StatusOptions), this.StatusType); }
@@ -105,12 +105,12 @@ namespace Tavisca.Frameworks.Logging
 
         public override ILogEntry Clone()
         {
-            var entry = new EventEntry();
+            var entry = new TransactionEntry();
 
             this.Clone(entry);
 
-            entry.CallType = this.CallType;
-            entry.ProviderId = this.ProviderId;
+            entry.ServiceUrl = this.ServiceUrl;
+            entry.MethodName = this.MethodName;
             entry.ReqResSerializerType = this.ReqResSerializerType;
 
             if (this.RequestObject != null)
@@ -133,12 +133,11 @@ namespace Tavisca.Frameworks.Logging
 
         #region Constructors
 
-        public EventEntry()
+        public TransactionEntry()
         {
             this.InitializeIntrinsicProperties();
             this.SeverityType = SeverityOptions.Information;
             this.Title = this.Severity;
-            this.ProviderId = int.MinValue;
             this.TimeTaken = double.MinValue;
         }
 

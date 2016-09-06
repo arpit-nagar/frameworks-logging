@@ -13,9 +13,9 @@ namespace Tavisca.Frameworks.Logging.Formatting
         /// <summary>
         /// Formats the event, adds any information required into it.
         /// </summary>
-        /// <param name="eventEntry">The entry to be formatted.</param>
+        /// <param name="transactionEntry">The entry to be formatted.</param>
         /// <returns>Formatted entry.</returns>
-        IEventEntry FormatEvent(IEventEntry eventEntry);
+        ITransactionEntry FormatEvent(ITransactionEntry transactionEntry);
 
         /// <summary>
         /// Formats the exception, adds any information required into it.

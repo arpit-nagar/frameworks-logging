@@ -16,7 +16,7 @@ namespace Tavisca.Frameworks.Logging.Formatting
     /// The default formatter for formatting exceptions, 
     /// this class can be inherited for ease of translating exceptions into entries.
     /// </summary>
-    public class DefaultFormatter: ILogEntryFormatter
+    public class DefaultFormatter : ILogEntryFormatter
     {
         #region ILogEntryFormatter Members
 
@@ -27,29 +27,29 @@ namespace Tavisca.Frameworks.Logging.Formatting
         /// at the end.
         /// Also think of overriding <seealso cref="FormatException(Tavisca.Frameworks.Logging.IExceptionEntry)"/>
         /// </summary>
-        /// <param name="eventEntry">The event entry to be formatted.</param>
+        /// <param name="transactionEntry">The event entry to be formatted.</param>
         /// <returns>Formatted event.</returns>
-        public virtual IEventEntry FormatEvent(IEventEntry eventEntry)
+        public virtual ITransactionEntry FormatEvent(ITransactionEntry transactionEntry)
         {
-            var request = eventEntry.Request;
+            var request = transactionEntry.Request;
 
             if (!string.IsNullOrWhiteSpace(request))
             {
                 request = request.Compress();
 
-                eventEntry.SetRequestString(request);
+                transactionEntry.SetRequestString(request);
             }
 
-            var response = eventEntry.Response;
+            var response = transactionEntry.Response;
 
             if (!string.IsNullOrWhiteSpace(response))
             {
                 response = response.Compress();
 
-                eventEntry.SetResponseString(response);
+                transactionEntry.SetResponseString(response);
             }
 
-            return eventEntry;
+            return transactionEntry;
         }
 
         /// <summary>
@@ -144,11 +144,9 @@ namespace Tavisca.Frameworks.Logging.Formatting
                 catch { }
             }
 
-            entry.ThreadIdentity = System.Threading.Thread.CurrentThread.ManagedThreadId.ToString(CultureInfo.InvariantCulture);
-
             return entry;
         }
-        
+
         #endregion
     }
 }

@@ -43,15 +43,15 @@ namespace Tavisca.Frameworks.Logging.Sample
 
         public static void DoWork()
         {
-            IEventEntry entry = null;
+            ITransactionEntry entry = null;
             try
             {
                 entry = Utility.GetLogEntry();
 
-               
-                entry.CallType = "Entering some call type.";
 
-                entry.ProviderId = 10; //entered some provider Id.
+                entry.ServiceUrl = "www.testurl.com";
+
+                entry.MethodName = "testbooking";
 
 
                 //do stuff

@@ -372,7 +372,7 @@ namespace Tavisca.Frameworks.Logging
 
                 var loggers = GetLoggers(category);
 
-                var eventEntry = entry as IEventEntry;
+                var eventEntry = entry as ITransactionEntry;
                 if (eventEntry != null)
                 {
                     entry = FormattingFactory.CurrentFormatter.FormatEvent(eventEntry);
@@ -466,7 +466,7 @@ namespace Tavisca.Frameworks.Logging
             if (OverriddeEntryFilters)
                 return true;
 
-            if (entry is IEventEntry)
+            if (entry is ITransactionEntry)
             {
                 if (LogSection.EventSwitch == SwitchOptions.Off)
                     return false;

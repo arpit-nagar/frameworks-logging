@@ -127,9 +127,9 @@ namespace Tavisca.Frameworks.Logging
         {
             try
             {
-                if (entry is IEventEntry)
+                if (entry is ITransactionEntry)
                 {
-                    WriteEvent((IEventEntry)entry);
+                    WriteEvent((ITransactionEntry)entry);
                 }
                 else if (entry is IExceptionEntry)
                 {
@@ -167,7 +167,7 @@ namespace Tavisca.Frameworks.Logging
             FailSafeLogFactory.Log(ex);
         }
 
-        protected abstract void WriteEvent(IEventEntry eventEntry);
+        protected abstract void WriteEvent(ITransactionEntry transactionEntry);
 
         protected abstract void WriteException(IExceptionEntry eventEntry);
         

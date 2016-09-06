@@ -35,8 +35,8 @@ namespace Tavisca.Frameworks.Logging.Tests.Mock
             if (typeof(IExceptionEntry).IsAssignableFrom(serviceType))
                 return new ExceptionEntry();
 
-            if (typeof(IEventEntry).IsAssignableFrom(serviceType))
-                return new EventEntry();
+            if (typeof(ITransactionEntry).IsAssignableFrom(serviceType))
+                return new TransactionEntry();
 
             if (typeof(IEntryStringTranslator).IsAssignableFrom(serviceType))
                 return new EntryStringTranslator();

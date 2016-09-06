@@ -20,7 +20,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Infrastructure
 
         #region IEntryStringTranslator Members
 
-        public string TranslateEvent(IEventEntry entry)
+        public string TranslateEvent(ITransactionEntry entry)
         {
             return DumpObject(entry);
         }

@@ -7,7 +7,7 @@ namespace Tavisca.Frameworks.Logging
 {
     /// <summary>
     /// Defines the properties of a log entry in the system.
-    /// For specific types see <see cref="IEventEntry"/> and <see cref="IExceptionEntry"/>
+    /// For specific types see <see cref="ITransactionEntry"/> and <see cref="IExceptionEntry"/>
     /// </summary>
     public interface ILogEntry
     {
