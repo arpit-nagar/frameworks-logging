@@ -135,6 +135,10 @@ namespace Tavisca.Frameworks.Logging
                 {
                     WriteException((IExceptionEntry)entry);
                 }
+                if (entry is IEventEntry)
+                {
+                    WriteEvent((IEventEntry)entry);
+                }
                 else
                 {
                     throw new NotSupportedException(string.Format(LogResources.UnSupportedLogEntryType, entry.GetType().AssemblyQualifiedName));
