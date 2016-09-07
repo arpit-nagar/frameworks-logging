@@ -105,6 +105,6 @@ namespace Tavisca.Frameworks.Logging
         /// <summary>
         /// Clones the log entry.
         /// </summary>
-        ILogEntry Clone();
+        ILogEntry CopyTo();
     }
 }

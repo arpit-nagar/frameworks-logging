@@ -235,7 +235,7 @@ namespace Tavisca.Frameworks.Logging
                 if (!CheckSectionStatus(entry))
                     return;
 
-                var clone = entry.Clone();
+                var clone = entry.CopyTo();
 
                 TaskFactory.StartNew(() => this.Write(clone, category));
             }
@@ -265,7 +265,7 @@ namespace Tavisca.Frameworks.Logging
                     return;
                 }
 
-                var clone = entry.Clone();
+                var clone = entry.CopyTo();
 
                 TaskFactory.StartNew(() => this.Write(clone, category))
                     .ContinueWith(continueWith);

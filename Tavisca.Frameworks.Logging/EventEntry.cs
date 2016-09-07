@@ -50,11 +50,11 @@ namespace Tavisca.Frameworks.Logging
             _payload = payload;
         }
 
-        public override ILogEntry Clone()
+        public override ILogEntry CopyTo()
         {
             var entry = new EventEntry();
 
-            this.Clone(entry);
+            this.CopyTo(entry);
 
             entry.Source = this.Source;
             entry.EventType = this.EventType;

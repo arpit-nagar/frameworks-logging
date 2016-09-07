@@ -103,11 +103,11 @@ namespace Tavisca.Frameworks.Logging
             _response = response;
         }
 
-        public override ILogEntry Clone()
+        public override ILogEntry CopyTo()
         {
             var entry = new TransactionEntry();
 
-            this.Clone(entry);
+            this.CopyTo(entry);
 
             entry.ServiceUrl = this.ServiceUrl;
             entry.MethodName = this.MethodName;

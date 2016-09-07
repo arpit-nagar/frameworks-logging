@@ -14,11 +14,8 @@ namespace Tavisca.Frameworks.Logging
     public abstract class LogEntryBase : ILogEntry
     {
         protected readonly StringBuilder MessageBuilder;
-        private string _sessionId;
 
         #region ILogEntry Members
-
-        public Guid TracingToken { get; set; }
 
         public string CorrelationId { get; set; }
         public string StackId { get; set; }
@@ -26,19 +23,6 @@ namespace Tavisca.Frameworks.Logging
         public Guid Id { get; set; }
         public string TenantId { get; set; }
         public string InstanceId { get; set; }
-
-        /// <summary>
-        /// Gets the logId, this might only be available after a save.
-        /// </summary>
-        public int LogId { get; set; }
-
-        /// <summary>
-        /// Gets the priority integer representation.
-        /// </summary>
-        public int Priority
-        {
-            get { return (int)PriorityType; }
-        }
 
         /// <summary>
         /// Gets or sets the priority.
@@ -76,16 +60,6 @@ namespace Tavisca.Frameworks.Logging
         public string ProcessName { get; set; }
 
         /// <summary>
-        /// Gets or sets the thread name in which the entry was logged.
-        /// </summary>
-        public string ThreadName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the thread id in which the entry was created.
-        /// </summary>
-        public string Win32ThreadId { get; set; }
-
-        /// <summary>
         /// Gets or sets any additional info associated with the log.
         /// </summary>
         public IDictionary<string, string> AdditionalInfo { get; protected set; }
@@ -118,24 +92,6 @@ namespace Tavisca.Frameworks.Logging
         public SeverityOptions SeverityType { get; set; }
 
         /// <summary>
-        /// Gets or sets the user session id associated with the request.
-        /// </summary>
-        public string UserSessionId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sessionId associated with the request.
-        /// </summary>
-        public virtual string SessionId
-        {
-            get { return _sessionId; }
-            set
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                    _sessionId = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets any user identifier asssociated with the request.
         /// </summary>
         public virtual string UserIdentifier { get; set; }
@@ -150,11 +106,6 @@ namespace Tavisca.Frameworks.Logging
         /// </summary>
         public string ApplicationName { get; set; }
 
-        /// <summary>
-        /// Gets or sets any context identifier associated with the event.
-        /// </summary>
-        public string ContextIdentifier { get; set; }
-
         public void AddMessage(string message)
         {
             MessageBuilder.AppendLine(message);
@@ -165,7 +116,7 @@ namespace Tavisca.Frameworks.Logging
             AdditionalInfo[key] = value;
         }
 
-        public abstract ILogEntry Clone();
+        public abstract ILogEntry CopyTo();
 
         #endregion
 
@@ -192,12 +143,10 @@ namespace Tavisca.Frameworks.Logging
 
             this.ProcessId = processInfo.Item1.ToString(CultureInfo.InvariantCulture);
             this.ProcessName = processInfo.Item2;
-            this.ThreadName = GetCurrentThreadName();
-            this.Win32ThreadId = GetCurrentWin32ThreadId();
             this.IpAddress = GetIPAddress();
         }
 
-        protected void Clone<T>(T target) where T : ILogEntry
+        protected void CopyTo<T>(T target) where T : ILogEntry
         {
             foreach (var pair in this.AdditionalInfo)
             {
@@ -285,30 +234,6 @@ namespace Tavisca.Frameworks.Logging
                 var process = System.Diagnostics.Process.GetCurrentProcess();
 
                 return (_currentProcessInfo = new Tuple<int, string>(process.Id, process.ProcessName));
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        protected virtual string GetCurrentThreadName()
-        {
-            try
-            {
-                return System.Threading.Thread.CurrentThread.Name;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        protected virtual string GetCurrentWin32ThreadId()
-        {
-            try
-            {
-                return System.Threading.Thread.CurrentThread.ManagedThreadId.ToString(CultureInfo.InvariantCulture);
             }
             catch
             {
