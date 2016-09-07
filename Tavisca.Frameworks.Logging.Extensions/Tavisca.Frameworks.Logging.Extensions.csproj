@@ -84,31 +84,11 @@
   <ItemGroup>
     <Compile Include="DependencyInjection\Adapters\LogSpecificAdapter.cs" />
     <Compile Include="DependencyInjection\Adapters\ReflectionAdapter.cs" />
-    <Compile Include="DependencyInjection\Adapters\CommonServiceLocatorAdapter.cs" />
     <Compile Include="Formatters\CreditCardMaskDataProviderBase.cs" />
     <Compile Include="Formatters\CreditCardMaskFormatter.cs" />
     <Compile Include="Formatters\CreditCardMaskFormatterConfiguration.cs" />
     <Compile Include="Formatters\ICreditCardMaskDataProvider.cs" />
     <Compile Include="Infrastructure\EntryStringTranslator.cs" />
-    <Compile Include="Data\Models\AuditData.cs" />
-    <Compile Include="Data\Models\AuditTrail.cs" />
-    <Compile Include="Data\LoggingContext.cs" />
-    <Compile Include="Data\Models\ExceptionData.cs" />
-    <Compile Include="Data\Models\ExceptionLog.cs" />
-    <Compile Include="Data\Models\Log.cs" />
-    <Compile Include="Data\Models\LogData.cs" />
-    <Compile Include="Data\Models\LogRequestResponse.cs" />
-    <Compile Include="Data\Mapping\AuditDataMap.cs" />
-    <Compile Include="Data\Mapping\AuditTrailMap.cs" />
-    <Compile Include="Data\Mapping\ExceptionDataMap.cs" />
-    <Compile Include="Data\Mapping\ExceptionLogMap.cs" />
-    <Compile Include="Data\Mapping\LogDataMap.cs" />
-    <Compile Include="Data\Mapping\LogMap.cs" />
-    <Compile Include="Data\Mapping\LogRequestResponseMap.cs" />
-    <Compile Include="Data\Mapping\MaskingExpressionMap.cs" />
-    <Compile Include="Data\Mapping\SlowBookingMap.cs" />
-    <Compile Include="Data\Models\MaskingExpression.cs" />
-    <Compile Include="Data\Models\SlowBooking.cs" />
     <Compile Include="Sinks\EventViewerSink.cs" />
     <Compile Include="Sinks\FileSink.cs" />
     <Compile Include="Infrastructure\IEntryStringTranslator.cs" />
@@ -142,9 +122,7 @@
     <None Include="packages.config" />
     <None Include="Tavisca.Frameworks.Logging.Extensions.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\Translation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

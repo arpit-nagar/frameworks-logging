@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
 using Tavisca.Frameworks.Logging.Extensions.Infrastructure;
 using Tavisca.Frameworks.Logging.Extensions.Resources;
@@ -29,6 +26,11 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
             if (typeof(IExceptionEntry).IsAssignableFrom(serviceType))
             {
                 return new ExceptionEntry();
+            }
+
+            if (typeof(IEventEntry).IsAssignableFrom(serviceType))
+            {
+                return new EventEntry();
             }
 
             if (typeof(ISink).IsAssignableFrom(serviceType))
