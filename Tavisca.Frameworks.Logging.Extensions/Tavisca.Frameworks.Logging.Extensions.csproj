@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1AAED0F6-44DB-41C6-B855-767AA5F59A4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tavisca.Frameworks.Logging.Extensions</RootNamespace>
+    <AssemblyName>Tavisca.Frameworks.Logging.Extensions</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tavisca.ServiceStack.4.0.0.0\lib\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tavisca.ServiceStack.4.0.0.0\lib\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tavisca.ServiceStack.4.0.0.0\lib\ServiceStack.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tavisca.ServiceStack.4.0.0.0\lib\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tavisca.Frameworks.Helper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tavisca.Frameworks.Helper.2.0.0.1\lib\net45\Tavisca.Frameworks.Helper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Translation\EntryToModelTranslator.cs" />
+    <Compile Include="DependencyInjection\Adapters\LogSpecificAdapter.cs" />
+    <Compile Include="DependencyInjection\Adapters\ReflectionAdapter.cs" />
+    <Compile Include="DependencyInjection\Adapters\CommonServiceLocatorAdapter.cs" />
+    <Compile Include="Formatters\CreditCardMaskDataProviderBase.cs" />
+    <Compile Include="Formatters\CreditCardMaskFormatter.cs" />
+    <Compile Include="Formatters\CreditCardMaskFormatterConfiguration.cs" />
+    <Compile Include="Formatters\ICreditCardMaskDataProvider.cs" />
+    <Compile Include="Infrastructure\EntryStringTranslator.cs" />
+    <Compile Include="Data\Models\AuditData.cs" />
+    <Compile Include="Data\Models\AuditTrail.cs" />
+    <Compile Include="Data\LoggingContext.cs" />
+    <Compile Include="Data\Models\ExceptionData.cs" />
+    <Compile Include="Data\Models\ExceptionLog.cs" />
+    <Compile Include="Data\Models\Log.cs" />
+    <Compile Include="Data\Models\LogData.cs" />
+    <Compile Include="Data\Models\LogRequestResponse.cs" />
+    <Compile Include="Data\Mapping\AuditDataMap.cs" />
+    <Compile Include="Data\Mapping\AuditTrailMap.cs" />
+    <Compile Include="Data\Mapping\ExceptionDataMap.cs" />
+    <Compile Include="Data\Mapping\ExceptionLogMap.cs" />
+    <Compile Include="Data\Mapping\LogDataMap.cs" />
+    <Compile Include="Data\Mapping\LogMap.cs" />
+    <Compile Include="Data\Mapping\LogRequestResponseMap.cs" />
+    <Compile Include="Data\Mapping\MaskingExpressionMap.cs" />
+    <Compile Include="Data\Mapping\SlowBookingMap.cs" />
+    <Compile Include="Data\Models\MaskingExpression.cs" />
+    <Compile Include="Data\Models\SlowBooking.cs" />
+    <Compile Include="Sinks\DBSink.cs" />
+    <Compile Include="Sinks\EventViewerSink.cs" />
+    <Compile Include="Sinks\FileSink.cs" />
+    <Compile Include="Infrastructure\IEntryStringTranslator.cs" />
+    <Compile Include="Sinks\RedisSink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Sinks\SqlSpBufferredSink.cs" />
+    <Compile Include="Sinks\SqlSpSink.cs" />
+    <Compile Include="Sinks\StringWritingSinkBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\LogExtensionResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogExtensionResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\KeyStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tavisca.Frameworks.Logging\Tavisca.Frameworks.Logging.csproj">
+      <Project>{b32be698-871c-45a6-9597-a020a71b2d19}</Project>
+      <Name>Tavisca.Frameworks.Logging</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\LogExtensionResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogExtensionResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LoggingFrameworkDiagram.cd" />
+    <None Include="packages.config" />
+    <None Include="Tavisca.Frameworks.Logging.Extensions.nuspec" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

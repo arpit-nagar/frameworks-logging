@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tavisca.Frameworks.Logging.LogEntryBase" Collapsed="true">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.EventEntry" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.ExceptionEntry" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.EventViewerLogger" Collapsed="true">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Logger" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.SinkBase" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.LoggingContext" Collapsed="true">
+    <Position X="20.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAACAQIAAAAAACAAAAAAAAEAAAAAAAAIAAEAgAAAA=</HashCode>
+      <FileName>Data\LoggingContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.AuditDataMap" Collapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\AuditDataMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.AuditTrailMap" Collapsed="true">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\AuditTrailMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.ExceptionDataMap" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\ExceptionDataMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.ExceptionLogMap" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\ExceptionLogMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.LogDataMap" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\LogDataMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.LogMap" Collapsed="true">
+    <Position X="22.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\LogMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.LogRequestResponseMap" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\LogRequestResponseMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.MaskingExpressionMap" Collapsed="true">
+    <Position X="17.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\MaskingExpressionMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Mapping.SlowBookingMap" Collapsed="true">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\SlowBookingMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.AuditData" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Data\Models\AuditData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.AuditTrail" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAACEABAAAAAAAQAAAAAEAAAAAEAAAAAACAACIAA=</HashCode>
+      <FileName>Data\Models\AuditTrail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.ExceptionData" Collapsed="true">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQEAAAAAAIAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Data\Models\ExceptionData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.ExceptionLog" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAAAECEBAhQFEkAGAACCAAAIAAAAUAAAAUAAIAQAAAA=</HashCode>
+      <FileName>Data\Models\ExceptionLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.Log" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAABECEEABQEEEAEBACCAAAIAAAIUAAAAAAAMAQAAAA=</HashCode>
+      <FileName>Data\Models\Log.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.LogData" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQEAAAAAAAAAAgAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Data\Models\LogData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.LogRequestResponse" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAABAAAAEAAAAAAAAAAgAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Models\LogRequestResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.MaskingExpression" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgABAAAAAAAAAAAAAAIAAAAAEAAAQAAAAA=</HashCode>
+      <FileName>Data\Models\MaskingExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Models.SlowBooking" Collapsed="true">
+    <Position X="22.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAABAAAEAAgACAAEAAAAAAAIAAAAAAAAAJAAIAEgABA=</HashCode>
+      <FileName>Data\Models\SlowBooking.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Data.Translation.EntryToModelTranslator" Collapsed="true">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAQAAAAQABAAAAAAAAAAE=</HashCode>
+      <FileName>Data\Translation\EntryToModelTranslator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters.CommonServiceLocatorAdapter" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DependencyInjection\Adapters\CommonServiceLocatorAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters.ReflectionAdapter" Collapsed="true">
+    <Position X="19" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAJgAAAAAAAAAAAEAAAAQAAAAAAAAAgAAAAAQAAAA=</HashCode>
+      <FileName>DependencyInjection\Adapters\ReflectionAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters.SingularityAdapter" Collapsed="true">
+    <Position X="20.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DependencyInjection\Adapters\SingularityAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Formatters.CreditCardMaskDataProviderBase" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAEAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Formatters\CreditCardMaskDataProviderBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Formatters.CreditCardMaskFormatter" Collapsed="true">
+    <Position X="3.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAEAAAAAEAAAAAAAAAAAAAAgAAEAQAAAAA=</HashCode>
+      <FileName>Formatters\CreditCardMaskFormatter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Formatters.CreditCardMaskFormatterConfiguration" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Formatters\CreditCardMaskFormatterConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Infrastructure.EntryStringTranslator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAEAAEAAAAACBAAAAgAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Infrastructure\EntryStringTranslator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Resources.LogExtensionResources" Collapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAABEAAABQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Settings.KeyStorage" Collapsed="true">
+    <Position X="20.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Settings\KeyStorage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Sinks.DBSink" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAABAAA=</HashCode>
+      <FileName>Sinks\DBSink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Sinks.EventViewerSink" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAQEBAAAAAAAAAAAAAAAEAAAAAAAAAAAABAIA=</HashCode>
+      <FileName>Sinks\EventViewerSink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Sinks.FileSink" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAwAAAABAAAAAAAAAAAAAAAAAAEAAAAAAABEIA=</HashCode>
+      <FileName>Sinks\FileSink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Extensions.Sinks.StringWritingSinkBase" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Sinks\StringWritingSinkBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Configuration.LogConfigurationElementCollectionBase&lt;T&gt;" Collapsed="true">
+    <Position X="1.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Configuration.CategoryElement" Collapsed="true">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Configuration.CategoryElementCollection" Collapsed="true">
+    <Position X="2.75" Y="6" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Configuration.LoggerElement" Collapsed="true">
+    <Position X="19" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Configuration.LoggerElementCollection" Collapsed="true">
+    <Position X="0.5" Y="6" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Configuration.ApplicationLogSection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.DependencyInjection.LocatorProvider" Collapsed="true">
+    <Position X="22.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Exceptions.LogException" Collapsed="true">
+    <Position X="6.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Exceptions.LogConfigurationException" Collapsed="true">
+    <Position X="6.5" Y="11" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Formatting.DefaultFormatter" Collapsed="true">
+    <Position X="3.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Formatting.FormattingFactory" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Infrastructure.Helpers" Collapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.TaskScheduling.TaskSchedulerFactory" Collapsed="true">
+    <Position X="13.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.TaskScheduling.Utility" Collapsed="true">
+    <Position X="15.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Tracing.ApplicationTraceListener" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Tavisca.Frameworks.Logging.Tracing.TraceLogger" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Tavisca.Frameworks.Logging.ILogEntry" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.IEventEntry" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.IExceptionEntry" Collapsed="true">
+    <Position X="7.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.ILogger" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.ISink" Collapsed="true">
+    <Position X="20.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.Extensions.Formatters.ICreditCardMaskDataProvider" Collapsed="true">
+    <Position X="15.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Formatters\ICreditCardMaskDataProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.Extensions.Infrastructure.IEntryStringTranslator" Collapsed="true">
+    <Position X="17.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\IEntryStringTranslator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.Configuration.IApplicationLogSettings" Collapsed="true">
+    <Position X="12" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.Configuration.IConfigurationProvider" Collapsed="true">
+    <Position X="13.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.Formatting.ILogEntryFormatter" Collapsed="true">
+    <Position X="19" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tavisca.Frameworks.Logging.Tracing.ITraceLogger" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="Tavisca.Frameworks.Logging.SerializerType" Collapsed="true">
+    <Position X="15.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Tavisca.Frameworks.Logging.Configuration.SwitchOptions" Collapsed="true">
+    <Position X="20.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Tavisca.Frameworks.Logging.Infrastructure.SeverityOptions" Collapsed="true">
+    <Position X="17.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Tavisca.Frameworks.Logging.Infrastructure.StatusOptions" Collapsed="true">
+    <Position X="19" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Tavisca.Frameworks.Logging.Infrastructure.PriorityOptions" Collapsed="true">
+    <Position X="13.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Tavisca.Frameworks.Logging.Infrastructure.CompressionTypeOptions" Collapsed="true">
+    <Position X="12" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

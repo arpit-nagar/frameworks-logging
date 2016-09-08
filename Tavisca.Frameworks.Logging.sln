@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Logging.Extensions", "Tavisca.Frameworks.Logging.Extensions\Tavisca.Frameworks.Logging.Extensions.csproj", "{1AAED0F6-44DB-41C6-B855-767AA5F59A4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Logging", "Tavisca.Frameworks.Logging\Tavisca.Frameworks.Logging.csproj", "{B32BE698-871C-45A6-9597-A020A71B2D19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Logging.Tests", "Tavisca.Frameworks.Logging.Tests\Tavisca.Frameworks.Logging.Tests.csproj", "{C6F5AF06-D28F-4082-BE2F-A15C7C1D985F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Logging.Tests.Custom", "Tavisca.Frameworks.Logging.Tests.Custom\Tavisca.Frameworks.Logging.Tests.Custom.csproj", "{16A66086-2CD5-4430-BD2E-B5A4B8A622D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tavisca.Frameworks.Logging.Sample", "Tavisca.Frameworks.Logging.Sample\Tavisca.Frameworks.Logging.Sample.csproj", "{CAEF1671-1858-41E0-9A73-169D18413A28}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Tavisca.Frameworks.Logging.Database", "Tavisca.Frameworks.Logging.Database\Tavisca.Frameworks.Logging.Database.sqlproj", "{7B34CFEE-7C64-4E87-8972-CB800D8F266A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AAED0F6-44DB-41C6-B855-767AA5F59A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AAED0F6-44DB-41C6-B855-767AA5F59A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AAED0F6-44DB-41C6-B855-767AA5F59A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AAED0F6-44DB-41C6-B855-767AA5F59A4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B32BE698-871C-45A6-9597-A020A71B2D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B32BE698-871C-45A6-9597-A020A71B2D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B32BE698-871C-45A6-9597-A020A71B2D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B32BE698-871C-45A6-9597-A020A71B2D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F5AF06-D28F-4082-BE2F-A15C7C1D985F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F5AF06-D28F-4082-BE2F-A15C7C1D985F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F5AF06-D28F-4082-BE2F-A15C7C1D985F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F5AF06-D28F-4082-BE2F-A15C7C1D985F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16A66086-2CD5-4430-BD2E-B5A4B8A622D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16A66086-2CD5-4430-BD2E-B5A4B8A622D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16A66086-2CD5-4430-BD2E-B5A4B8A622D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16A66086-2CD5-4430-BD2E-B5A4B8A622D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAEF1671-1858-41E0-9A73-169D18413A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAEF1671-1858-41E0-9A73-169D18413A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAEF1671-1858-41E0-9A73-169D18413A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAEF1671-1858-41E0-9A73-169D18413A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B34CFEE-7C64-4E87-8972-CB800D8F266A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B34CFEE-7C64-4E87-8972-CB800D8F266A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
