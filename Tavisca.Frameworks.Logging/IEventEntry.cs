@@ -9,5 +9,7 @@
         object PayloadObject { get; set; }
 
         string Payload { get; }
+
+        void SetPayloadString(string payload);
     }
 }

@@ -11,11 +11,18 @@ namespace Tavisca.Frameworks.Logging.Formatting
     public interface ILogEntryFormatter
     {
         /// <summary>
-        /// Formats the event, adds any information required into it.
+        /// Formats the transactions, adds any information required into it.
         /// </summary>
         /// <param name="transactionEntry">The entry to be formatted.</param>
         /// <returns>Formatted entry.</returns>
-        ITransactionEntry FormatEvent(ITransactionEntry transactionEntry);
+        ITransactionEntry FormatTransaction(ITransactionEntry transactionEntry);
+
+        /// <summary>
+        /// Formats the transactions, adds any information required into it.
+        /// </summary>
+        /// <param name="eventEntry">The entry to be formatted.</param>
+        /// <returns>Formatted entry</returns>
+        IEventEntry FormatEvent(IEventEntry eventEntry);
 
         /// <summary>
         /// Formats the exception, adds any information required into it.

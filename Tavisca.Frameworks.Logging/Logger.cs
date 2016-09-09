@@ -372,14 +372,20 @@ namespace Tavisca.Frameworks.Logging
 
                 var loggers = GetLoggers(category);
 
-                var eventEntry = entry as ITransactionEntry;
-                if (eventEntry != null)
+                if (entry is TransactionEntry)
                 {
+                    var eventEntry = (ITransactionEntry)entry;
+                    entry = FormattingFactory.CurrentFormatter.FormatTransaction(eventEntry);
+                }
+                else if (entry is EventEntry)
+                {
+                    var eventEntry = (IEventEntry)entry;
                     entry = FormattingFactory.CurrentFormatter.FormatEvent(eventEntry);
                 }
                 else
                 {
-                    entry = FormattingFactory.CurrentFormatter.FormatException((IExceptionEntry)entry);
+                    var eventEntry = (IExceptionEntry)entry;
+                    entry = FormattingFactory.CurrentFormatter.FormatException(eventEntry);
                 }
 
                 foreach (var logger in loggers)

@@ -88,7 +88,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
 
         #region DefaultFormatter Overridden Methods
 
-        public override ITransactionEntry FormatEvent(ITransactionEntry transactionEntry)
+        public override ITransactionEntry FormatTransaction(ITransactionEntry transactionEntry)
         {
             var configurations = GetConfiguration();
 
@@ -142,7 +142,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
                 }
             }
 
-            return base.FormatEvent(transactionEntry);
+            return base.FormatTransaction(transactionEntry);
         }
 
         #endregion

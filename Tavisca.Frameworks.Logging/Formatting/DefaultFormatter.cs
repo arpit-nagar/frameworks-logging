@@ -29,7 +29,7 @@ namespace Tavisca.Frameworks.Logging.Formatting
         /// </summary>
         /// <param name="transactionEntry">The event entry to be formatted.</param>
         /// <returns>Formatted event.</returns>
-        public virtual ITransactionEntry FormatEvent(ITransactionEntry transactionEntry)
+        public virtual ITransactionEntry FormatTransaction(ITransactionEntry transactionEntry)
         {
             var request = transactionEntry.Request;
 
@@ -52,10 +52,23 @@ namespace Tavisca.Frameworks.Logging.Formatting
             return transactionEntry;
         }
 
+        public IEventEntry FormatEvent(IEventEntry eventEntry)
+        {
+            var payload = eventEntry.Payload;
+
+            if (!string.IsNullOrWhiteSpace(payload))
+            {
+                payload = payload.Compress();
+
+                eventEntry.SetPayloadString(payload);
+            }
+            return eventEntry;
+        }
+
         /// <summary>
         /// Default implementation, returns the object "as is", this method should be overridden in 
         /// case of any customizations required e.g. masking capability addition.
-        /// Also think of overriding <seealso cref="FormatEvent"/>
+        /// Also think of overriding <seealso cref="FormatTransaction"/>
         /// </summary>
         /// <param name="exceptionEntry">The exception entry to be formatted.</param>
         /// <returns>Formatted exception.</returns>

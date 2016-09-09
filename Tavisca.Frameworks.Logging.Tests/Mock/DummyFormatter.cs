@@ -8,11 +8,11 @@ namespace Tavisca.Frameworks.Logging.Tests.Mock
 {
     public class DummyFormatter: DefaultFormatter
     {
-        public override ITransactionEntry FormatEvent(ITransactionEntry transactionEntry)
+        public override ITransactionEntry FormatTransaction(ITransactionEntry transactionEntry)
         {
             transactionEntry.AddMessage("This extensibility point is really useful!");
 
-            return base.FormatEvent(transactionEntry);
+            return base.FormatTransaction(transactionEntry);
         }
 
         public override IExceptionEntry FormatException(Exception exception)
