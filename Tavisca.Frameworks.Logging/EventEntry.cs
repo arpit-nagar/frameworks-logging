@@ -7,7 +7,7 @@ namespace Tavisca.Frameworks.Logging
     {
         #region IEventEntry Members
 
-        public SerializerType ReqResSerializerType { set; get; }
+        public SerializerType PayloadSerializerType { set; get; }
 
         public string EventType { get; set; }
 
@@ -21,7 +21,7 @@ namespace Tavisca.Frameworks.Logging
             {
                 if (_isPayloadChanged)
                 {
-                    _payload = Serialize(PayloadObject, ReqResSerializerType);
+                    _payload = Serialize(PayloadObject, PayloadSerializerType);
 
                     _isPayloadChanged = false;
 
@@ -58,7 +58,7 @@ namespace Tavisca.Frameworks.Logging
 
             entry.Source = this.Source;
             entry.EventType = this.EventType;
-            entry.ReqResSerializerType = this.ReqResSerializerType;
+            entry.PayloadSerializerType = this.PayloadSerializerType;
 
             if (PayloadObject != null)
                 entry.PayloadObject = this.PayloadObject;

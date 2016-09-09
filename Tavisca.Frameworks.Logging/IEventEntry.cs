@@ -11,5 +11,7 @@
         string Payload { get; }
 
         void SetPayloadString(string payload);
+
+        SerializerType PayloadSerializerType { get; set; }
     }
 }

@@ -135,7 +135,7 @@ namespace Tavisca.Frameworks.Logging
                 {
                     WriteException((IExceptionEntry)entry);
                 }
-                if (entry is IEventEntry)
+                else if (entry is IEventEntry)
                 {
                     WriteEvent((IEventEntry)entry);
                 }
