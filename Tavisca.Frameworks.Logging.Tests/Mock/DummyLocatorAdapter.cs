@@ -14,10 +14,6 @@ namespace Tavisca.Frameworks.Logging.Tests.Mock
         {
             switch (key)
             {
-                case KeyStore.Loggers.DBLogger:
-                    return new DBSink();
-                case KeyStore.Loggers.spDBLogger:
-                    return new SqlSpSink();
                 case KeyStore.Loggers.EventViewerLoggerMock:
                     return new EventViewerSink();
                 case KeyStore.Loggers.EventViewerLogger:
@@ -35,8 +31,8 @@ namespace Tavisca.Frameworks.Logging.Tests.Mock
             if (typeof(IExceptionEntry).IsAssignableFrom(serviceType))
                 return new ExceptionEntry();
 
-            if (typeof(IEventEntry).IsAssignableFrom(serviceType))
-                return new EventEntry();
+            if (typeof(ITransactionEntry).IsAssignableFrom(serviceType))
+                return new TransactionEntry();
 
             if (typeof(IEntryStringTranslator).IsAssignableFrom(serviceType))
                 return new EntryStringTranslator();

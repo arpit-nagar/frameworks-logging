@@ -52,13 +52,13 @@ namespace Tavisca.Frameworks.Logging.Tests
                 Assert.IsTrue(ipAdresses.Contains(x));
             }
 
-            var eventEntry = GetEventEntry();
+            var eventEntry = GetTransactionEntry();
             Assert.IsFalse(string.IsNullOrWhiteSpace(eventEntry.IpAddress));
 
             foreach (var x in eventEntry.IpAddress.Split(','))
             {
                 Assert.IsTrue(ipAdresses.Contains(x));
-            }            
+            }
 
         }
 
@@ -69,6 +69,26 @@ namespace Tavisca.Frameworks.Logging.Tests
 
             factory.WriteExceptionAsync(new Exception("Root Level Test"), KeyStore.Categories.FileLogger, x => _hasReturnedFile = true);
 
+            var count = 0;
+            while (!_hasReturnedFile)
+            {
+                System.Threading.Thread.Sleep(500);
+
+                count++;
+
+                if (count > 500)
+                    break;
+            }
+        }
+
+        [TestMethod]
+        public void FileLoggerEventEntryLogTest()
+        {
+            var factory = new Logger();
+
+            var eventEntry = GetEventEntry();
+
+            factory.WriteAsync(eventEntry, KeyStore.Categories.FileLogger, x => _hasReturnedFile = true);
             var count = 0;
             while (!_hasReturnedFile)
             {
@@ -103,11 +123,11 @@ namespace Tavisca.Frameworks.Logging.Tests
         }
 
         [TestMethod]
-        public void EventViewerLoggerEventTest()
+        public void EventViewerLoggerTransactionTest()
         {
             var factory = new Logger();
 
-            var entry = GetEventEntry();
+            var entry = GetTransactionEntry();
 
             entry.RequestObject = new Exception("test serialization");
 
@@ -125,9 +145,47 @@ namespace Tavisca.Frameworks.Logging.Tests
             }
         }
 
+        [TestMethod]
+        public void EventViewerLoggerEventTest()
+        {
+            var factory = new Logger();
+
+            var entry = GetEventEntry();
+
+            entry.PayloadObject = new Exception("test serialization");
+
+            factory.WriteAsync(entry, KeyStore.Categories.EventViewer, x => _hasReturnedEventVwrEvent = true);
+
+            var count = 0;
+            while (!_hasReturnedEventVwrEvent)
+            {
+                System.Threading.Thread.Sleep(500);
+
+                count++;
+
+                if (count > 500)
+                    break;
+            }
+        }
+
 
         [TestMethod]
-        public void RedisLoggerSyncTest()
+        public void RedisLoggerTransactionSyncTest()
+        {
+            var factory = new Logger();
+
+            var entry1 = GetTransactionEntry();
+
+            factory.Write(entry1, KeyStore.Categories.RedisLogger);
+
+
+            var entry2 = GetExceptionEntry();
+
+            factory.Write(entry2, KeyStore.Categories.RedisLogger);
+        }
+
+        [TestMethod]
+        public void RedisLoggerEventSyncTest()
         {
             var factory = new Logger();
 
@@ -135,8 +193,7 @@ namespace Tavisca.Frameworks.Logging.Tests
 
             factory.Write(entry1, KeyStore.Categories.RedisLogger);
 
-
-            var entry2 = GetExceptionEntry();
+            var entry2 = GetEventEntry();
 
             factory.Write(entry2, KeyStore.Categories.RedisLogger);
         }
@@ -160,8 +217,22 @@ namespace Tavisca.Frameworks.Logging.Tests
             }
 
 
-            var entry2 = GetEventEntry();
+            var entry2 = GetTransactionEntry();
             factory.WriteAsync(entry2, KeyStore.Categories.RedisLogger, x => _hasRedisReturnedHandle = true);
+
+            count = 0;
+            while (!_hasRedisReturnedHandle)
+            {
+                System.Threading.Thread.Sleep(500);
+
+                count++;
+
+                if (count > 500)
+                    break;
+            }
+
+            var entry3 = GetEventEntry();
+            factory.WriteAsync(entry3, KeyStore.Categories.RedisLogger, x => _hasRedisReturnedHandle = true);
 
             count = 0;
             while (!_hasRedisReturnedHandle)
@@ -175,95 +246,12 @@ namespace Tavisca.Frameworks.Logging.Tests
             }
         }
 
-        #region Database Sink Tests
-
-        [TestMethod]
-        public void DBLoggerExceptionTest()
-        {
-            var factory = new Logger();
-
-            var entry = GetExceptionEntry();
-
-            factory.WriteAsync(entry, KeyStore.Categories.DB, x => _hasReturnedDBException = true);
-
-            var count = 0;
-            while (!_hasReturnedDBException)
-            {
-                System.Threading.Thread.Sleep(500);
-
-                count++;
-
-                if (count > 500)
-                    break;
-            }
-        }
-
-        [TestMethod]
-        public void DBLoggerEventTest()
-        {
-            var factory = new Logger();
-
-            var entry = GetEventEntry();
-
-            factory.Write(entry, KeyStore.Categories.DB);
-
-            //var count = 0;
-            //while (!_hasReturnedDBEvent)
-            //{
-            //    System.Threading.Thread.Sleep(500);
-
-            //    count++;
-
-            //    if (count > 500)
-            //        break;
-            //}
-        }
-
-        [TestMethod]
-        public void spDBLoggerExceptionTest()
-        {
-            var factory = new Logger();
-
-            var entry = GetExceptionEntry();
-
-            entry.Title += "-sp";
-
-            factory.Write(entry, KeyStore.Categories.spDB);
-
-            
-        }
-
-        [TestMethod]
-        public void spDBLoggerEventTest()
-        {
-            var factory = new Logger();
-
-            var entry = GetEventEntry();
-
-            entry.Title += "-sp";
-
-            factory.WriteAsync(entry, KeyStore.Categories.spDB, x => _hasReturnedspDBEvent = true);
-
-            var count = 0;
-            while (!_hasReturnedspDBEvent)
-            {
-                System.Threading.Thread.Sleep(500);
-
-                count++;
-
-                if (count > 500)
-                    break;
-            }
-        }
-
-        #endregion
-
         [TestMethod]
         public void DefaultLoggerTest()
         {
             var factory = new Logger();
 
-            var entry = GetEventEntry();
+            var entry = GetTransactionEntry();
 
             factory.WriteAsync(entry, null, x => _hasReturnedDefaultEvent = true);
 
@@ -281,16 +269,36 @@ namespace Tavisca.Frameworks.Logging.Tests
 
         #region Private Methods
 
+        private ITransactionEntry GetTransactionEntry()
+        {
+            var entry = new TransactionEntry();
+
+            entry.ServiceUrl = "www.testserviceurl.com/";
+            entry.MethodName = "testmethodname";
+
+            entry.SetRequestString("<?xml version=\"1.0\" encoding=\"utf-16\"?><OTA_AirPriceRQ xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" Version=\"2003A.TsabreXML1.13.1\"><POS xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><Source PseudoCityCode=\"F1HF\" /></POS><TravelerInfoSummary xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><PriceRequestInformation CurrencyCode=\"USD\"><TPA_Extensions /></PriceRequestInformation><TPA_Extensions><BargainFinder Ind=\"false\"><Rebook Ind=\"false\" /></BargainFinder><PassengerType Quantity=\"2\" Code=\"ADT\" /><PassengerType Quantity=\"2\" Code=\"C10\" /><PublicFare Ind=\"false\" /><PrivateFare Ind=\"false\" /><PriceRetention Default=\"true\" /></TPA_Extensions></TravelerInfoSummary></OTA_AirPriceRQ>");
+            entry.SetResponseString("<?xml version=\"1.0\" encoding=\"utf-16\"?><OTA_AirPriceRS xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" EchoToken=\"String\" TimeStamp=\"2012-06-08T14:33:24\" Version=\"2003A.TsabreXML1.13.1\" SequenceNmbr=\"1\" PrimaryLangID=\"en-us\" AltLangID=\"en-us\"><Success xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\" /><PricedItineraries xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><PricedItinerary><AirItineraryPricingInfo PricingSource=\"F1HF/GSP\"><TPA_Extensions><AlternateBooking /><PurchaseText>VALIDATING CARRIER - US</PurchaseText><PurchaseText>VALIDATING CARRIER - US</PurchaseText><PurchaseText> 8JUL DEPARTURE DATE-----LAST DAY TO PURCHASE  9JUN</PurchaseText><PurchaseText>BAG ALLOWANCE     -LASLAX-02P/US</PurchaseText><PurchaseText>ADDITIONAL ALLOWANCES AND/OR DISCOUNTS MAY APPLY</PurchaseText><PurchaseText>BAG ALLOWANCE     -LASLAX-02P/US</PurchaseText><PurchaseText>ADDITIONAL ALLOWANCES AND/OR DISCOUNTS MAY APPLY</PurchaseText><LastTicketingDate>2012-06-09T23:59:00</LastTicketingDate><ValidatingCarrier Code=\"US\" /></TPA_Extensions><ItinTotalFare><TotalFare Amount=\"1394.40\" CurrencyCode=\"USD\" /></ItinTotalFare><PTC_FareBreakdown PricingSource=\"F1HF/GSP\"><PassengerTypeQuantity Code=\"ADT\" Quantity=\"2\" /><FareBasis Code=\"AAVUPNV\" RPH=\"1\" /><FareBasis Code=\"AAVUPNV\" Market=\"LASLAX\" Date=\"2012-07-08T00:00:00\" RPH=\"2\" /><PassengerFare><BaseFare Amount=\"304.19\" CurrencyCode=\"USD\" /><Taxes><Tax TaxCode=\"US\" Amount=\"22.81\" TaxName=\"US DOMESTIC TRANSPORTATION TAX\" DecimalPlaces=\"2\" /><Tax TaxCode=\"ZP\" Amount=\"7.60\" TaxName=\"SEGMENT TAX\" DecimalPlaces=\"2\" /><Tax TaxCode=\"AY\" Amount=\"5.00\" TaxName=\"US SECURITY FEE\" DecimalPlaces=\"2\" /><Tax TaxCode=\"XF\" Amount=\"9.00\" TaxName=\"PASSENGER FACILITY CHARGES\" DecimalPlaces=\"2\" /></Taxes><TPA_Extensions><Endorsements><Text>STNDBY/CHG FEE/NO RFND/CXL BY FLT DT/</Text></Endorsements><FareCalculation><Text>LAS US X/PHX US LAX304.19AAVUPNV USD304.19END ZPLASPHX XFLAS4.5PHX4.5</Text></FareCalculation><Text>BAG ALLOWANCE     -LASLAX-02P/USADDITIONAL ALLOWANCES AND/OR DISCOUNTS MAY APPLY</Text><Commission Amount=\"0.00\" /></TPA_Extensions><TotalFare Amount=\"348.60\" CurrencyCode=\"USD\" DecimalPlaces=\"2\" /></PassengerFare></PTC_FareBreakdown><PTC_FareBreakdown PricingSource=\"F1HF/GSP\"><PassengerTypeQuantity Code=\"C10\" Quantity=\"2\" /><FareBasis Code=\"AAVUPNV\" RPH=\"1\" /><FareBasis Code=\"AAVUPNV\" Market=\"LASLAX\" Date=\"2012-07-08T00:00:00\" RPH=\"2\" /><PassengerFare><BaseFare Amount=\"304.19\" CurrencyCode=\"USD\" /><Taxes><Tax TaxCode=\"US\" Amount=\"22.81\" TaxName=\"US DOMESTIC TRANSPORTATION TAX\" DecimalPlaces=\"2\" /><Tax TaxCode=\"ZP\" Amount=\"7.60\" TaxName=\"SEGMENT TAX\" DecimalPlaces=\"2\" /><Tax TaxCode=\"AY\" Amount=\"5.00\" TaxName=\"US SECURITY FEE\" DecimalPlaces=\"2\" /><Tax TaxCode=\"XF\" Amount=\"9.00\" TaxName=\"PASSENGER FACILITY CHARGES\" DecimalPlaces=\"2\" /></Taxes><TPA_Extensions><Endorsements><Text>STNDBY/CHG FEE/NO RFND/CXL BY FLT DT/</Text></Endorsements><FareCalculation><Text>LAS US X/PHX US LAX304.19AAVUPNV USD304.19END ZPLASPHX XFLAS4.5PHX4.5</Text></FareCalculation><Text>CNN NOT APPLICABLE - ADT FARE USED - VERIFY RESTRICTIONSBAG ALLOWANCE     -LASLAX-02P/USADDITIONAL ALLOWANCES AND/OR DISCOUNTS MAY APPLY</Text><Commission Amount=\"0.00\" /></TPA_Extensions><TotalFare Amount=\"348.60\" CurrencyCode=\"USD\" DecimalPlaces=\"2\" /></PassengerFare></PTC_FareBreakdown><FareRuleInfo><FareBasis Code=\"AAVUPNV\" RPH=\"1\" /><FilingAirline Code=\"US\" /><DepartureAirport LocationCode=\"LAS\" /><ArrivalAirport LocationCode=\"PHX\" /></FareRuleInfo><FareRuleInfo><FareBasis Code=\"AAVUPNV\" Market=\"LASLAX\" Date=\"2012-07-08T00:00:00\" RPH=\"2\" /><FilingAirline Code=\"US\" /><DepartureAirport LocationCode=\"PHX\" /><ArrivalAirport LocationCode=\"LAX\" /></FareRuleInfo><FareRuleInfo><FareBasis Code=\"AAVUPNV\" RPH=\"1\" /><FilingAirline Code=\"US\" /><DepartureAirport LocationCode=\"LAS\" /><ArrivalAirport LocationCode=\"PHX\" /></FareRuleInfo><FareRuleInfo><FareBasis Code=\"AAVUPNV\" Market=\"LASLAX\" Date=\"2012-07-08T00:00:00\" RPH=\"2\" /><FilingAirline Code=\"US\" /><DepartureAirport LocationCode=\"PHX\" /><ArrivalAirport LocationCode=\"LAX\" /></FareRuleInfo></AirItineraryPricingInfo></PricedItinerary></PricedItineraries><TPA_Extensions xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><HostCommand>??????A????RS01S093??WPMUSD??NCB??P2ADT/2C10??RQ</HostCommand></TPA_Extensions></OTA_AirPriceRS>");
+
+            entry.AddAdditionalInfo("someKey", "SomeValue");
+            entry.AddAdditionalInfo("someotherKey", null);
+
+            entry.PriorityType = PriorityOptions.Low;
+
+            for (int i = 0; i < 10; i++)
+            {
+                entry.AddAdditionalInfo(i.ToString(), (i + 100).ToString());
+            }
+
+            return entry;
+        }
+
         private IEventEntry GetEventEntry()
         {
             var entry = new EventEntry();
 
-            entry.CallType = "test";
-
-            entry.ProviderId = 1;
-
-            entry.SetRequestString("<?xml version=\"1.0\" encoding=\"utf-16\"?><OTA_AirPriceRQ xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" Version=\"2003A.TsabreXML1.13.1\"><POS xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><Source PseudoCityCode=\"F1HF\" /></POS><TravelerInfoSummary xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><PriceRequestInformation CurrencyCode=\"USD\"><TPA_Extensions /></PriceRequestInformation><TPA_Extensions><BargainFinder Ind=\"false\"><Rebook Ind=\"false\" /></BargainFinder><PassengerType Quantity=\"2\" Code=\"ADT\" /><PassengerType Quantity=\"2\" Code=\"C10\" /><PublicFare Ind=\"false\" /><PrivateFare Ind=\"false\" /><PriceRetention Default=\"true\" /></TPA_Extensions></TravelerInfoSummary></OTA_AirPriceRQ>");
-            entry.SetResponseString("<?xml version=\"1.0\" encoding=\"utf-16\"?><OTA_AirPriceRS xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" EchoToken=\"String\" TimeStamp=\"2012-06-08T14:33:24\" Version=\"2003A.TsabreXML1.13.1\" SequenceNmbr=\"1\" PrimaryLangID=\"en-us\" AltLangID=\"en-us\"><Success xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\" /><PricedItineraries xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><PricedItinerary><AirItineraryPricingInfo PricingSource=\"F1HF/GSP\"><TPA_Extensions><AlternateBooking /><PurchaseText>VALIDATING CARRIER - US</PurchaseText><PurchaseText>VALIDATING CARRIER - US</PurchaseText><PurchaseText> 8JUL DEPARTURE DATE-----LAST DAY TO PURCHASE  9JUN</PurchaseText><PurchaseText>BAG ALLOWANCE     -LASLAX-02P/US</PurchaseText><PurchaseText>ADDITIONAL ALLOWANCES AND/OR DISCOUNTS MAY APPLY</PurchaseText><PurchaseText>BAG ALLOWANCE     -LASLAX-02P/US</PurchaseText><PurchaseText>ADDITIONAL ALLOWANCES AND/OR DISCOUNTS MAY APPLY</PurchaseText><LastTicketingDate>2012-06-09T23:59:00</LastTicketingDate><ValidatingCarrier Code=\"US\" /></TPA_Extensions><ItinTotalFare><TotalFare Amount=\"1394.40\" CurrencyCode=\"USD\" /></ItinTotalFare><PTC_FareBreakdown PricingSource=\"F1HF/GSP\"><PassengerTypeQuantity Code=\"ADT\" Quantity=\"2\" /><FareBasis Code=\"AAVUPNV\" RPH=\"1\" /><FareBasis Code=\"AAVUPNV\" Market=\"LASLAX\" Date=\"2012-07-08T00:00:00\" RPH=\"2\" /><PassengerFare><BaseFare Amount=\"304.19\" CurrencyCode=\"USD\" /><Taxes><Tax TaxCode=\"US\" Amount=\"22.81\" TaxName=\"US DOMESTIC TRANSPORTATION TAX\" DecimalPlaces=\"2\" /><Tax TaxCode=\"ZP\" Amount=\"7.60\" TaxName=\"SEGMENT TAX\" DecimalPlaces=\"2\" /><Tax TaxCode=\"AY\" Amount=\"5.00\" TaxName=\"US SECURITY FEE\" DecimalPlaces=\"2\" /><Tax TaxCode=\"XF\" Amount=\"9.00\" TaxName=\"PASSENGER FACILITY CHARGES\" DecimalPlaces=\"2\" /></Taxes><TPA_Extensions><Endorsements><Text>STNDBY/CHG FEE/NO RFND/CXL BY FLT DT/</Text></Endorsements><FareCalculation><Text>LAS US X/PHX US LAX304.19AAVUPNV USD304.19END ZPLASPHX XFLAS4.5PHX4.5</Text></FareCalculation><Text>BAG ALLOWANCE     -LASLAX-02P/USADDITIONAL ALLOWANCES AND/OR DISCOUNTS MAY APPLY</Text><Commission Amount=\"0.00\" /></TPA_Extensions><TotalFare Amount=\"348.60\" CurrencyCode=\"USD\" DecimalPlaces=\"2\" /></PassengerFare></PTC_FareBreakdown><PTC_FareBreakdown PricingSource=\"F1HF/GSP\"><PassengerTypeQuantity Code=\"C10\" Quantity=\"2\" /><FareBasis Code=\"AAVUPNV\" RPH=\"1\" /><FareBasis Code=\"AAVUPNV\" Market=\"LASLAX\" Date=\"2012-07-08T00:00:00\" RPH=\"2\" /><PassengerFare><BaseFare Amount=\"304.19\" CurrencyCode=\"USD\" /><Taxes><Tax TaxCode=\"US\" Amount=\"22.81\" TaxName=\"US DOMESTIC TRANSPORTATION TAX\" DecimalPlaces=\"2\" /><Tax TaxCode=\"ZP\" Amount=\"7.60\" TaxName=\"SEGMENT TAX\" DecimalPlaces=\"2\" /><Tax TaxCode=\"AY\" Amount=\"5.00\" TaxName=\"US SECURITY FEE\" DecimalPlaces=\"2\" /><Tax TaxCode=\"XF\" Amount=\"9.00\" TaxName=\"PASSENGER FACILITY CHARGES\" DecimalPlaces=\"2\" /></Taxes><TPA_Extensions><Endorsements><Text>STNDBY/CHG FEE/NO RFND/CXL BY FLT DT/</Text></Endorsements><FareCalculation><Text>LAS US X/PHX US LAX304.19AAVUPNV USD304.19END ZPLASPHX XFLAS4.5PHX4.5</Text></FareCalculation><Text>CNN NOT APPLICABLE - ADT FARE USED - VERIFY RESTRICTIONSBAG ALLOWANCE     -LASLAX-02P/USADDITIONAL ALLOWANCES AND/OR DISCOUNTS MAY APPLY</Text><Commission Amount=\"0.00\" /></TPA_Extensions><TotalFare Amount=\"348.60\" CurrencyCode=\"USD\" DecimalPlaces=\"2\" /></PassengerFare></PTC_FareBreakdown><FareRuleInfo><FareBasis Code=\"AAVUPNV\" RPH=\"1\" /><FilingAirline Code=\"US\" /><DepartureAirport LocationCode=\"LAS\" /><ArrivalAirport LocationCode=\"PHX\" /></FareRuleInfo><FareRuleInfo><FareBasis Code=\"AAVUPNV\" Market=\"LASLAX\" Date=\"2012-07-08T00:00:00\" RPH=\"2\" /><FilingAirline Code=\"US\" /><DepartureAirport LocationCode=\"PHX\" /><ArrivalAirport LocationCode=\"LAX\" /></FareRuleInfo><FareRuleInfo><FareBasis Code=\"AAVUPNV\" RPH=\"1\" /><FilingAirline Code=\"US\" /><DepartureAirport LocationCode=\"LAS\" /><ArrivalAirport LocationCode=\"PHX\" /></FareRuleInfo><FareRuleInfo><FareBasis Code=\"AAVUPNV\" Market=\"LASLAX\" Date=\"2012-07-08T00:00:00\" RPH=\"2\" /><FilingAirline Code=\"US\" /><DepartureAirport LocationCode=\"PHX\" /><ArrivalAirport LocationCode=\"LAX\" /></FareRuleInfo></AirItineraryPricingInfo></PricedItinerary></PricedItineraries><TPA_Extensions xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><HostCommand>??????A????RS01S093??WPMUSD??NCB??P2ADT/2C10??RQ</HostCommand></TPA_Extensions></OTA_AirPriceRS>");
+            entry.EventType = "Test event type";
+            entry.Source = "test event source";
+            entry.SetPayloadString("<?xml version=\"1.0\" encoding=\"utf-16\"?><OTA_AirPriceRQ xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" Version=\"2003A.TsabreXML1.13.1\"><POS xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><Source PseudoCityCode=\"F1HF\" /></POS><TravelerInfoSummary xmlns=\"http://webservices.sabre.com/sabreXML/2003/07\"><PriceRequestInformation CurrencyCode=\"USD\"><TPA_Extensions /></PriceRequestInformation><TPA_Extensions><BargainFinder Ind=\"false\"><Rebook Ind=\"false\" /></BargainFinder><PassengerType Quantity=\"2\" Code=\"ADT\" /><PassengerType Quantity=\"2\" Code=\"C10\" /><PublicFare Ind=\"false\" /><PrivateFare Ind=\"false\" /><PriceRetention Default=\"true\" /></TPA_Extensions></TravelerInfoSummary></OTA_AirPriceRQ>");
 
             entry.AddAdditionalInfo("someKey", "SomeValue");
             entry.AddAdditionalInfo("someotherKey", null);
@@ -311,8 +319,6 @@ namespace Tavisca.Frameworks.Logging.Tests
 
             entry.AddAdditionalInfo("someKey", "SomeValue");
             entry.AddAdditionalInfo("someotherKey", null);
-
-            entry.PriorityType = PriorityOptions.Low;
 
             for (int i = 0; i < 10; i++)
             {

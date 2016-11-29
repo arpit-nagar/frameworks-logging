@@ -42,7 +42,7 @@ namespace Tavisca.Frameworks.Logging.Tracing
 
         protected virtual ILogEntry GetLogEntry()
         {
-            return LocatorProvider.GetContainer().GetInstance<IEventEntry>();
+            return LocatorProvider.GetContainer().GetInstance<ITransactionEntry>();
         }
 
         #endregion

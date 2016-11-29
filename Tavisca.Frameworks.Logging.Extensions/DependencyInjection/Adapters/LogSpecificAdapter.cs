@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
 using Tavisca.Frameworks.Logging.Extensions.Infrastructure;
 using Tavisca.Frameworks.Logging.Extensions.Resources;
@@ -21,14 +18,19 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 
         protected override object DoGetInstance(Type serviceType, string key)
         {
-            if (typeof(IEventEntry).IsAssignableFrom(serviceType))
+            if (typeof(ITransactionEntry).IsAssignableFrom(serviceType))
             {
-                return new EventEntry();
+                return new TransactionEntry();
             }
 
             if (typeof(IExceptionEntry).IsAssignableFrom(serviceType))
             {
                 return new ExceptionEntry();
+            }
+
+            if (typeof(IEventEntry).IsAssignableFrom(serviceType))
+            {
+                return new EventEntry();
             }
 
             if (typeof(ISink).IsAssignableFrom(serviceType))
@@ -44,7 +46,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 
             throw new NotSupportedException(string.Format
                                                 (
-                                                    LogExtensionResources.LogSpecificAdapter_TypeNotSupported, 
+                                                    LogExtensionResources.LogSpecificAdapter_TypeNotSupported,
                                                     serviceType.FullName, key
                                                 )
                                             );
@@ -61,17 +63,13 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 
         protected virtual ISink GetDefaultSink()
         {
-            return new SqlSpSink();
+            return new FileSink();
         }
 
         protected virtual ISink GetSinkByKey(string key)
         {
             switch (key.ToUpper())
             {
-                case "SQLSPSINK":
-                    return new SqlSpSink();
-                case "DBSINK":
-                    return new DBSink();
                 case "EVENTVIEWERSINK":
                     return new EventViewerSink();
                 case "FILESINK":

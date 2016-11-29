@@ -1,45 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Tavisca.Frameworks.Logging.Infrastructure;
 
 namespace Tavisca.Frameworks.Logging
 {
     /// <summary>
     /// Defines the properties of a log entry in the system.
-    /// For specific types see <see cref="IEventEntry"/> and <see cref="IExceptionEntry"/>
+    /// For specific types see <see cref="ITransactionEntry"/> and <see cref="IExceptionEntry"/>
     /// </summary>
     public interface ILogEntry
     {
         /// <summary>
-        /// A tracing token, common usage is to put a token which is unique along a single logical set, e.g. one user request.
+        /// This is typically unique among a logical set of multiple requests, e.g. a set of requests made by a user.
         /// </summary>
-        Guid TracingToken { get; set; }
+        string CorrelationId { get; set; }
+
+        string StackId { get; set; }
+
+        string TransactionId { get; set; }
 
         /// <summary>
         /// Uniquely identifies an entry
         /// </summary>
         Guid Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the log id.
-        /// </summary>
-        [Obsolete]
-        int LogId { get; }
+        string TenantId { get; set; }
 
-        /// <summary>
-        /// Gets the priority integer representation.
-        /// </summary>
-        int Priority { get; }
-
-        /// <summary>
-        /// Gets or sets the priority.
-        /// </summary>
-        PriorityOptions PriorityType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        string Title { get; set; }
+        string InstanceId { get; set; }
 
         /// <summary>
         /// Gets or sets the UTC time stamp.
@@ -67,16 +55,6 @@ namespace Tavisca.Frameworks.Logging
         string ProcessName { get; set; }
 
         /// <summary>
-        /// Gets or sets the thread name.
-        /// </summary>
-        string ThreadName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the win32 thread id.
-        /// </summary>
-        string Win32ThreadId { get; set; }
-
-        /// <summary>
         /// Gets or sets the additional info, consider using <seealso cref="AddAdditionalInfo"/>
         /// </summary>
         IDictionary<string, string> AdditionalInfo { get; }
@@ -97,16 +75,6 @@ namespace Tavisca.Frameworks.Logging
         SeverityOptions SeverityType { get; set; }
 
         /// <summary>
-        /// Gets or sets the user session id.
-        /// </summary>
-        string UserSessionId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the session id, this is typically unique among a logical set of multiple requests, e.g. a set of requests made by a user.
-        /// </summary>
-        string SessionId { get; set; }
-
-        /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>
         string UserIdentifier { get; set; }
@@ -120,11 +88,6 @@ namespace Tavisca.Frameworks.Logging
         /// Gets or sets the application name.
         /// </summary>
         string ApplicationName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the context identifier.
-        /// </summary>
-        string ContextIdentifier { get; set; }
 
         /// <summary>
         /// Adds a message into the log entry incrementally.
@@ -142,6 +105,6 @@ namespace Tavisca.Frameworks.Logging
         /// <summary>
         /// Clones the log entry.
         /// </summary>
-        ILogEntry Clone();
+        ILogEntry CopyTo();
     }
 }

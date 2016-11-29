@@ -95,13 +95,13 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
 
         #endregion
 
-        protected override void WriteEvent(IEventEntry eventEntry)
+        protected override void WriteTransaction(ITransactionEntry transactionEntry)
         {
-            if (eventEntry != null)
+            if (transactionEntry != null)
             {
-                if (eventEntry.Id == Guid.Empty)
-                    eventEntry.Id = Guid.NewGuid();
-                var str = Newtonsoft.Json.JsonConvert.SerializeObject(eventEntry);
+                if (transactionEntry.Id == Guid.Empty)
+                    transactionEntry.Id = Guid.NewGuid();
+                var str = Newtonsoft.Json.JsonConvert.SerializeObject(transactionEntry);
                 PushData(str);
             }
         }
@@ -114,6 +114,17 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
                     eventEntry.Id = Guid.NewGuid();
 
                 var str = Newtonsoft.Json.JsonConvert.SerializeObject(eventEntry);
+                PushData(str);
+            }
+        }
+
+        protected override void WriteEvent(IEventEntry transactionEntry)
+        {
+            if (transactionEntry != null)
+            {
+                if (transactionEntry.Id == Guid.Empty)
+                    transactionEntry.Id = Guid.NewGuid();
+                var str = Newtonsoft.Json.JsonConvert.SerializeObject(transactionEntry);
                 PushData(str);
             }
         }

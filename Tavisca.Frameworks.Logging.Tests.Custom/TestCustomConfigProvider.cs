@@ -11,16 +11,16 @@ using Tavisca.Frameworks.Logging.Tests.Mock;
 
 namespace Tavisca.Frameworks.Logging.Tests.Custom
 {
-    public class TestCustomConfigProvider: IConfigurationProvider
+    public class TestCustomConfigProvider : IConfigurationProvider
     {
         public IApplicationLogSettings GetConfiguration()
         {
             return GetCustomConfiguration();
         }
-        
+
         public IApplicationLogSettings GetCustomConfiguration(Type adapter = null, Type formatter = null, PriorityOptions priority = PriorityOptions.Low)
         {
-            adapter = adapter ?? typeof (DummyLocatorAdapter);
+            adapter = adapter ?? typeof(DummyLocatorAdapter);
 
             return new ApplicationLogSection()
             {
@@ -36,7 +36,7 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
                     {
                         new LoggerElement()
                             {
-                                Name = KeyStore.Loggers.DBLogger
+                                Name = KeyStore.Loggers.FileLogger
                             }
                     }
             };
@@ -64,17 +64,6 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
                                         new LoggerElement()
                                             {
                                                 Name = reflectionMode ? typeof(EventViewerSink).AssemblyQualifiedName : KeyStore.Loggers.EventViewerLogger
-                                            }
-                                    }
-                            },
-                            new CategoryElement()
-                            {
-                                Name = KeyStore.Categories.DB,
-                                Loggers = new LoggerElementCollection()
-                                    {
-                                        new LoggerElement()
-                                            {
-                                                Name = reflectionMode ? typeof(SqlSpSink).AssemblyQualifiedName : KeyStore.Loggers.DBLogger
                                             }
                                     }
                             }

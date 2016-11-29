@@ -42,11 +42,11 @@ namespace Tavisca.Frameworks.Logging
                 _innerExceptionBuilder.AppendLine("--------------------------------------------");
         }
 
-        public override ILogEntry Clone()
+        public override ILogEntry CopyTo()
         {
             var entry = new ExceptionEntry();
 
-            this.Clone(entry);
+            this.CopyTo(entry);
 
             entry.AddInnerExceptionMessage(this.InnerExceptions);
 

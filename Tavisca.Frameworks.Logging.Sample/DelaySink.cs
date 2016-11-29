@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace Tavisca.Frameworks.Logging.Sample
 {
-    public class DelaySink: SinkBase
+    public class DelaySink : SinkBase
     {
-        protected override void WriteEvent(IEventEntry eventEntry)
+        protected override void WriteTransaction(ITransactionEntry transactionEntry)
         {
             System.Threading.Thread.Sleep(500);
         }
 
         protected override void WriteException(IExceptionEntry eventEntry)
+        {
+            System.Threading.Thread.Sleep(500);
+        }
+
+        protected override void WriteEvent(IEventEntry transactionEntry)
         {
             System.Threading.Thread.Sleep(500);
         }

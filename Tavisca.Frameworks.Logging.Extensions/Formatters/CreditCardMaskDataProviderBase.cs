@@ -9,18 +9,18 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
     /// A base implementation of <see cref="ICreditCardMaskDataProvider"/>, provides helper methods
     /// to ease the final implementation.
     /// </summary>
-    public abstract class CreditCardMaskDataProviderBase: ICreditCardMaskDataProvider
+    public abstract class CreditCardMaskDataProviderBase : ICreditCardMaskDataProvider
     {
         #region ICreditCardMaskDataProvider Members
 
         public ICollection<CreditCardMaskFormatterConfiguration> GetConfiguration()
         {
             return GetMaskingData().Select(x => new CreditCardMaskFormatterConfiguration()
-                {
-                    RegEx = x.RegEx,
-                    Replacement = x.ReplacementExpression,
-                    EventPredicate = GetPredicate(x)
-                }).ToArray();
+            {
+                RegEx = x.RegEx,
+                Replacement = x.ReplacementExpression,
+                EventPredicate = GetPredicate(x)
+            }).ToArray();
         }
 
         #endregion
@@ -29,8 +29,8 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
 
         public class MaskExpressions
         {
-            public string CallType { get; set; }
-            public int? ProviderId { get; set; }
+            public string ServiceUrl { get; set; }
+            public string MethodName { get; set; }
             public string RegEx { get; set; }
             public string ReplacementExpression { get; set; }
         }
@@ -41,19 +41,19 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
 
         protected abstract IEnumerable<MaskExpressions> GetMaskingData();
 
-        protected virtual Predicate<IEventEntry> GetPredicate(MaskExpressions configuration)
+        protected virtual Predicate<ITransactionEntry> GetPredicate(MaskExpressions configuration)
         {
-            if (string.IsNullOrWhiteSpace(configuration.CallType) && !configuration.ProviderId.HasValue)
+            if (string.IsNullOrWhiteSpace(configuration.ServiceUrl) && string.IsNullOrEmpty(configuration.MethodName))
                 return x => true;
 
-            if (string.IsNullOrWhiteSpace(configuration.CallType))
-                return x => x.ProviderId == configuration.ProviderId;
+            if (string.IsNullOrWhiteSpace(configuration.MethodName))
+                return x => x.ServiceUrl.Equals(configuration.ServiceUrl, StringComparison.InvariantCultureIgnoreCase);
 
-            if (!configuration.ProviderId.HasValue)
-                return x => x.CallType.Equals(configuration.CallType, StringComparison.InvariantCultureIgnoreCase);
+            if (string.IsNullOrWhiteSpace(configuration.ServiceUrl))
+                return x => x.MethodName.Equals(configuration.MethodName, StringComparison.InvariantCultureIgnoreCase);
 
-            return x => x.ProviderId == configuration.ProviderId &&
-                        x.CallType.Equals(configuration.CallType, StringComparison.InvariantCultureIgnoreCase);
+            return x => x.ServiceUrl.Equals(configuration.ServiceUrl, StringComparison.InvariantCultureIgnoreCase) &&
+                        x.MethodName.Equals(configuration.MethodName, StringComparison.InvariantCultureIgnoreCase);
         }
 
         #endregion

@@ -31,9 +31,9 @@ namespace Tavisca.Frameworks.Logging.Sample
             return entry;
         }
 
-        public static IEventEntry GetLogEntry()
+        public static ITransactionEntry GetTransactionLogEntry()
         {
-            var entry = new EventEntry();
+            var entry = new TransactionEntry();
 
             FillEntry(entry);
 
@@ -43,13 +43,9 @@ namespace Tavisca.Frameworks.Logging.Sample
 
         public static void FillEntry(ILogEntry entry)
         {
-            entry.PriorityType = PriorityOptions.Medium;
-
             entry.IpAddress = string.Empty;
 
             entry.UserIdentifier = string.Empty;
-
-            entry.UserSessionId = string.Empty;
         }
     }
 }

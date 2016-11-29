@@ -43,16 +43,15 @@ namespace Tavisca.Frameworks.Logging.Sample
 
         public static void DoWork()
         {
-            IEventEntry entry = null;
+            ITransactionEntry entry = null;
             try
             {
-                entry = Utility.GetLogEntry();
+                entry = Utility.GetTransactionLogEntry();
 
-                entry.Title = "Making a sample of the logging framework.";
 
-                entry.CallType = "Entering some call type.";
+                entry.ServiceUrl = "www.testurl.com";
 
-                entry.ProviderId = 10; //entered some provider Id.
+                entry.MethodName = "testbooking";
 
 
                 //do stuff

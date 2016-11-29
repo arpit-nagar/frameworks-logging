@@ -123,7 +123,7 @@ namespace Tavisca.Frameworks.Logging
                         break;
                     default:
                         throw new LogConfigurationException(
-                            string.Format(LogResources.CompressionType_NotSupported, 
+                            string.Format(LogResources.CompressionType_NotSupported,
                             Enum.GetName(typeof(CompressionTypeOptions), settings.CompressionType)));
                 }
 
@@ -235,7 +235,7 @@ namespace Tavisca.Frameworks.Logging
                 if (!CheckSectionStatus(entry))
                     return;
 
-                var clone = entry.Clone();
+                var clone = entry.CopyTo();
 
                 TaskFactory.StartNew(() => this.Write(clone, category));
             }
@@ -265,7 +265,7 @@ namespace Tavisca.Frameworks.Logging
                     return;
                 }
 
-                var clone = entry.Clone();
+                var clone = entry.CopyTo();
 
                 TaskFactory.StartNew(() => this.Write(clone, category))
                     .ContinueWith(continueWith);
@@ -372,14 +372,20 @@ namespace Tavisca.Frameworks.Logging
 
                 var loggers = GetLoggers(category);
 
-                var eventEntry = entry as IEventEntry;
-                if (eventEntry != null)
+                if (entry is TransactionEntry)
                 {
+                    var eventEntry = (ITransactionEntry)entry;
+                    entry = FormattingFactory.CurrentFormatter.FormatTransaction(eventEntry);
+                }
+                else if (entry is EventEntry)
+                {
+                    var eventEntry = (IEventEntry)entry;
                     entry = FormattingFactory.CurrentFormatter.FormatEvent(eventEntry);
                 }
                 else
                 {
-                    entry = FormattingFactory.CurrentFormatter.FormatException((IExceptionEntry)entry);
+                    var eventEntry = (IExceptionEntry)entry;
+                    entry = FormattingFactory.CurrentFormatter.FormatException(eventEntry);
                 }
 
                 foreach (var logger in loggers)
@@ -466,7 +472,7 @@ namespace Tavisca.Frameworks.Logging
             if (OverriddeEntryFilters)
                 return true;
 
-            if (entry is IEventEntry)
+            if (entry is ITransactionEntry)
             {
                 if (LogSection.EventSwitch == SwitchOptions.Off)
                     return false;
@@ -476,8 +482,7 @@ namespace Tavisca.Frameworks.Logging
                 if (LogSection.ExceptionSwitch == SwitchOptions.Off)
                     return false;
             }
-
-            return entry.Priority >= (int)LogSection.MinPriority;
+            return true;
         }
 
         #endregion

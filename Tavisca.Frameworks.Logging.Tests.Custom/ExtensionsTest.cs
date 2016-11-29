@@ -33,27 +33,19 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
         }
 
         [TestMethod]
-        public void CreditCardMaskFormatterTest()
-        {
-            RefreshSettings(typeof(ReflectionAdapter), typeof(CreditCardMaskFormatter));
-
-            new Tests.ExtensionsTest().DBLoggerEventTest();
-        }
-
-        [TestMethod]
         public void MinPriorityTest()
         {
             RefreshSettings(typeof(DummyLocatorAdapter), typeof(CreditCardMaskFormatter), PriorityOptions.Low);
 
-            new Tests.ExtensionsTest().EventViewerLoggerEventTest();
+            new Tests.ExtensionsTest().EventViewerLoggerTransactionTest();
 
             RefreshSettings(typeof(DummyLocatorAdapter), typeof(CreditCardMaskFormatter), PriorityOptions.Undefined);
 
-            new Tests.ExtensionsTest().EventViewerLoggerEventTest();
+            new Tests.ExtensionsTest().EventViewerLoggerTransactionTest();
 
             RefreshSettings(typeof(DummyLocatorAdapter), typeof(CreditCardMaskFormatter), PriorityOptions.Medium);
 
-            new Tests.ExtensionsTest().EventViewerLoggerEventTest();
+            new Tests.ExtensionsTest().EventViewerLoggerTransactionTest();
         }
 
         private void RefreshSettings(Type adapter, Type formatter = null, PriorityOptions priority = PriorityOptions.Low)

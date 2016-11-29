@@ -21,11 +21,11 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
 
         #region StringWritingLoggerBase Methods
 
-        protected override void WriteEvent(IEventEntry eventEntry)
+        protected override void WriteTransaction(ITransactionEntry transactionEntry)
         {
             var translator = GetTranslator();
 
-            var data = translator.TranslateEvent(eventEntry);
+            var data = translator.TranslateTransaction(transactionEntry);
 
             WriteToEventViewer(GetSource(), data, EventLogEntryType.Information);
         }
@@ -37,6 +37,15 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             var data = translator.TranslateException(eventEntry);
 
             WriteToEventViewer(GetSource(), data, EventLogEntryType.Error);
+        }
+
+        protected override void WriteEvent(IEventEntry eventEntry)
+        {
+            var translator = GetTranslator();
+
+            var data = translator.TranslateEvent(eventEntry);
+
+            WriteToEventViewer(GetSource(), data, EventLogEntryType.Information);
         }
 
         #endregion

@@ -88,12 +88,12 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
 
         #region DefaultFormatter Overridden Methods
 
-        public override IEventEntry FormatEvent(IEventEntry eventEntry)
+        public override ITransactionEntry FormatTransaction(ITransactionEntry transactionEntry)
         {
             var configurations = GetConfiguration();
 
-            var request = eventEntry.Request;
-            var response = eventEntry.Response;
+            var request = transactionEntry.Request;
+            var response = transactionEntry.Response;
 
             if (configurations.Count > 0)
             {
@@ -105,7 +105,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
                         && !string.IsNullOrWhiteSpace(x.Replacement)))
                 {
                     if (configuration.EventPredicate != null
-                        && configuration.EventPredicate.Invoke(eventEntry))
+                        && configuration.EventPredicate.Invoke(transactionEntry))
                     {
                         if (!string.IsNullOrEmpty(request))
                         {
@@ -120,10 +120,10 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
                     }
                 }
                 if (requestChanged)
-                    eventEntry.SetRequestString(request);
+                    transactionEntry.SetRequestString(request);
 
                 if (responseChanged)
-                    eventEntry.SetResponseString(response);
+                    transactionEntry.SetResponseString(response);
             }
             else
             {
@@ -131,18 +131,18 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
                 {
                     request = MaskCreditCardInfo(request, null);
 
-                    eventEntry.SetRequestString(request);
+                    transactionEntry.SetRequestString(request);
                 }
 
                 if (!string.IsNullOrEmpty(response))
                 {
                     response = MaskCreditCardInfo(response, null);
 
-                    eventEntry.SetResponseString(response);
+                    transactionEntry.SetResponseString(response);
                 }
             }
 
-            return base.FormatEvent(eventEntry);
+            return base.FormatTransaction(transactionEntry);
         }
 
         #endregion

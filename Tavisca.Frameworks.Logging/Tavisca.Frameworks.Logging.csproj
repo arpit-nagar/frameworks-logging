@@ -100,13 +100,15 @@
     <Compile Include="Configuration\IConfigurationProvider.cs" />
     <Compile Include="Configuration\LogConfigurationElementCollectionBase.cs" />
     <Compile Include="DependencyInjection\LocatorProvider.cs" />
+    <Compile Include="EventEntry.cs" />
+    <Compile Include="IEventEntry.cs" />
     <Compile Include="Infrastructure\Enumerations.cs" />
     <Compile Include="Configuration\CategoryElement.cs" />
     <Compile Include="Configuration\CategoryElementCollection.cs" />
     <Compile Include="Configuration\Enumerations.cs" />
     <Compile Include="Configuration\LoggerElement.cs" />
     <Compile Include="Configuration\LoggerElementCollection.cs" />
-    <Compile Include="EventEntry.cs" />
+    <Compile Include="TransactionEntry.cs" />
     <Compile Include="ExceptionEntry.cs" />
     <Compile Include="EventViewerLogger.cs" />
     <Compile Include="Exceptions\LogConfigurationException.cs" />
@@ -117,7 +119,7 @@
     <Compile Include="Formatting\ILogEntryFormatter.cs" />
     <Compile Include="Infrastructure\Flags.cs" />
     <Compile Include="Infrastructure\Helpers.cs" />
-    <Compile Include="IEventEntry.cs" />
+    <Compile Include="ITransactionEntry.cs" />
     <Compile Include="IExceptionEntry.cs" />
     <Compile Include="IFailSafeLogger.cs" />
     <Compile Include="ILogEntry.cs" />
