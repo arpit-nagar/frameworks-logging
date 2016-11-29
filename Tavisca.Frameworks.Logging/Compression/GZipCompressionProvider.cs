@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO.Compression;
 using System.Text;
-using Tavisca.Frameworks.Helper;
 
 namespace Tavisca.Frameworks.Logging.Compression
 {

@@ -1,8 +1,5 @@
-using System.Configuration;
-using Microsoft.Practices.ServiceLocation;
-using Tavisca.Frameworks.Logging.Formatting;
+using System.Collections.Generic;
 using Tavisca.Frameworks.Logging.Infrastructure;
-using Tavisca.Frameworks.Logging.Tracing;
 
 namespace Tavisca.Frameworks.Logging.Configuration
 {
@@ -32,12 +29,12 @@ namespace Tavisca.Frameworks.Logging.Configuration
         /// <summary>
         /// Gets or sets the categories defining the loggers along with key value pairs.
         /// </summary>
-        CategoryElementCollection Categories { get; set; }
+        List<CategoryElement> Categories { get; set; }
 
         /// <summary>
         /// Gets or sets tracing loggers which handles all the trace related logging, the <see cref="ApplicationTraceListener"/> should be configured.
         /// </summary>
-        LoggerElementCollection TraceLoggers { get; set; }
+        List<LoggerElement> TraceLoggers { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum number of threads that will be used for logging, if the limit breaches, 

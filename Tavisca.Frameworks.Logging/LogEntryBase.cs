@@ -47,7 +47,7 @@ namespace Tavisca.Frameworks.Logging
         /// <summary>
         /// Gets or sets the appdomain in which the logger was functioning.
         /// </summary>
-        public string AppDomainName { get; set; }
+        //public string AppDomainName { get; set; }
 
         /// <summary>
         /// Gets or sets the process id in which the logger was functioning.
@@ -136,7 +136,7 @@ namespace Tavisca.Frameworks.Logging
         {
             this.Timestamp = GetCurrentTimeStamp();
             this.MachineName = GetCurrentMachineName();
-            this.AppDomainName = GetCurrentAppDomainName();
+            //this.AppDomainName = GetCurrentAppDomainName();
             this.ApplicationName = GetCurrentApplicationName();
 
             var processInfo = GetCurrentProcessInfo();
@@ -158,7 +158,7 @@ namespace Tavisca.Frameworks.Logging
             target.TenantId = this.TenantId;
             target.InstanceId = this.InstanceId;
             target.Id = this.Id;
-            target.AppDomainName = this.AppDomainName;
+            //target.AppDomainName = this.AppDomainName;
             target.ApplicationName = this.ApplicationName;
             target.IpAddress = this.IpAddress;
             target.MachineName = this.MachineName;
@@ -188,18 +188,18 @@ namespace Tavisca.Frameworks.Logging
             }
         }
 
-        private static string _appDomainName;
-        protected virtual string GetCurrentAppDomainName()
-        {
-            try
-            {
-                return _appDomainName ?? (_appDomainName = AppDomain.CurrentDomain.FriendlyName);
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        //private static string _appDomainName;
+        //protected virtual string GetCurrentAppDomainName()
+        //{
+        //    try
+        //    {
+        //        return _appDomainName ?? (_appDomainName = AppDomain.CurrentDomain.FriendlyName);
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
 
         private static string _applicationName;
         protected virtual string GetCurrentApplicationName()
@@ -209,13 +209,15 @@ namespace Tavisca.Frameworks.Logging
 
             try
             {
-                if (AppDomain.CurrentDomain.ActivationContext != null && AppDomain.CurrentDomain.ActivationContext.Identity != null)
-                    return (_applicationName = AppDomain.CurrentDomain.ActivationContext.Identity.FullName);
+                //<CRITICAL .net core changes> AppDomain is not directly supported in .net core, review it.
+                return _applicationName ?? (_applicationName = AppDomain.CurrentDomain.GetType().FullName);
+                //if (AppDomain.CurrentDomain.ActivationContext != null && AppDomain.CurrentDomain.ActivationContext.Identity != null)
+                //    return (_applicationName = AppDomain.CurrentDomain.ActivationContext.Identity.FullName);
 
-                if (AppDomain.CurrentDomain.ApplicationIdentity != null)
-                    return (_applicationName = AppDomain.CurrentDomain.ApplicationIdentity.FullName);
+                //if (AppDomain.CurrentDomain.ApplicationIdentity != null)
+                //    return (_applicationName = AppDomain.CurrentDomain.ApplicationIdentity.FullName);
 
-                return null;
+                //return null;
             }
             catch
             {
@@ -249,7 +251,8 @@ namespace Tavisca.Frameworks.Logging
                 if (_ipAdresses == null)
                 {
                     var sb = new StringBuilder();
-                    var ipEntry = Dns.GetHostEntry(Dns.GetHostName());
+                    //<CRITICAL .net core changes> GetHostEntryAsync is made async
+                    var ipEntry = Dns.GetHostEntryAsync(Dns.GetHostName()).GetAwaiter().GetResult();
                     var addrList = ipEntry.AddressList;
                     if (addrList != null)
                     {

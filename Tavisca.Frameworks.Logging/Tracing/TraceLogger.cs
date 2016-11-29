@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Options;
 using Tavisca.Frameworks.Logging.Configuration;
 
 namespace Tavisca.Frameworks.Logging.Tracing
@@ -11,9 +12,10 @@ namespace Tavisca.Frameworks.Logging.Tracing
     {
         #region Constructors
 
-        public TraceLogger() { }
+        public TraceLogger(IOptions<ApplicationLogSection> configurations) : base(configurations)
+        { }
 
-        public TraceLogger(bool overriddeEntryFilters) : base(overriddeEntryFilters) { }
+        public TraceLogger(IOptions<ApplicationLogSection> configurations, bool overriddeEntryFilters) : base(configurations, overriddeEntryFilters) { }
 
         #endregion
 
