@@ -1,5 +1,5 @@
 {
-  "title": "Tavisca.Frameworks.Logging",
+  "title": "Tavisca.Frameworks.Logging.Core",
   "copyright": "Copyright © Tavisca 2017",
   "description": "A generic logging framework providing a decoupled infrastructure for any application.",
   "version": "1.0.0-*",
@@ -23,5 +23,11 @@
     "netstandard1.6": {
       "imports": "dnxcore50"
     }
+  },
+
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration%"
+    ]
   }
 }

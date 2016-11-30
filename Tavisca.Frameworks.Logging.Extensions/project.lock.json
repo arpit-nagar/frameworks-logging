@@ -2081,7 +2081,7 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Tavisca.Frameworks.Logging/1.0.0": {
+      "Tavisca.Frameworks.Logging.Core/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -2099,10 +2099,10 @@
           "System.Xml.XmlSerializer": "4.3.0"
         },
         "compile": {
-          "netstandard1.6/Tavisca.Frameworks.Logging.dll": {}
+          "netstandard1.6/Tavisca.Frameworks.Logging.Core.dll": {}
         },
         "runtime": {
-          "netstandard1.6/Tavisca.Frameworks.Logging.dll": {}
+          "netstandard1.6/Tavisca.Frameworks.Logging.Core.dll": {}
         }
       },
       "Tavisca.Frameworks.Logging.Extensions.Redis/1.0.0": {
@@ -2111,13 +2111,7 @@
         "dependencies": {
           "NETStandard.Library": "1.6.0",
           "ServiceStack.Redis.Core": "1.0.30",
-          "Tavisca.Frameworks.Logging": "1.0.0"
-        },
-        "compile": {
-          "netstandard1.6/Tavisca.Frameworks.Logging.Extensions.Redis.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/Tavisca.Frameworks.Logging.Extensions.Redis.dll": {}
+          "Tavisca.Frameworks.Logging.Core": "1.0.0"
         }
       }
     }
@@ -6747,22 +6741,21 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "Tavisca.Frameworks.Logging/1.0.0": {
+    "Tavisca.Frameworks.Logging.Core/1.0.0": {
       "type": "project",
-      "path": "../Tavisca.Frameworks.Logging/project.json",
-      "msbuildProject": "../Tavisca.Frameworks.Logging/Tavisca.Frameworks.Logging.xproj"
+      "path": "../Tavisca.Frameworks.Logging.Core/project.json",
+      "msbuildProject": "../Tavisca.Frameworks.Logging.Core/Tavisca.Frameworks.Logging.Core.xproj"
     },
     "Tavisca.Frameworks.Logging.Extensions.Redis/1.0.0": {
       "type": "project",
-      "path": "../Tavisca.Frameworks.Logging.Extensions.Redis/project.json",
-      "msbuildProject": "../Tavisca.Frameworks.Logging.Extensions.Redis/Tavisca.Frameworks.Logging.Extensions.Redis.xproj"
+      "path": "../Tavisca.Frameworks.Logging.Extensions.Redis/project.json"
     }
   },
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.Extensions.DependencyModel >= 1.1.0",
       "NETStandard.Library >= 1.6.0",
-      "Tavisca.Frameworks.Logging >= 1.0.0-*",
+      "Tavisca.Frameworks.Logging.Core >= 1.0.0-*",
       "Tavisca.Frameworks.Logging.Extensions.Redis >= 1.0.0-*"
     ],
     ".NETStandard,Version=v1.6": []

@@ -4,7 +4,7 @@
   "dependencies": {
     "Microsoft.Extensions.DependencyModel": "1.1.0",
     "NETStandard.Library": "1.6.0",
-    "Tavisca.Frameworks.Logging": "1.0.0-*",
+    "Tavisca.Frameworks.Logging.Core": "1.0.0-*",
     "Tavisca.Frameworks.Logging.Extensions.Redis": "1.0.0-*"
   },
 

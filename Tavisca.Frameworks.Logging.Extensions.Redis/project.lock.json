@@ -2046,7 +2046,7 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Tavisca.Frameworks.Logging/1.0.0": {
+      "Tavisca.Frameworks.Logging.Core/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -2064,10 +2064,10 @@
           "System.Xml.XmlSerializer": "4.3.0"
         },
         "compile": {
-          "netstandard1.6/Tavisca.Frameworks.Logging.dll": {}
+          "netstandard1.6/Tavisca.Frameworks.Logging.Core.dll": {}
         },
         "runtime": {
-          "netstandard1.6/Tavisca.Frameworks.Logging.dll": {}
+          "netstandard1.6/Tavisca.Frameworks.Logging.Core.dll": {}
         }
       }
     }
@@ -6674,17 +6674,17 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "Tavisca.Frameworks.Logging/1.0.0": {
+    "Tavisca.Frameworks.Logging.Core/1.0.0": {
       "type": "project",
-      "path": "../Tavisca.Frameworks.Logging/project.json",
-      "msbuildProject": "../Tavisca.Frameworks.Logging/Tavisca.Frameworks.Logging.xproj"
+      "path": "../Tavisca.Frameworks.Logging.Core/project.json",
+      "msbuildProject": "../Tavisca.Frameworks.Logging.Core/Tavisca.Frameworks.Logging.Core.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
       "NETStandard.Library >= 1.6.0",
       "ServiceStack.Redis.Core >= 1.0.30",
-      "Tavisca.Frameworks.Logging >= 1.0.0-*"
+      "Tavisca.Frameworks.Logging.Core >= 1.0.0-*"
     ],
     ".NETStandard,Version=v1.6": []
   },
