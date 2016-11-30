@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging", "Tavisca.Frameworks.Logging\Tavisca.Frameworks.Logging.xproj", "{2390504F-C8D4-4310-BD34-9F5FEC9202D0}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Core", "Tavisca.Frameworks.Logging\Tavisca.Frameworks.Logging.Core.xproj", "{2390504F-C8D4-4310-BD34-9F5FEC9202D0}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Extensions", "Tavisca.Frameworks.Logging.Extensions\Tavisca.Frameworks.Logging.Extensions.xproj", "{49F40B43-AEB3-493A-88F3-B426F6F6AEC3}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Extensions.Core", "Tavisca.Frameworks.Logging.Extensions\Tavisca.Frameworks.Logging.Extensions.Core.xproj", "{49F40B43-AEB3-493A-88F3-B426F6F6AEC3}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Extensions.Redis", "Tavisca.Frameworks.Logging.Extensions.Redis\Tavisca.Frameworks.Logging.Extensions.Redis.xproj", "{B296A597-3B89-4488-A489-84F3D00FEE0D}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Extensions.Core.Redis", "Tavisca.Frameworks.Logging.Extensions.Redis\Tavisca.Frameworks.Logging.Extensions.Core.Redis.xproj", "{B296A597-3B89-4488-A489-84F3D00FEE0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

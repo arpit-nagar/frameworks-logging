@@ -6,8 +6,8 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>2390504f-c8d4-4310-bd34-9f5fec9202d0</ProjectGuid>
-    <RootNamespace>Tavisca.Frameworks.Logging</RootNamespace>
+    <ProjectGuid>49f40b43-aeb3-493a-88f3-b426f6f6aec3</ProjectGuid>
+    <RootNamespace>Tavisca.Frameworks.Logging.Extensions.Core</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
