@@ -36,9 +36,8 @@ namespace Tavisca.Frameworks.Logging
             try
             {
                 var settings = configurations.Value;
-
+                ApplicationLogSetting.SetApplicationLogSettings(settings);
                 LoadConfiguration(settings);
-
                 Flags.IsConfigurationLoaded = true;
             }
             catch (LogConfigurationException)

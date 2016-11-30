@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tavisca.Frameworks.Logging.Configuration;
 
 namespace Tavisca.Frameworks.Logging.TaskScheduling
 {
@@ -45,9 +46,7 @@ namespace Tavisca.Frameworks.Logging.TaskScheduling
             if (maxDegreeOfParallelism < 1) throw new ArgumentOutOfRangeException("maxDegreeOfParallelism");
             _maxDegreeOfParallelism = maxDegreeOfParallelism;
 
-            //<NOTE: .net core changes > ConfigurationManager is not supported in .net core, code need to be configurable
-            //_logEnabled = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["LimitedConcurrencyLog"]);
-            _logEnabled = false;
+            _logEnabled = !string.IsNullOrEmpty(ApplicationLogSetting.GetCustomConfiguration("LimitedConcurrencyLog"));
             
             if (_logEnabled)
             {
