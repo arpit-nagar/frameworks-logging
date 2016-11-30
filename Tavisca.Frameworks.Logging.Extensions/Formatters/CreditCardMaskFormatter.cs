@@ -2,11 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Caching;
+using Tavisca.Frameworks.Logging.Configuration;
+using Tavisca.Frameworks.Logging.Extensions.Caching;
 using Tavisca.Frameworks.Logging.Extensions.Settings;
 using Tavisca.Frameworks.Logging.Formatting;
 
@@ -42,8 +41,8 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
 
         protected static ICreditCardMaskDataProvider GetProvider()
         {
-            var providerType = ConfigurationManager.AppSettings[KeyStorage.AppSettingKeys.CreditCardMaskProvider];
-
+            var providerType = ApplicationLogSetting.GetCustomConfiguration(KeyStorage.AppSettingKeys.CreditCardMaskProvider);
+            
             if (string.IsNullOrWhiteSpace(providerType))
                 return null;
 
@@ -64,8 +63,9 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
 
         protected virtual ICollection<CreditCardMaskFormatterConfiguration> GetConfiguration()
         {
-            var settings = HttpRuntime.Cache.Get(KeyStorage.CacheKeys.CreditCardMaskSettingsKey) as ICollection<CreditCardMaskFormatterConfiguration>;
-
+            //<CRITICAL .net core> /HttpRuntime.Cache does not supported in .net core
+            var settings = CacheHandler.Get<ICollection<CreditCardMaskFormatterConfiguration>>(KeyStorage.CacheKeys.CreditCardMaskSettingsKey);
+            
             if (settings != null)
                 return settings;
 
@@ -78,8 +78,8 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
                 settings = new Collection<CreditCardMaskFormatterConfiguration>();
             }
 
-            HttpRuntime.Cache.Add(KeyStorage.CacheKeys.CreditCardMaskSettingsKey, settings, null,
-                                  Cache.NoAbsoluteExpiration, new TimeSpan(0, 1, 0, 0), CacheItemPriority.Default, null);
+            //<CRITICAL .net core> /HttpRuntime.Cache does not supported in .net core
+            CacheHandler.Set(KeyStorage.CacheKeys.CreditCardMaskSettingsKey, settings);
 
             return settings;
         }

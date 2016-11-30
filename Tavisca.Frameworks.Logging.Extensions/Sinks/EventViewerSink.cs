@@ -1,5 +1,5 @@
-﻿using System.Configuration;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Tavisca.Frameworks.Logging.Configuration;
 using Tavisca.Frameworks.Logging.Extensions.Infrastructure;
 using Tavisca.Frameworks.Logging.Extensions.Settings;
 
@@ -68,7 +68,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             if (!string.IsNullOrWhiteSpace(_source))
                 return _source;
 
-            var source = ConfigurationManager.AppSettings[KeyStorage.AppSettingKeys.EventVwrSource];
+            var source = ApplicationLogSetting.GetCustomConfiguration(KeyStorage.AppSettingKeys.EventVwrSource);
 
             _source = string.IsNullOrWhiteSpace(source) ? DefaultSource : source;
 
