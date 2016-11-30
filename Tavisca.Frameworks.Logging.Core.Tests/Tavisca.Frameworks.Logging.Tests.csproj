@@ -121,11 +121,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tavisca.Frameworks.Logging.Extensions\Tavisca.Frameworks.Logging.Extensions.csproj">
+    <ProjectReference Include="..\Tavisca.Frameworks.Logging.Core.Extensions\Tavisca.Frameworks.Logging.Extensions.csproj">
       <Project>{1aaed0f6-44db-41c6-b855-767aa5f59a4c}</Project>
       <Name>Tavisca.Frameworks.Logging.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tavisca.Frameworks.Logging\Tavisca.Frameworks.Logging.csproj">
+    <ProjectReference Include="..\Tavisca.Frameworks.Logging.Core\Tavisca.Frameworks.Logging.csproj">
       <Project>{b32be698-871c-45a6-9597-a020a71b2d19}</Project>
       <Name>Tavisca.Frameworks.Logging</Name>
     </ProjectReference>
