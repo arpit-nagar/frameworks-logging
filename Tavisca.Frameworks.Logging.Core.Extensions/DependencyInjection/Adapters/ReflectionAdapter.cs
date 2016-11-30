@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Caching;
+using System.Reflection;
+using Microsoft.Extensions.DependencyModel;
 using Microsoft.Practices.ServiceLocation;
 using Tavisca.Frameworks.Logging.Extensions.Settings;
-using CacheItemPriority = System.Web.Caching.CacheItemPriority;
+using Tavisca.Frameworks.Logging.Extensions.Caching;
 
 namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 {
@@ -64,8 +64,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 
         protected virtual IEnumerable<object> GetMatchingTypes(Type baseType)
         {
-            var targetAssemblies = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(x => !Exclusions.Any(y => x.FullName.StartsWith(y)));
+            var targetAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x => !Exclusions.Any(y => x.FullName.StartsWith(y)));
 
             var targets = targetAssemblies.SelectMany(x => x.GetTypes());
 
@@ -83,13 +82,14 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 
         protected virtual void SetToCache(Type type, string key, Type value)
         {
-            HttpRuntime.Cache.Add(GetKey(type, key), value, null, Cache.NoAbsoluteExpiration,
-                                  new TimeSpan(0, 1, 0, 0), CacheItemPriority.Default, null);
+            //<CRITICAL .net core> /HttpRuntime.Cache does not supported in .net core
+            CacheHandler.Set(GetKey(type, key), value);
         }
 
         protected virtual Type GetFromCache(Type type, string key)
         {
-            return HttpRuntime.Cache.Get(GetKey(type, key)) as Type;
+            //<CRITICAL .net core> /HttpRuntime.Cache does not supported in .net core
+            return CacheHandler.Get<Type>(GetKey(type, key));
         }
 
         protected virtual string GetKey(Type type, string key)
@@ -111,5 +111,36 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
         }
 
         #endregion
+    }
+
+    public class AppDomain
+    {
+        public static AppDomain CurrentDomain { get; private set; }
+
+        static AppDomain()
+        {
+            CurrentDomain = new AppDomain();
+        }
+
+        public Assembly[] GetAssemblies()
+        {
+            var assemblies = new List<Assembly>();
+            var dependencies = DependencyContext.Default.RuntimeLibraries;
+            foreach (var library in dependencies)
+            {
+                if (IsCandidateCompilationLibrary(library))
+                {
+                    var assembly = Assembly.Load(new AssemblyName(library.Name));
+                    assemblies.Add(assembly);
+                }
+            }
+            return assemblies.ToArray();
+        }
+
+        private static bool IsCandidateCompilationLibrary(RuntimeLibrary compilationLibrary)
+        {
+            return compilationLibrary.Name == ("Specify")
+                || compilationLibrary.Dependencies.Any(d => d.Name.StartsWith("Specify"));
+        }
     }
 }

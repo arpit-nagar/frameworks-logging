@@ -85,7 +85,8 @@ namespace Tavisca.Frameworks.Logging.Formatting
         /// </summary>
         /// <param name="exception">The exception entry to be converted.</param>
         /// <returns>An <see cref="IExceptionEntry"/> object.</returns>
-        public virtual IExceptionEntry FormatException(Exception exception)
+        public virtual IExceptionEntry 
+            FormatException(Exception exception)
         {
             if (exception == null)
                 throw new ArgumentNullException("exception");
@@ -142,7 +143,8 @@ namespace Tavisca.Frameworks.Logging.Formatting
 
             entry.StackTrace = exception.StackTrace;
 
-            entry.TargetSite = exception.TargetSite == null ? string.Empty : exception.TargetSite.Name;
+            //<NOTE : .net core changes> exception.TargetSite does not supported in .net core
+            //entry.TargetSite = exception.TargetSite == null ? string.Empty : exception.TargetSite.Name;
 
             if (exception.Data.Count > 0)
             {

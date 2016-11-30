@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tavisca.Frameworks.Logging.Configuration;
 
 namespace Tavisca.Frameworks.Logging.TaskScheduling
 {
@@ -46,8 +46,8 @@ namespace Tavisca.Frameworks.Logging.TaskScheduling
             if (maxDegreeOfParallelism < 1) throw new ArgumentOutOfRangeException("maxDegreeOfParallelism");
             _maxDegreeOfParallelism = maxDegreeOfParallelism;
 
-            _logEnabled = !string.IsNullOrEmpty(ConfigurationManager.AppSettings["LimitedConcurrencyLog"]);
-
+            _logEnabled = !string.IsNullOrEmpty(ApplicationLogSetting.GetCustomConfiguration("LimitedConcurrencyLog"));
+            
             if (_logEnabled)
             {
                 Activity = new ObservableCollection<string>();
@@ -118,7 +118,9 @@ namespace Tavisca.Frameworks.Logging.TaskScheduling
 
             if (UseWorkerProcessThreadPool)
             {
-                ThreadPool.UnsafeQueueUserWorkItem(_ => pendingWork(), null);
+                //<CRITICAL .net core changes> UnsafeQueueUserWorkItem is not supported in .net core, code need to be revisited
+                //ThreadPool.UnsafeQueueUserWorkItem(_ => pendingWork(), null);
+                ThreadPool.QueueUserWorkItem(_ => pendingWork(), null);
             }
             else
             {
@@ -180,7 +182,10 @@ namespace Tavisca.Frameworks.Logging.TaskScheduling
 
             var curentThread = Thread.CurrentThread;
 
-            Activity.Add(details + ":: Thread Id: " + curentThread.ManagedThreadId + " Thread pool thread: " + curentThread.IsThreadPoolThread);
+            //Activity.Add(details + ":: Thread Id: " + curentThread.ManagedThreadId + " Thread pool thread: " + curentThread.IsThreadPoolThread);
+            
+            //<CRITICAL> IsThreadPoolThread is not supported in .net core, code need to be revisited
+            Activity.Add(details + ":: Thread Id: " + curentThread.ManagedThreadId + " Thread Name: " + curentThread.Name);
         }
     }
 }

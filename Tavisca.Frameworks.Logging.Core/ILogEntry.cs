@@ -42,7 +42,7 @@ namespace Tavisca.Frameworks.Logging
         /// <summary>
         /// Gets or sets the app domain name in which the event occurred.
         /// </summary>
-        string AppDomainName { get; set; }
+        //string AppDomainName { get; set; }
 
         /// <summary>
         /// Gets or sets the process id in which the application is running.

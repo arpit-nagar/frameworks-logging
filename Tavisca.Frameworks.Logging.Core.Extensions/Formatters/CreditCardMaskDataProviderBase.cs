@@ -47,13 +47,13 @@ namespace Tavisca.Frameworks.Logging.Extensions.Formatters
                 return x => true;
 
             if (string.IsNullOrWhiteSpace(configuration.MethodName))
-                return x => x.ServiceUrl.Equals(configuration.ServiceUrl, StringComparison.InvariantCultureIgnoreCase);
+                return x => x.ServiceUrl.Equals(configuration.ServiceUrl, StringComparison.CurrentCultureIgnoreCase);
 
             if (string.IsNullOrWhiteSpace(configuration.ServiceUrl))
-                return x => x.MethodName.Equals(configuration.MethodName, StringComparison.InvariantCultureIgnoreCase);
+                return x => x.MethodName.Equals(configuration.MethodName, StringComparison.CurrentCultureIgnoreCase);
 
-            return x => x.ServiceUrl.Equals(configuration.ServiceUrl, StringComparison.InvariantCultureIgnoreCase) &&
-                        x.MethodName.Equals(configuration.MethodName, StringComparison.InvariantCultureIgnoreCase);
+            return x => x.ServiceUrl.Equals(configuration.ServiceUrl, StringComparison.CurrentCultureIgnoreCase) &&
+                        x.MethodName.Equals(configuration.MethodName, StringComparison.CurrentCultureIgnoreCase);
         }
 
         #endregion

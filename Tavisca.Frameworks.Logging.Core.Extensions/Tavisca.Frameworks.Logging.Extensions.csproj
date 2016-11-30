@@ -97,7 +97,7 @@
     <Compile Include="Settings\KeyStorage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tavisca.Frameworks.Logging.Core\Tavisca.Frameworks.Logging.csproj">
+    <ProjectReference Include="..\Tavisca.Frameworks.Logging\Tavisca.Frameworks.Logging.csproj">
       <Project>{b32be698-871c-45a6-9597-a020a71b2d19}</Project>
       <Name>Tavisca.Frameworks.Logging</Name>
     </ProjectReference>

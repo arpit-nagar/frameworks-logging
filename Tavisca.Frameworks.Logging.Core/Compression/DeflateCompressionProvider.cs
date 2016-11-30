@@ -10,16 +10,16 @@ namespace Tavisca.Frameworks.Logging.Compression
     {
         public string Compress(string dataToCompress)
         {
-            var compressed = Compress(Encoding.Default.GetBytes(dataToCompress));
+            var compressed = Compress(Encoding.GetEncoding(0).GetBytes(dataToCompress));
 
-            return Encoding.Default.GetString(compressed);
+            return Encoding.GetEncoding(0).GetString(compressed);
         }
 
         public string Decompress(string dataToDecompress)
         {
-            var decompressed = Decompress(Encoding.Default.GetBytes(dataToDecompress));
+            var decompressed = Decompress(Encoding.GetEncoding(0).GetBytes(dataToDecompress));
 
-            return Encoding.Default.GetString(decompressed);
+            return Encoding.GetEncoding(0).GetString(decompressed);
         }
 
         private static byte[] Compress(byte[] data, CompressionLevel level = CompressionLevel.Optimal)
