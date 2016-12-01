@@ -25,47 +25,47 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod, Priority(-1)]
         public void ToEntryBeforeLoggerTest()
         {
+            var logger = new Logger(MockData.GetDummyConfiguaration());
             var entry = new Exception().ToEntry();
-
-            new Logger().Write(entry, null);
+            logger.Write(entry, null);
         }
 
-        [TestMethod, Priority(0)]
-        public void IPAddressInAdditionalInfoTest()
-        {
-            var ipAdresses = new List<string>();
-            var ipEntry = Dns.GetHostEntry(Dns.GetHostName());
-            var addrList = ipEntry.AddressList;
-            if (addrList != null)
-            {
-                foreach (IPAddress addr in addrList)
-                {
-                    ipAdresses.Add(addr.ToString());
-                }
-            }
+        //[TestMethod, Priority(0)]
+        //public void IPAddressInAdditionalInfoTest()
+        //{
+        //    var ipAdresses = new List<string>();
+        //    var ipEntry = Dns.GetHostEntry(Dns.GetHostName());
+        //    var addrList = ipEntry.AddressList;
+        //    if (addrList != null)
+        //    {
+        //        foreach (IPAddress addr in addrList)
+        //        {
+        //            ipAdresses.Add(addr.ToString());
+        //        }
+        //    }
 
-            var exceptionEntry = GetExceptionEntry();
-            Assert.IsFalse(string.IsNullOrWhiteSpace(exceptionEntry.IpAddress));
+        //    var exceptionEntry = GetExceptionEntry();
+        //    Assert.IsFalse(string.IsNullOrWhiteSpace(exceptionEntry.IpAddress));
 
-            foreach (var x in exceptionEntry.IpAddress.Split(','))
-            {
-                Assert.IsTrue(ipAdresses.Contains(x));
-            }
+        //    foreach (var x in exceptionEntry.IpAddress.Split(','))
+        //    {
+        //        Assert.IsTrue(ipAdresses.Contains(x));
+        //    }
 
-            var eventEntry = GetTransactionEntry();
-            Assert.IsFalse(string.IsNullOrWhiteSpace(eventEntry.IpAddress));
+        //    var eventEntry = GetTransactionEntry();
+        //    Assert.IsFalse(string.IsNullOrWhiteSpace(eventEntry.IpAddress));
 
-            foreach (var x in eventEntry.IpAddress.Split(','))
-            {
-                Assert.IsTrue(ipAdresses.Contains(x));
-            }
+        //    foreach (var x in eventEntry.IpAddress.Split(','))
+        //    {
+        //        Assert.IsTrue(ipAdresses.Contains(x));
+        //    }
 
-        }
+        //}
 
         [TestMethod]
         public void FileLoggerTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             factory.WriteExceptionAsync(new Exception("Root Level Test"), KeyStore.Categories.FileLogger, x => _hasReturnedFile = true);
 
@@ -84,7 +84,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void FileLoggerEventEntryLogTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             var eventEntry = GetEventEntry();
 
@@ -104,7 +104,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void EventViewerLoggerExceptionTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             var entry = GetExceptionEntry();
 
@@ -125,7 +125,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void EventViewerLoggerTransactionTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             var entry = GetTransactionEntry();
 
@@ -148,7 +148,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void EventViewerLoggerEventTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             var entry = GetEventEntry();
 
@@ -172,7 +172,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void RedisLoggerTransactionSyncTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             var entry1 = GetTransactionEntry();
 
@@ -187,7 +187,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void RedisLoggerEventSyncTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             var entry1 = GetEventEntry();
 
@@ -201,7 +201,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void RedisLoggerAsyncTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
             var entry = GetExceptionEntry();
             factory.WriteAsync(entry, KeyStore.Categories.RedisLogger, x => _hasRedisReturnedHandle = true);
 
@@ -249,7 +249,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void DefaultLoggerTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             var entry = GetTransactionEntry();
 

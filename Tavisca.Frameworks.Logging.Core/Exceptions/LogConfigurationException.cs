@@ -22,8 +22,6 @@ namespace Tavisca.Frameworks.Logging.Exceptions
 
         public LogConfigurationException(string message, Exception innerException) : base(message, innerException) { }
 
-        public LogConfigurationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-
         #endregion
     }
 }

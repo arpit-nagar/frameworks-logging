@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -17,8 +16,10 @@ namespace Tavisca.Frameworks.Logging.Sample
         {
             //For sample code, refer to the "DoWork" method only
 
-            var factory = TaskScheduling.Utility.GetTaskFactory((IApplicationLogSettings)ConfigurationManager.GetSection("ApplicationLog"),
-                false, false);
+            //var factory = TaskScheduling.Utility.GetTaskFactory((IApplicationLogSettings)ConfigurationManager.GetSection("ApplicationLog"),
+            //    false, false);
+            var settings = MockData.GetDummyConfiguaration();
+            var factory = TaskScheduling.Utility.GetTaskFactory(settings.Value, false, false);
 
             var scheduler = factory.Scheduler;
 

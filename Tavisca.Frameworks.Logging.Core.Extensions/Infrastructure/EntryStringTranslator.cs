@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Tavisca.Frameworks.Logging.Extensions.Infrastructure
@@ -45,7 +46,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Infrastructure
 
             var type = obj.GetType();
 
-            var properties = type.GetProperties().Select(x => new
+            var properties = type.GetTypeInfo().GetProperties().Select(x => new
             {
                 x.Name,
                 Method = x.GetGetMethod()

@@ -85,7 +85,6 @@ namespace Tavisca.Frameworks.Logging.Tests
         }
     }
 
-    [Serializable]
     [DataContract]
     public class TestSerializableData
     {

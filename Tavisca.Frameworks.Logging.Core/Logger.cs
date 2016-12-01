@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
 using Tavisca.Frameworks.Logging.Configuration;
@@ -10,6 +8,7 @@ using Tavisca.Frameworks.Logging.Exceptions;
 using Tavisca.Frameworks.Logging.Formatting;
 using Tavisca.Frameworks.Logging.Infrastructure;
 using Tavisca.Frameworks.Logging.Resources;
+using Microsoft.Extensions.Options;
 
 namespace Tavisca.Frameworks.Logging
 {
@@ -18,28 +17,21 @@ namespace Tavisca.Frameworks.Logging
         #region Static Members
 
         protected static IApplicationLogSettings LogSection;
-        protected static IDictionary<string, LoggerElementCollection> Categories;
+        protected static IDictionary<string, List<LoggerElement>> Categories;
         protected static TaskFactory TaskFactory;
+        protected static IOptions<ApplicationLogSection> LogSectionConfiguration;
 
-        /// <summary>
-        /// Initializes configurations of the logging framework.
-        /// </summary>
-        static Logger()
-        {
-            EnsureConfigurationLoad();
-        }
-
-        protected internal static void EnsureConfigurationLoad()
+        protected internal static void EnsureConfigurationLoad(IOptions<ApplicationLogSection> configurations)
         {
             if (Flags.IsConfigurationLoaded)
                 return;
 
             try
             {
-                var settings = GetConfiguration();
-
+                var settings = configurations.Value;
+                LogSectionConfiguration = configurations;
+                ApplicationLogSetting.SetApplicationLogSettings(settings);
                 LoadConfiguration(settings);
-
                 Flags.IsConfigurationLoaded = true;
             }
             catch (LogConfigurationException)
@@ -74,7 +66,7 @@ namespace Tavisca.Frameworks.Logging
 
                 var taskFactory = TaskScheduling.Utility.GetTaskFactory(settings);
 
-                var categories = new Dictionary<string, LoggerElementCollection>();
+                var categories = new Dictionary<string, List<LoggerElement>>();
 
                 foreach (CategoryElement category in settings.Categories)
                 {
@@ -146,41 +138,6 @@ namespace Tavisca.Frameworks.Logging
         }
 
         /// <summary>
-        /// Gets the configuration via config as well as a custom provider (<see cref="IConfigurationProvider"/>) 
-        /// if so configured.
-        /// </summary>
-        /// <returns>The final static configuration for the framework either from the config or via a custom provider.</returns>
-        protected static IApplicationLogSettings GetConfiguration()
-        {
-            var section = (IApplicationLogSettings)ConfigurationManager.GetSection("ApplicationLog");
-
-            if (!string.IsNullOrEmpty(section.LogConfigurationProvider))
-            {
-                var type = Type.GetType(section.LogConfigurationProvider);
-
-                if (type == null)
-                    throw new LogConfigurationException(string.Format(LogResources.LogConfigurationProvider_NotFound, section.LogConfigurationProvider));
-
-                IConfigurationProvider provider;
-                try
-                {
-                    provider = (IConfigurationProvider)Activator.CreateInstance(type);
-                }
-                catch (Exception ex)
-                {
-                    throw new LogConfigurationException(string.Format(LogResources.LogConfigurationProvider_InstanceCreation, section.LogConfigurationProvider), ex);
-                }
-
-                section = provider.GetConfiguration();
-
-                if (section == null)
-                    throw new LogConfigurationException(LogResources.LogConfigurationProvider_MissingConfiguration);
-            }
-
-            return section;
-        }
-
-        /// <summary>
         /// Creates a service locator (<see cref="IServiceLocator"/>) delegate based 
         /// upon the assembly qualified name provided.
         /// </summary>
@@ -193,7 +150,7 @@ namespace Tavisca.Frameworks.Logging
             if (type == null)
                 throw new LogConfigurationException(string.Format(LogResources.Configuration_CouldNotResolveCustomLocator, provider));
 
-            var locatorObj = Activator.CreateInstance(type) as IServiceLocator;
+            var locatorObj = Activator.CreateInstance(type, LogSectionConfiguration) as IServiceLocator;
 
             if (locatorObj == null)
                 throw new LogConfigurationException(LogResources.Configuration_IncorrectCustomLocatorProvider);
@@ -208,14 +165,19 @@ namespace Tavisca.Frameworks.Logging
         /// <summary>
         /// default constructor
         /// </summary>
-        public Logger() { }
+        public Logger(IOptions<ApplicationLogSection> configurations)
+        {
+            EnsureConfigurationLoad(configurations);
+        }
 
         /// <summary>
         /// Constructor with the option of setting override filters.
         /// </summary>
+        /// <param name="configurations">Logging Configurations</param>
         /// <param name="overriddeEntryFilters">See <seealso cref="ILogger.OverriddeEntryFilters"/></param>
-        public Logger(bool overriddeEntryFilters)
+        public Logger(IOptions<ApplicationLogSection> configurations, bool overriddeEntryFilters)
         {
+            EnsureConfigurationLoad(configurations);
             OverriddeEntryFilters = overriddeEntryFilters;
         }
 
@@ -419,7 +381,7 @@ namespace Tavisca.Frameworks.Logging
         /// <returns>An enumerable of <see cref="ISink"/></returns>
         protected virtual IEnumerable<ISink> GetLoggers(string category)
         {
-            LoggerElementCollection loggers = null;
+            List<LoggerElement> loggers = null;
 
             var hasLoggers = category != null;
 

@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
@@ -34,8 +33,8 @@ namespace Tavisca.Frameworks.Logging.Infrastructure
 
         public static string GetXmlElementORAttributeName(Type objectType, string property)
         {
-            PropertyInfo info = objectType.GetProperty(property);
-            object[] props = info.GetCustomAttributes(true);
+            PropertyInfo info = objectType.GetTypeInfo().GetProperty(property);
+            var props = info.GetCustomAttributes(true);
             if (props != null)
             {
                 foreach (object attr in props)
@@ -150,7 +149,9 @@ namespace Tavisca.Frameworks.Logging.Infrastructure
                     {
                         serializer.WriteObject(memoryStream, obj);
                         var data = new byte[memoryStream.Length];
-                        Array.Copy(memoryStream.GetBuffer(), data, data.Length);
+                        ArraySegment<byte> buffer;
+                        memoryStream.TryGetBuffer(out buffer);
+                        Array.Copy(buffer.Array, data, data.Length);
                         return Encoding.UTF8.GetString(data);
                     }
                 }
@@ -161,7 +162,9 @@ namespace Tavisca.Frameworks.Logging.Infrastructure
                     {
                         ser.WriteObject(memoryStream, obj);
                         var data = new byte[memoryStream.Length];
-                        Array.Copy(memoryStream.GetBuffer(), data, data.Length);
+                        ArraySegment<byte> buffer;
+                        memoryStream.TryGetBuffer(out buffer);
+                        Array.Copy(buffer.Array, data, data.Length);
                         SyncDataContractObject.EnterWriteLock();
                         try
                         {
@@ -228,89 +231,6 @@ namespace Tavisca.Frameworks.Logging.Infrastructure
             return default(T);
         }
 
-
-        public static byte[] Compress(object obj)
-        {
-            byte[] buffer;
-            //XmlSerializer serializer = new XmlSerializer(obj.GetType);
-            //StringWriter strWriter = new StringWriter();
-            using (var stream = new MemoryStream())
-            {
-                //Creating binary formatter to serialize object.
-                var formatter = new BinaryFormatter();
-                //Serializing objectToSeralize. 
-                formatter.Serialize(stream, obj);
-
-                buffer = stream.ToArray();
-            }
-
-            //serializer.Serialize(strWriter,obj);
-            //Encoding encoding = strWriter.Encoding;
-            //string objXml = strWriter.ToString();
-            //strWriter.Close();
-
-
-
-            byte[] compressBytes;
-            const CompressionMode mode = CompressionMode.Compress;
-            //byte[] buffer = encoding.GetBytes(objXml);
-            var ms = new MemoryStream();
-
-            using (var zipstream = new GZipStream(ms, mode, true))
-            {
-                zipstream.Write(buffer, 0, buffer.Length);
-            }
-
-            compressBytes = new byte[ms.Length];
-            ms.Position = 0;
-            ms.Read(compressBytes, 0, compressBytes.Length);
-
-            return compressBytes;
-            //return buffer;
-        }
-
-        public static object DeCompress(byte[] array)
-        {
-            var decompressBuffer = new List<byte>();
-
-            using (var ms = new MemoryStream(array))
-            {
-
-                var zipstream = new GZipStream(ms, CompressionMode.Decompress);
-                var buffer = new byte[1024];
-                //int offset = 0;
-                while (true)
-                {
-                    int bytesRead = zipstream.Read(buffer, 0, buffer.Length);
-                    if (bytesRead == 0)
-                    {
-                        break;
-                    }
-                    if (bytesRead == buffer.Length)
-                        decompressBuffer.AddRange(buffer);
-                    else
-                    {
-                        var temp = new byte[bytesRead];
-                        Array.Copy(buffer, temp, bytesRead);
-                        decompressBuffer.AddRange(temp);
-                    }
-                    buffer = new byte[1024];
-                }
-            }
-
-            object serializedObject;
-
-            using (var stream = new MemoryStream(decompressBuffer.ToArray()))
-            {
-                //Creating binary formatter to De-Serialize string.
-                var formatter = new BinaryFormatter();
-                //De-Serializing.
-                serializedObject = formatter.Deserialize(stream);
-            }
-
-            return serializedObject;
-
-        }
 
         public static T ParseEnum<T>(string value, T defaultValue)
         {

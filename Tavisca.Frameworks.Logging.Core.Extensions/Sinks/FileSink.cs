@@ -1,5 +1,9 @@
-﻿using System.Configuration;
-using Microsoft.VisualBasic.Logging;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using Tavisca.Frameworks.Logging.Configuration;
 using Tavisca.Frameworks.Logging.Extensions.Infrastructure;
 using Tavisca.Frameworks.Logging.Extensions.Resources;
 using Tavisca.Frameworks.Logging.Extensions.Settings;
@@ -50,62 +54,121 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
         {
             var path = GetFilePath();
 
+            //<CRITICAL .net core> /ConfigurationException and FileLogTraceListener does not supported in .net core
             if (string.IsNullOrWhiteSpace(path))
-                throw new ConfigurationErrorsException(string.Format(LogExtensionResources.FileLogger_FilePath_NotFound, KeyStorage.AppSettingKeys.FileLoggerFilePath));
+                throw new Exception(string.Format(LogExtensionResources.FileLogger_FilePath_NotFound, KeyStorage.AppSettingKeys.FileLoggerFilePath));
 
-            GetWriter().WriteLine(data);
+            if (string.IsNullOrWhiteSpace(data))
+                return;
+
+            const int maxRolledLogCount = 3;
+            var maxLogSize = GetMaxFileSize();
+
+            var directory = Directory.GetParent(path);
+            if (!Directory.Exists(directory.FullName))
+                Directory.CreateDirectory(directory.FullName);
+
+            lock (path)
+            {
+                if (!File.Exists(path))
+                    File.Create(path);
+
+                RollLogFile(path, maxRolledLogCount, maxLogSize);
+                File.AppendAllText(path, data + Environment.NewLine, Encoding.UTF8);
+            }
         }
 
         protected virtual string GetFilePath()
         {
-            return ConfigurationManager.AppSettings[KeyStorage.AppSettingKeys.FileLoggerFilePath];
+            return ApplicationLogSetting.GetCustomConfiguration(KeyStorage.AppSettingKeys.FileLoggerFilePath);
         }
 
         protected virtual long GetMaxFileSize()
         {
             long fileSize;
 
-            if (long.TryParse(ConfigurationManager.AppSettings[KeyStorage.AppSettingKeys.MaxFileSize], out fileSize))
+            if (long.TryParse(ApplicationLogSetting.GetCustomConfiguration(KeyStorage.AppSettingKeys.MaxFileSize), out fileSize))
                 return fileSize;
 
             return 10485760; //10 MB
         }
 
-        private static FileLogTraceListener _writer;
-        private static readonly object Locker = new object();
+        //private static FileLogTraceListener _writer;
+        //private static readonly object Locker = new object();
 
-        protected FileLogTraceListener GetWriter()
+        //protected FileLogTraceListener GetWriter()
+        //{
+        //    if (_writer != null)
+        //        return _writer;
+
+        //    lock (Locker)
+        //    {
+        //        if (_writer == null)
+        //        {
+        //            var path = GetFilePath();
+
+        //            var dirPath = System.IO.Path.GetDirectoryName(path);
+
+        //            var rootFileName = System.IO.Path.GetFileNameWithoutExtension(path);
+
+        //            var writer = new FileLogTraceListener()
+        //            {
+        //                Location = LogFileLocation.Custom,
+        //                CustomLocation = dirPath,
+        //                BaseFileName = rootFileName,
+        //                MaxFileSize = GetMaxFileSize(),
+        //                AutoFlush = true,
+        //                LogFileCreationSchedule = LogFileCreationScheduleOption.Daily
+        //            };
+
+        //            _writer = writer;
+        //        }
+        //    }
+
+        //    return _writer;
+        //}
+
+        private void RollLogFile(string logFilePath, int maxRolledLogCount, long maxLogSize)
         {
-            if (_writer != null)
-                return _writer;
-
-            lock (Locker)
+            try
             {
-                if (_writer == null)
+                var length = new FileInfo(logFilePath).Length;
+
+                if (length > maxLogSize)
                 {
-                    var path = GetFilePath();
-
-                    var dirPath = System.IO.Path.GetDirectoryName(path);
-
-                    var rootFileName = System.IO.Path.GetFileNameWithoutExtension(path);
-
-                    var writer = new FileLogTraceListener()
+                    var path = Path.GetDirectoryName(logFilePath);
+                    var wildLogName = Path.GetFileNameWithoutExtension(logFilePath) + "*" + Path.GetExtension(logFilePath);
+                    var bareLogFilePath = Path.Combine(path, Path.GetFileNameWithoutExtension(logFilePath));
+                    string[] logFileList = Directory.GetFiles(path, wildLogName, SearchOption.TopDirectoryOnly);
+                    if (logFileList.Length > 0)
                     {
-                        Location = LogFileLocation.Custom,
-                        CustomLocation = dirPath,
-                        BaseFileName = rootFileName,
-                        MaxFileSize = GetMaxFileSize(),
-                        AutoFlush = true,
-                        LogFileCreationSchedule = LogFileCreationScheduleOption.Daily
-                    };
-
-                    _writer = writer;
+                        // only take files like logfilename.log and logfilename.0.log, so there also can be a maximum of 10 additional rolled files (0..9)
+                        var rolledLogFileList = logFileList.Where(fileName => fileName.Length == (logFilePath.Length + 2)).ToArray();
+                        Array.Sort(rolledLogFileList, 0, rolledLogFileList.Length);
+                        if (rolledLogFileList.Length >= maxRolledLogCount)
+                        {
+                            File.Delete(rolledLogFileList[maxRolledLogCount - 1]);
+                            var list = rolledLogFileList.ToList();
+                            list.RemoveAt(maxRolledLogCount - 1);
+                            rolledLogFileList = list.ToArray();
+                        }
+                        // move remaining rolled files
+                        for (int i = rolledLogFileList.Length; i > 0; --i)
+                            File.Move(rolledLogFileList[i - 1], bareLogFilePath + "." + i + Path.GetExtension(logFilePath));
+                        var targetPath = bareLogFilePath + ".0" + Path.GetExtension(logFilePath);
+                        // move original file
+                        File.Move(logFilePath, targetPath);
+                    }
                 }
             }
-
-            return _writer;
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
         }
 
         #endregion
     }
+
+    
 }

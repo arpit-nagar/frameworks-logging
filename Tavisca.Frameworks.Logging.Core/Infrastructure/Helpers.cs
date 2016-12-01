@@ -11,10 +11,10 @@ namespace Tavisca.Frameworks.Logging.Infrastructure
     /// </summary>
     public static class Helpers
     {
-        static Helpers()
-        {
-            Logger.EnsureConfigurationLoad();
-        }
+        //static Helpers()
+        //{
+        //    Logger.EnsureConfigurationLoad();
+        //}
 
         /// <summary>
         /// Converts the <see cref="Exception"/> into <see cref="IExceptionEntry"/>.

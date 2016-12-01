@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Text;
-using ServiceStack.Redis;
-using Tavisca.Frameworks.Helper;
-using Tavisca.Frameworks.Helper.Net;
+using Tavisca.Frameworks.Logging.Compression;
+using Tavisca.Frameworks.Logging.Configuration;
 using Tavisca.Frameworks.Logging.Exceptions;
+using Tavisca.Frameworks.Logging.Extensions.Redis;
 using Tavisca.Frameworks.Logging.Extensions.Settings;
 
 namespace Tavisca.Frameworks.Logging.Extensions.Sinks
@@ -26,7 +23,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
 
         private static void ResolveConfigurations()
         {
-            var connString = ConfigurationManager.AppSettings[KeyStorage.AppSettingKeys.RedisServerConnString];
+            var connString = ApplicationLogSetting.GetCustomConfiguration(KeyStorage.AppSettingKeys.RedisServerConnString);
 
             if (string.IsNullOrEmpty(connString))
             {
@@ -44,7 +41,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             _redisHost = portedConn[0];
             _redisPort = port;
 
-            _listId = ConfigurationManager.AppSettings[KeyStorage.AppSettingKeys.RedisListIdKey];
+            _listId = ApplicationLogSetting.GetCustomConfiguration(KeyStorage.AppSettingKeys.RedisListIdKey);
         }
 
         #endregion
@@ -60,7 +57,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
 
             for (var i = 0; i < 2; i++)
             {
-                using (var client = Tavisca.Frameworks.Helper.Redis.RedisClientManager.GetClient(_redisHost, _redisPort))
+                using (var client = RedisClientManager.GetClient(_redisHost, _redisPort))
                 {
                     {
                         try

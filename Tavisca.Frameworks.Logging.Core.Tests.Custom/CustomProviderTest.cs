@@ -13,7 +13,7 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
         [TestMethod]
         public void TestCustomConfigurationTest()
         {
-            var factory = new Logger();
+            var factory = new Logger(MockData.GetDummyConfiguaration());
 
             factory.WriteExceptionAsync(new Exception("Root Level Test"), KeyStore.Categories.Default, Callback);
 

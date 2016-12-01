@@ -5,6 +5,9 @@ using Tavisca.Frameworks.Logging.Extensions.Infrastructure;
 using Tavisca.Frameworks.Logging.Extensions.Resources;
 using Tavisca.Frameworks.Logging.Extensions.Sinks;
 using Tavisca.Frameworks.Logging.Tracing;
+using System.Reflection;
+using Microsoft.Extensions.Options;
+using Tavisca.Frameworks.Logging.Configuration;
 
 namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
 {
@@ -14,6 +17,13 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
     /// </summary>
     public class LogSpecificAdapter : ServiceLocatorImplBase
     {
+        private readonly IOptions<ApplicationLogSection> _loggerSetting;
+
+        public LogSpecificAdapter(IOptions<ApplicationLogSection> settings)
+        {
+            _loggerSetting = settings;
+        }
+
         #region ServiceLocatorImplBase Members
 
         protected override object DoGetInstance(Type serviceType, string key)
@@ -42,7 +52,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
                 return new EntryStringTranslator();
 
             if (typeof(ITraceLogger).IsAssignableFrom(serviceType))
-                return new TraceLogger();
+                return new TraceLogger(_loggerSetting);
 
             throw new NotSupportedException(string.Format
                                                 (

@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Core", "Tavisca.Frameworks.Logging.Core\Tavisca.Frameworks.Logging.Core.xproj", "{2390504F-C8D4-4310-BD34-9F5FEC9202D0}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Core.Extensions", "Tavisca.Frameworks.Logging.Core.Extensions\Tavisca.Frameworks.Logging.Core.Extensions.xproj", "{49F40B43-AEB3-493A-88F3-B426F6F6AEC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87BDBDA2-EF7F-42F7-84AF-9CB2011403A5}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionItems\CommonAssemblyInfo.cs = SolutionItems\CommonAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Core.Extensions.Redis", "Tavisca.Frameworks.Logging.Core.Extensions.Redis\Tavisca.Frameworks.Logging.Core.Extensions.Redis.xproj", "{B296A597-3B89-4488-A489-84F3D00FEE0D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Sample", "Tavisca.Frameworks.Logging.Core.Sample\Tavisca.Frameworks.Logging.Sample.xproj", "{98EE3D75-6C76-414A-A8B5-02DDA3984BD9}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Tests", "Tavisca.Frameworks.Logging.Core.Tests\Tavisca.Frameworks.Logging.Tests.xproj", "{B06CFCC9-D585-43F9-AFE7-FC2940A6C722}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tavisca.Frameworks.Logging.Tests.Custom", "Tavisca.Frameworks.Logging.Core.Tests.Custom\Tavisca.Frameworks.Logging.Tests.Custom.xproj", "{322085DE-09D0-4D93-B829-1C4DD8127281}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2390504F-C8D4-4310-BD34-9F5FEC9202D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2390504F-C8D4-4310-BD34-9F5FEC9202D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2390504F-C8D4-4310-BD34-9F5FEC9202D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2390504F-C8D4-4310-BD34-9F5FEC9202D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F40B43-AEB3-493A-88F3-B426F6F6AEC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F40B43-AEB3-493A-88F3-B426F6F6AEC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F40B43-AEB3-493A-88F3-B426F6F6AEC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F40B43-AEB3-493A-88F3-B426F6F6AEC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B296A597-3B89-4488-A489-84F3D00FEE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B296A597-3B89-4488-A489-84F3D00FEE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B296A597-3B89-4488-A489-84F3D00FEE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B296A597-3B89-4488-A489-84F3D00FEE0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98EE3D75-6C76-414A-A8B5-02DDA3984BD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98EE3D75-6C76-414A-A8B5-02DDA3984BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98EE3D75-6C76-414A-A8B5-02DDA3984BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98EE3D75-6C76-414A-A8B5-02DDA3984BD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B06CFCC9-D585-43F9-AFE7-FC2940A6C722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B06CFCC9-D585-43F9-AFE7-FC2940A6C722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B06CFCC9-D585-43F9-AFE7-FC2940A6C722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B06CFCC9-D585-43F9-AFE7-FC2940A6C722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{322085DE-09D0-4D93-B829-1C4DD8127281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322085DE-09D0-4D93-B829-1C4DD8127281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322085DE-09D0-4D93-B829-1C4DD8127281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322085DE-09D0-4D93-B829-1C4DD8127281}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
