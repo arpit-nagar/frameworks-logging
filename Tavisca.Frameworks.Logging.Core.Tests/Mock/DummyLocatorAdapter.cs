@@ -5,11 +5,19 @@ using System.Text;
 using Microsoft.Practices.ServiceLocation;
 using Tavisca.Frameworks.Logging.Extensions.Infrastructure;
 using Tavisca.Frameworks.Logging.Extensions.Sinks;
+using System.Reflection;
+using Microsoft.Extensions.Options;
+using Tavisca.Frameworks.Logging.Configuration;
 
 namespace Tavisca.Frameworks.Logging.Tests.Mock
 {
     public class DummyLocatorAdapter : ServiceLocatorImplBase
     {
+        public DummyLocatorAdapter(IOptions<ApplicationLogSection> settings)
+        {
+            
+        }
+
         protected override object DoGetInstance(Type serviceType, string key)
         {
             switch (key)

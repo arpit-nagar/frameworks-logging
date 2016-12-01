@@ -19,14 +19,7 @@ namespace Tavisca.Frameworks.Logging
         protected static IApplicationLogSettings LogSection;
         protected static IDictionary<string, List<LoggerElement>> Categories;
         protected static TaskFactory TaskFactory;
-
-        /// <summary>
-        /// Initializes configurations of the logging framework.
-        /// </summary>
-        //static Logger()
-        //{
-        //    EnsureConfigurationLoad();
-        //}
+        protected static IOptions<ApplicationLogSection> LogSectionConfiguration;
 
         protected internal static void EnsureConfigurationLoad(IOptions<ApplicationLogSection> configurations)
         {
@@ -36,6 +29,7 @@ namespace Tavisca.Frameworks.Logging
             try
             {
                 var settings = configurations.Value;
+                LogSectionConfiguration = configurations;
                 ApplicationLogSetting.SetApplicationLogSettings(settings);
                 LoadConfiguration(settings);
                 Flags.IsConfigurationLoaded = true;
@@ -144,41 +138,6 @@ namespace Tavisca.Frameworks.Logging
         }
 
         /// <summary>
-        /// Gets the configuration via config as well as a custom provider (<see cref="IConfigurationProvider"/>) 
-        /// if so configured.
-        /// </summary>
-        /// <returns>The final static configuration for the framework either from the config or via a custom provider.</returns>
-        //protected static IApplicationLogSettings GetConfiguration()
-        //{
-        //    var section = (IApplicationLogSettings)ConfigurationManager.GetSection("ApplicationLog");
-
-        //    if (!string.IsNullOrEmpty(section.LogConfigurationProvider))
-        //    {
-        //        var type = Type.GetType(section.LogConfigurationProvider);
-
-        //        if (type == null)
-        //            throw new LogConfigurationException(string.Format(LogResources.LogConfigurationProvider_NotFound, section.LogConfigurationProvider));
-
-        //        IConfigurationProvider provider;
-        //        try
-        //        {
-        //            provider = (IConfigurationProvider)Activator.CreateInstance(type);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw new LogConfigurationException(string.Format(LogResources.LogConfigurationProvider_InstanceCreation, section.LogConfigurationProvider), ex);
-        //        }
-
-        //        section = provider.GetConfiguration();
-
-        //        if (section == null)
-        //            throw new LogConfigurationException(LogResources.LogConfigurationProvider_MissingConfiguration);
-        //    }
-
-        //    return section;
-        //}
-
-        /// <summary>
         /// Creates a service locator (<see cref="IServiceLocator"/>) delegate based 
         /// upon the assembly qualified name provided.
         /// </summary>
@@ -191,7 +150,7 @@ namespace Tavisca.Frameworks.Logging
             if (type == null)
                 throw new LogConfigurationException(string.Format(LogResources.Configuration_CouldNotResolveCustomLocator, provider));
 
-            var locatorObj = Activator.CreateInstance(type) as IServiceLocator;
+            var locatorObj = Activator.CreateInstance(type, LogSectionConfiguration) as IServiceLocator;
 
             if (locatorObj == null)
                 throw new LogConfigurationException(LogResources.Configuration_IncorrectCustomLocatorProvider);

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyModel;
+using Microsoft.Extensions.Options;
 using Microsoft.Practices.ServiceLocation;
+using Tavisca.Frameworks.Logging.Configuration;
 using Tavisca.Frameworks.Logging.Extensions.Settings;
 using Tavisca.Frameworks.Logging.Extensions.Caching;
 
@@ -16,6 +18,13 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
     /// </summary>
     public class ReflectionAdapter : ServiceLocatorImplBase
     {
+        private IOptions<ApplicationLogSection> Settings;
+
+        public ReflectionAdapter(IOptions<ApplicationLogSection> configuration)
+        {
+            Settings = configuration;
+        }
+
         #region ServiceLocatorImplBase Members
 
         protected override object DoGetInstance(Type serviceType, string key)
@@ -23,7 +32,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
             var type = GetFromCache(serviceType, key);
 
             if (type != null)
-                return CreateInstance(type);
+                return CreateInstance(type, Settings);
 
             if (!string.IsNullOrWhiteSpace(key))
             {
@@ -33,7 +42,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
                 {
                     SetToCache(serviceType, key, type);
 
-                    return CreateInstance(type);
+                    return CreateInstance(type, Settings);
                 }
             }
 
@@ -105,9 +114,9 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
             return string.Format(KeyStorage.CacheKeys.ReflectionAdapterKey, typeKey, nameKey);
         }
 
-        protected virtual object CreateInstance(Type type)
+        protected virtual object CreateInstance(Type type, params object[] data)
         {
-            return Activator.CreateInstance(type);
+            return Activator.CreateInstance(type, data);
         }
 
         #endregion

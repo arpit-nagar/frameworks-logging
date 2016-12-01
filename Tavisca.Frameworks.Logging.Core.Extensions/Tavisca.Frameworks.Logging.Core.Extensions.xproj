@@ -6,8 +6,8 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>b296a597-3b89-4488-a489-84f3d00fee0d</ProjectGuid>
-    <RootNamespace>Tavisca.Frameworks.Logging.Extensions.Core.Redis</RootNamespace>
+    <ProjectGuid>49f40b43-aeb3-493a-88f3-b426f6f6aec3</ProjectGuid>
+    <RootNamespace>Tavisca.Frameworks.Logging.Extensions</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>

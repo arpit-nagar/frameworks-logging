@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+  "testRunner": "mstest",
+  "dependencies": {
+    "dotnet-test-mstest": "1.1.2-preview",
+    "MSTest.TestFramework": "1.0.7-preview",
+    "Tavisca.Frameworks.Logging.Core.Extensions": "1.0.0-*"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dnxcore50"
+      ],
+
+      "dependencies": {
+
+        "Microsoft.NETCore.App": {
+          "version": "1.1.0",
+          "type": "platform"
+        }
+      }
+    }
+  }
+}

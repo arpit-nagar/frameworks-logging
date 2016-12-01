@@ -64,8 +64,15 @@ namespace Tavisca.Frameworks.Logging.Extensions.Sinks
             const int maxRolledLogCount = 3;
             var maxLogSize = GetMaxFileSize();
 
+            var directory = Directory.GetParent(path);
+            if (!Directory.Exists(directory.FullName))
+                Directory.CreateDirectory(directory.FullName);
+
             lock (path)
             {
+                if (!File.Exists(path))
+                    File.Create(path);
+
                 RollLogFile(path, maxRolledLogCount, maxLogSize);
                 File.AppendAllText(path, data + Environment.NewLine, Encoding.UTF8);
             }

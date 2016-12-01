@@ -17,11 +17,11 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
     /// </summary>
     public class LogSpecificAdapter : ServiceLocatorImplBase
     {
-        private IOptions<ApplicationLogSection> LoggerSetting;
+        private readonly IOptions<ApplicationLogSection> _loggerSetting;
 
         public LogSpecificAdapter(IOptions<ApplicationLogSection> settings)
         {
-            LoggerSetting = settings;
+            _loggerSetting = settings;
         }
 
         #region ServiceLocatorImplBase Members
@@ -52,7 +52,7 @@ namespace Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters
                 return new EntryStringTranslator();
 
             if (typeof(ITraceLogger).IsAssignableFrom(serviceType))
-                return new TraceLogger(LoggerSetting);
+                return new TraceLogger(_loggerSetting);
 
             throw new NotSupportedException(string.Format
                                                 (

@@ -13,7 +13,7 @@ namespace Tavisca.Frameworks.Logging.Tests
         [TestMethod]
         public void FailSafeLogTest()
         {
-            var factory = new DummyLogger();
+            var factory = new DummyLogger(MockData.GetDummyConfiguaration());
 
             factory.WriteExceptionAsync(new Exception("Root Level Test"), KeyStore.Categories.Default, Callback);
 

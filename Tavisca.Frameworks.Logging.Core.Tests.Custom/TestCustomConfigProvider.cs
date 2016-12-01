@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tavisca.Frameworks.Logging.Configuration;
 using Tavisca.Frameworks.Logging.Extensions.DependencyInjection.Adapters;
 using Tavisca.Frameworks.Logging.Extensions.Sinks;
@@ -32,7 +29,7 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
                 MinPriority = priority,
                 MaxThreads = 5,
                 ReThrowLogExceptions = SwitchOptions.On,
-                TraceLoggers = new LoggerElementCollection()
+                TraceLoggers = new List<LoggerElement>
                     {
                         new LoggerElement()
                             {
@@ -42,13 +39,13 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
             };
         }
 
-        private CategoryElementCollection GetCategoryElementCollection(bool reflectionMode = false)
+        private List<CategoryElement> GetCategoryElementCollection(bool reflectionMode = false)
         {
-            var col = new CategoryElementCollection() {
+            var col = new List<CategoryElement>() {
                             new CategoryElement()
                             {
                                 Name = KeyStore.Categories.Default,
-                                Loggers = new LoggerElementCollection()
+                                Loggers = new List<LoggerElement>()
                                     {
                                         new LoggerElement()
                                             {
@@ -59,7 +56,7 @@ namespace Tavisca.Frameworks.Logging.Tests.Custom
                             new CategoryElement()
                             {
                                 Name = KeyStore.Categories.EventViewer,
-                                Loggers = new LoggerElementCollection()
+                                Loggers = new List<LoggerElement>
                                     {
                                         new LoggerElement()
                                             {

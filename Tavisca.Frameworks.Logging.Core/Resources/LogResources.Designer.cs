@@ -38,7 +38,7 @@ namespace Tavisca.Frameworks.Logging.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Tavisca.Frameworks.Logging.Resources.LogResources", typeof(LogResources).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Tavisca.Frameworks.Logging.Core.Resources.LogResources", typeof(LogResources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

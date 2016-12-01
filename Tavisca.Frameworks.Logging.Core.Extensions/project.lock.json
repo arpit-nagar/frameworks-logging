@@ -2253,6 +2253,12 @@
           "NETStandard.Library": "1.6.1",
           "ServiceStack.Redis.Core": "1.0.30",
           "Tavisca.Frameworks.Logging.Core": "1.0.0"
+        },
+        "compile": {
+          "netstandard1.6/Tavisca.Frameworks.Logging.Core.Extensions.Redis.dll": {}
+        },
+        "runtime": {
+          "netstandard1.6/Tavisca.Frameworks.Logging.Core.Extensions.Redis.dll": {}
         }
       }
     }
@@ -2300,7 +2306,7 @@
       ]
     },
     "Microsoft.CSharp/4.0.1": {
-      "sha512": "17h8b5mXa87XYKrrVqdgZ38JefSUqLChUQpXgSnpzsM0nDOhE40FTeNWOJ/YmySGV6tG6T8+hjz6vxbknHJr6A==",
+      "sha512": "zwx3ovoBfJLuVSh4r2+ZCz6rJ8m2Cy15vgDdjlFrwwqds/GmiFfGkKt2XuXOKzSxT/7hg67wV4ew90mFqbe4wA==",
       "type": "package",
       "path": "Microsoft.CSharp/4.0.1",
       "files": [
@@ -2609,7 +2615,7 @@
       ]
     },
     "runtime.native.System.Net.Security/4.0.1": {
-      "sha512": "Az6Ff6rZFb8nYGAaejFR6jr8ktt9f3e1Q/yKdw0pwHNTLaO/1eCAC9vzBoR9YAb0QeZD6fZXl1A9tRB5stpzXA==",
+      "sha512": "R50/zHMUE2uxjbWLcbe9dGFBQqEFybFT3GXzkny7toEPYFKYWvnBr2g9KnZad7qIajkh/QM3uvTxBDK42kYVsg==",
       "type": "package",
       "path": "runtime.native.System.Net.Security/4.0.1",
       "files": [
@@ -2621,7 +2627,7 @@
       ]
     },
     "runtime.native.System.Security.Cryptography/4.0.0": {
-      "sha512": "2CQK0jmO6Eu7ZeMgD+LOFbNJSXHFVQbCJJkEyEwowh1SCgYnrn9W9RykMfpeeVGw7h4IBvYikzpGUlmZTUafJw==",
+      "sha512": "OBI3PA+rAJ3LGjSImxnY3Lxw3afhEBxMtAD++8KdPYsOf3r8KW0xrBNUj9alZqeyWwWzbnKpzyGE2RDihuahKg==",
       "type": "package",
       "path": "runtime.native.System.Security.Cryptography/4.0.0",
       "files": [
@@ -3682,7 +3688,7 @@
       ]
     },
     "System.Dynamic.Runtime/4.0.11": {
-      "sha512": "db34f6LHYM0U0JpE+sOmjar27BnqTVkbLJhgfwMpTdgTigG/Hna3m2MYVwnFzGGKnEJk2UXFuoVTr8WUbU91/A==",
+      "sha512": "s9vBICqVyRaol05GTq/+bLSl9ERQhNn+ipYthDzURS/RWupf7sx5cNeBDx9FEPYI3fmWzFWtPhvw7Fxirf7F1Q==",
       "type": "package",
       "path": "System.Dynamic.Runtime/4.0.11",
       "files": [
@@ -4612,7 +4618,7 @@
       ]
     },
     "System.Net.Requests/4.0.11": {
-      "sha512": "vxGt7C0cZixN+VqoSW4Yakc1Y9WknmxauDqzxgpw/FnBdz4kQNN51l4wxdXX5VY1xjqy//+G+4CvJWp1+f+y6Q==",
+      "sha512": "LgVuOv0nwcYwsUOCnUdu07RsnEpt+W0xyfH6OuYbiHKdkuO+66VyrSzFf4EwTRbMPfx0+O1lT/ddU8dytH00ig==",
       "type": "package",
       "path": "System.Net.Requests/4.0.11",
       "files": [
@@ -4693,7 +4699,7 @@
       ]
     },
     "System.Net.Security/4.0.0": {
-      "sha512": "uM1JaYJciCc2w7efD6du0EpQ1n5ZQqE6/P43/aI4H5E59qvP+wt3l70KIUF/Ha7NaeXGoGNFPVO0MB80pVHk2g==",
+      "sha512": "oGiu4nR+HJB9Bodan2qOCd1gF/6llyhXovxC/F6iCVV322Eb9JinLqUwlhKfn28lMzdJ/8aEnCuKF7gSCEdCCw==",
       "type": "package",
       "path": "System.Net.Security/4.0.0",
       "files": [
@@ -4769,7 +4775,7 @@
       ]
     },
     "System.Net.WebHeaderCollection/4.0.1": {
-      "sha512": "XX2TIAN+wBSAIV51BU2FvvXMdstUa8b0FBSZmDWjZdwUMmggQSifpTOZ5fNH20z9ZCg2fkV1L5SsZnpO2RQDRQ==",
+      "sha512": "ow4MHAU9UpdQtGVFsNch5XH1rC2c9uMtArPFZI/zSYlj+cgv5vsGJIuyBkbofUby5yRZl+ybgpkkCH39N197xQ==",
       "type": "package",
       "path": "System.Net.WebHeaderCollection/4.0.1",
       "files": [
@@ -6559,7 +6565,7 @@
       ]
     },
     "System.Threading.Overlapped/4.0.1": {
-      "sha512": "f7aLuLkBoCQM2kng7zqLFBXz9Gk48gDK8lk1ih9rH/1arJJzZK9gJwNvPDhL6Ps/l6rwOr8jw+4FCHL0KKWiEg==",
+      "sha512": "xrMnH6akl1rNaMXOXQ8Bva/W2no7KGZXESyuV5RlhXmgLD2CYf4em+YDK8DBbGVnXGTq0UkC5MbVx9c31jhB2Q==",
       "type": "package",
       "path": "System.Threading.Overlapped/4.0.1",
       "files": [
@@ -6668,7 +6674,7 @@
       ]
     },
     "System.Threading.Thread/4.0.0": {
-      "sha512": "gIdJqDXlOr5W9zeqFErLw3dsOsiShSCYtF9SEHitACycmvNvY8odf9kiKvp6V7aibc8C4HzzNBkWXjyfn7plbQ==",
+      "sha512": "VCT5GWMC8slcG/TsJWbSNKqgu6Ir2UgRiSZu8tuKodDeEj9IGWz/nT/gbN4aqQcvgN9j6M85X9Ym7qvZyfg8BQ==",
       "type": "package",
       "path": "System.Threading.Thread/4.0.0",
       "files": [
@@ -7047,13 +7053,15 @@
     },
     "Tavisca.Frameworks.Logging.Core.Extensions.Redis/1.0.0": {
       "type": "project",
-      "path": "../Tavisca.Frameworks.Logging.Core.Extensions.Redis/project.json"
+      "path": "../Tavisca.Frameworks.Logging.Core.Extensions.Redis/project.json",
+      "msbuildProject": "../Tavisca.Frameworks.Logging.Core.Extensions.Redis/Tavisca.Frameworks.Logging.Core.Extensions.Redis.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.Extensions.DependencyModel >= 1.1.0",
       "NETStandard.Library >= 1.6.1",
+      "Tavisca.Frameworks.Logging.Core >= 1.0.0-*",
       "Tavisca.Frameworks.Logging.Core.Extensions.Redis >= 1.0.0-*"
     ],
     ".NETStandard,Version=v1.6": []
